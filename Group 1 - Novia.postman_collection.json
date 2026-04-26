@@ -1,0 +1,2245 @@
+{
+  "info": {
+    "_postman_id": "4c01277e-1281-4b70-a39f-c34dcb0e6031",
+    "name": "Group 2 - Novia",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "10022593"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let responseData = pm.response.json();",
+                  "pm.environment.set(\"g2_token\", responseData.data.token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email_or_phone",
+                  "value": "chandalen@gmail.com",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "11223344Aa!",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://novia2.csm.linkpc.net/api/login",
+              "protocol": "http",
+              "host": [
+                "novia2",
+                "csm",
+                "linkpc",
+                "net"
+              ],
+              "path": [
+                "api",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "full_name",
+                  "value": "Chandara",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "dara@gmail.com",
+                  "type": "text"
+                },
+                {
+                  "key": "phone",
+                  "value": "097654321",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "11223344Aa!",
+                  "type": "text"
+                },
+                {
+                  "key": "password_confirmation",
+                  "value": "11223344Aa!",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://novia.csm.linkpc.net/api/register",
+              "protocol": "http",
+              "host": [
+                "novia",
+                "csm",
+                "linkpc",
+                "net"
+              ],
+              "path": [
+                "api",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Register - Add user type",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{nva_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "user_type_ids",
+                  "value": "[1]",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{nva_host}}/api/auth/update-user-type",
+              "host": [
+                "{{nva_host}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "update-user-type"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Register - Add position",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{nva_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "position_ids",
+                  "value": "[1,2]",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{nva_host}}/api/auth/update-position",
+              "host": [
+                "{{nva_host}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "update-position"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Forgot password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "chandalen@gmail.com",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{nva_host}}/api/forgot/pass",
+              "host": [
+                "{{nva_host}}"
+              ],
+              "path": [
+                "api",
+                "forgot",
+                "pass"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify forgot OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "otp",
+                  "value": "U0WJJZ",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "chandalen@gmail.com",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{nva_host}}/api/forgot/verify-otp",
+              "host": [
+                "{{nva_host}}"
+              ],
+              "path": [
+                "api",
+                "forgot",
+                "verify-otp"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reset password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "chandalen@gmail.com",
+                  "type": "text"
+                },
+                {
+                  "key": "otp",
+                  "value": "U0WJJZ",
+                  "type": "text"
+                },
+                {
+                  "key": "new_pass",
+                  "value": "11223344Aa#",
+                  "type": "text"
+                },
+                {
+                  "key": "new_pass_confirmation",
+                  "value": "11223344Aa#",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{nva_host}}/api/reset/pass",
+              "host": [
+                "{{nva_host}}"
+              ],
+              "path": [
+                "api",
+                "reset",
+                "pass"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Me",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{g2_host}}/api/me",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{g2_host}}/api/logout",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Profile",
+      "item": [
+        {
+          "name": "Projects",
+          "item": [
+            {
+              "name": "Add new project",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "title",
+                      "value": "DCC",
+                      "type": "text"
+                    },
+                    {
+                      "key": "link",
+                      "value": "https://dcc.gov.kh",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{g2_host}}/api/projects",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "projects"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update project",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "title",
+                      "value": "Chandalen Dev",
+                      "type": "text"
+                    },
+                    {
+                      "key": "link",
+                      "value": "https://chandalen.dev",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{g2_host}}/api/projects/2",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "projects",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete project",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{g2_host}}/api/projects/2",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "projects",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Educations",
+          "item": [
+            {
+              "name": "Add new education",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "school_id",
+                      "value": "2",
+                      "type": "text"
+                    },
+                    {
+                      "key": "degree_id",
+                      "value": "2",
+                      "type": "text"
+                    },
+                    {
+                      "key": "subject_id",
+                      "value": "2",
+                      "type": "text"
+                    },
+                    {
+                      "key": "description",
+                      "value": "This test",
+                      "type": "text"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01",
+                      "type": "text"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{g2_host}}/api/educations",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "educations"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update education",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "school_id",
+                      "value": "1",
+                      "type": "text"
+                    },
+                    {
+                      "key": "degree_id",
+                      "value": "1",
+                      "type": "text"
+                    },
+                    {
+                      "key": "subject_id",
+                      "value": "1",
+                      "type": "text"
+                    },
+                    {
+                      "key": "description",
+                      "value": "This test update",
+                      "type": "text"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-02",
+                      "type": "text"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{g2_host}}/api/educations/1",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "educations",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete education",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{g2_host}}/api/educations/1",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "educations",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Messages",
+          "item": [
+            {
+              "name": "Get all own sent message",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{g2_host}}/api/profile/sent-messages",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "profile",
+                    "sent-messages"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get all received message",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{g2_host}}/api/profile/received-messages",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "profile",
+                    "received-messages"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Get profile detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{g2_host}}/api/profile",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "profile"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get profile detail by user id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{g2_host}}/api/profile/users/1",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "profile",
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update profile - personal info",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "dob",
+                  "value": "1999-01-01",
+                  "type": "text"
+                },
+                {
+                  "key": "gender",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "current_city",
+                  "value": "Phnom Penh",
+                  "type": "text"
+                },
+                {
+                  "key": "home_town",
+                  "value": "Kandal",
+                  "type": "text"
+                },
+                {
+                  "key": "full_name",
+                  "value": "",
+                  "type": "text"
+                },
+                {
+                  "key": "phone",
+                  "value": "",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "chandalen@gmail.com",
+                  "type": "text"
+                },
+                {
+                  "key": "portfolio_link",
+                  "value": "https://chandalen.dev",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{g2_host}}/api/profile/info",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "profile",
+                "info"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update profile - professional",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "job_title",
+                  "value": "Web Developer",
+                  "type": "text"
+                },
+                {
+                  "key": "company_name",
+                  "value": "MPTC",
+                  "type": "text"
+                },
+                {
+                  "key": "responsibility",
+                  "value": "This is testing",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{g2_host}}/api/profile/professional",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "profile",
+                "professional"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update profile - avatar",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "avatar",
+                  "type": "file",
+                  "src": "/C:/Users/tcdlt/Downloads/421709107_1567501617196044_4408840614413993727_n.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{g2_host}}/api/profile/avatar",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "profile",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete profile - avatar",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{g2_host}}/api/profile/avatar",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "profile",
+                "avatar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update profile - skill",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "skill_ids",
+                  "value": "[1]",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{g2_host}}/api/profile/skills",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "profile",
+                "skills"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update profile - cv",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "cv",
+                  "type": "file",
+                  "value": null
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{g2_host}}/api/profile/cv",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "profile",
+                "cv"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update profile - collaboration",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "company_logo",
+                  "type": "file",
+                  "src": "/C:/Users/tcdlt/Downloads/Telegram Desktop/IMG_20230623_170346_762.jpg"
+                },
+                {
+                  "key": "company_link",
+                  "value": "https://chandalen.dev",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{g2_host}}/api/profile/collaboration",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "profile",
+                "collaboration"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Change password",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "old_pass",
+                  "value": "11223344Aa!",
+                  "type": "text"
+                },
+                {
+                  "key": "new_pass",
+                  "value": "11223344Aa!",
+                  "type": "text"
+                },
+                {
+                  "key": "new_pass_confirmation",
+                  "value": "11223344Aa!",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{g2_host}}/api/profile/change-pass",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "profile",
+                "change-pass"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete account",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{g2_host}}/api/profile/delete-acc",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "profile",
+                "delete-acc"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update profile - cover",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "cover",
+                  "type": "file",
+                  "value": null
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{g2_host}}/api/profile/cover",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "profile",
+                "cover"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reset profile - cover",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{g2_host}}/api/profile/cover",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "profile",
+                "cover"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Posts",
+      "item": [
+        {
+          "name": "Add new post",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "category_ids",
+                  "value": "[]",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "/C:/Users/tcdlt/Downloads/Telegram Desktop/5836 (2).png"
+                },
+                {
+                  "key": "text",
+                  "value": "Test again",
+                  "type": "text"
+                },
+                {
+                  "key": "attachment",
+                  "type": "file",
+                  "src": "/Users/tchandalen/Desktop/Screenshot 2024-11-12 at 5.32.16 in the afternoon.png"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{g2_host}}/api/posts",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "posts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all post",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{g2_host}}/api/posts?page=1&per_page=20&category=0&search=",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "posts"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "20"
+                },
+                {
+                  "key": "category",
+                  "value": "0"
+                },
+                {
+                  "key": "search",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get post detail by id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{g2_host}}/api/posts/1",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "posts",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete post",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{g2_host}}/api/posts/1",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "posts",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update post",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "category_ids",
+                  "value": "[]",
+                  "type": "text"
+                },
+                {
+                  "key": "text",
+                  "value": "Test update",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "value": null
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{g2_host}}/api/posts/2",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "posts",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Message",
+      "item": [
+        {
+          "name": "Send message",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{g2_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "receiver_id",
+                  "value": "2",
+                  "type": "text"
+                },
+                {
+                  "key": "message",
+                  "value": "Test",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{g2_host}}/api/messages",
+              "host": [
+                "{{g2_host}}"
+              ],
+              "path": [
+                "api",
+                "messages"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Setting",
+      "item": [
+        {
+          "name": "Skills",
+          "item": [
+            {
+              "name": "Add new skill",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "name",
+                      "value": "laravel",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{g2_host}}/api/skills",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "skills"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get all skills",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{g2_host}}/api/skills",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "skills"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update skill",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "name",
+                      "value": "Laravel update",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{g2_host}}/api/skills/1",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "skills",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete skill",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{g2_host}}/api/skills/1",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "skills",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Schools",
+          "item": [
+            {
+              "name": "Add new school",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "name",
+                      "value": "Royal University of Law and Economics",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{g2_host}}/api/schools",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "schools"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get all schools",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{g2_host}}/api/schools",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "schools"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete school",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{g2_host}}/api/schools/1",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "schools",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update school",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "name",
+                      "value": "Royal University of Law and Economics update",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{g2_host}}/api/schools/2",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "schools",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Degrees",
+          "item": [
+            {
+              "name": "Add new degree",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "name",
+                      "value": "Bachelor",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{g2_host}}/api/degrees",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "degrees"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get all degrees",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{g2_host}}/api/degrees",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "degrees"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update degree",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "name",
+                      "value": "Test update",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{g2_host}}/api/degrees/1",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "degrees",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete degree",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{g2_host}}/api/degrees/1",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "degrees",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Subjects",
+          "item": [
+            {
+              "name": "Add new subject",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "name",
+                      "value": "Information Technology",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{g2_host}}/api/subjects",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "subjects"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get all subjects",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{g2_host}}/api/subjects",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "subjects"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update subject",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "name",
+                      "value": "Test update",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{g2_host}}/api/subjects/1",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "subjects",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete subject",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{g2_host}}/api/subjects/1",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "subjects",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Categories",
+          "item": [
+            {
+              "name": "Add new category",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "image",
+                      "type": "file",
+                      "src": "/C:/Users/tcdlt/Downloads/Telegram Desktop/5836.png"
+                    },
+                    {
+                      "key": "name",
+                      "value": "Event",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{g2_host}}/api/categories",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update category",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "image",
+                      "type": "file",
+                      "src": "/C:/Users/tcdlt/Downloads/Telegram Desktop/rachana.jpg"
+                    },
+                    {
+                      "key": "name",
+                      "value": "Test",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{g2_host}}/api/categories/1",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete category",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{g2_token}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{g2_host}}/api/categories/1",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get all categories",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{g2_host}}/api/categories",
+                  "host": [
+                    "{{g2_host}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
