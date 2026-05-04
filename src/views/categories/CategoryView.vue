@@ -6,15 +6,16 @@
           <LayoutGrid class="text-main" :size="28" />
         </div>
         <div>
-          <h3 class="fw-bold mb-0">Category</h3>
-          <p class="text-muted mb-0 small">Total Category :</p>
+          <h3 class="fw-bold mb-0">
+ប្រភេទ</h3>
+          <p class="text-muted mb-0 small">ប្រភេទសរុប :</p>
         </div>
       </div>
       <button
         @click="handleCreate"
         class="btn bg-btn px-4 rounded-pill fw-medium d-flex align-items-center gap-2"
       >
-        <Plus /> Create Category
+        <Plus /> បង្កើតប្រភេទ
       </button>
     </div>
 
@@ -116,15 +117,15 @@ async function handleAction() {
       await api.put(`/api/categories/${isEdit.value}`, {
         name: categoryName.value,
       });
-      toast.success("Category updated successfully!");
+      toast.success("បានធ្វើបច្ចុប្បន្នភាពប្រភេទដោយជោគជ័យ!");
     } else if (isDelete.value) {
       await cate.deleteCategory(isDelete.value);
-      toast.success("Category deleted successfully!");
+      toast.success("ប្រភេទត្រូវបានលុបដោយជោគជ័យ!");
     } else {
       await api.post("/api/categories", {
         name: categoryName.value,
       });
-      toast.success("Category created successfully!");
+      toast.success("ប្រភេទត្រូវបានបង្កើតដោយជោគជ័យ!");
     }
   } catch (error) {
     console.error("Error handling action:", error);
@@ -147,11 +148,11 @@ const err = reactive({
 })
 
 watch(categoryName, (newValue) => {
-  err.category = require(newValue, "Category name is required");
+  err.category = require(newValue, "ឈ្មោះប្រភេទត្រូវបានទាមទារ");
 });
 
 function validate() {
-  err.category = require(categoryName.value, "Category name is required");
+  err.category = require(categoryName.value, "ឈ្មោះប្រភេទត្រូវបានទាមទារ");
   return !err.category;
 }
 

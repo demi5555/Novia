@@ -1,8 +1,8 @@
 <template>
   <div class="register-box">
     <div class="register-card">
-      <h2 class="title">Register</h2>
-      <p class="subtitle">Create new account</p>
+      <h4 class="title">បង្កើតគណនី</h4>
+      <p class="subtitle mt-2">បង្កើតគណនីថ្មី</p>
 
       <form @submit.prevent="handleRegister" novalidate>
 
@@ -13,7 +13,7 @@
             <input
               v-model="form.full_name"
               type="text"
-              placeholder="Full Name"
+              placeholder="ឈ្មោះពេញ"
               autocomplete="name"
             />
           </div>
@@ -27,7 +27,8 @@
             <input
               v-model="form.email"
               type="text"
-              placeholder="Email"
+              placeholder="
+អ៊ីមែល"
               autocomplete="email"
             />
           </div>
@@ -41,7 +42,7 @@
             <input
               v-model="form.phone"
               type="text"
-              placeholder="Phone Number"
+              placeholder="លេខទូរស័ព្ទ"
               autocomplete="tel"
             />
           </div>
@@ -55,7 +56,8 @@
             <input
               v-model="form.password"
               :type="showPassword ? 'text' : 'password'"
-              placeholder="Password (min 4 characters)"
+              placeholder="លេខសង្ងាត់ (លើស 4 
+តួអក្សរ)"
               autocomplete="new-password"
             />
             <span class="eye-btn" @click="togglePassword">
@@ -72,7 +74,7 @@
             <input
               v-model="form.confirmPassword"
               :type="showConfirmPassword ? 'text' : 'password'"
-              placeholder="Confirm Password"
+              placeholder="បញ្ចាក់ពាក្យសម្ងាត់"
               autocomplete="new-password"
             />
             <span class="eye-btn" @click="toggleConfirmPassword">
@@ -85,19 +87,17 @@
         <!-- Submit -->
         <button :disabled="isLoading" type="submit" class="submit-btn">
           <span v-if="isLoading" class="spinner-border spinner-border-sm"></span>
-          <span v-else>Sign Up</span>
+          <span v-else>ចុះឈ្មោះ</span>
         </button>
 
         <!-- Remember + Forgot -->
         <div class="row-links">
           <label class="remember-label">
             <input type="checkbox" v-model="rememberMe" hidden />
-            <span class="check-circle" :class="{ active: rememberMe }">
-              <i v-if="rememberMe" class="bi bi-check"></i>
-            </span>
-            Remember me
+          
+        
           </label>
-          <router-link to="/forget-password" class="forgot-link">Forgot password?</router-link>
+          <router-link to="/forget-password" class="forgot-link">ភ្លេចពាក្យសម្ងាត់​?</router-link>
         </div>
 
       </form>
@@ -105,13 +105,16 @@
       <!-- Divider -->
       <div class="divider">
         <span class="line"></span>
-        <span class="divider-text">Or continue with</span>
+        <span class="divider-text">
+ឬបន្តជាមួយ</span>
         <span class="line"></span>
       </div>
 
       <p class="login-redirect">
-        Already have an account?
-        <router-link to="/login" class="login-link">Login</router-link>
+        
+មានគណនីរួចហើយ?
+
+        <router-link to="/login" class="login-link">ចូលគណនី</router-link>
       </p>
 
     </div>
@@ -157,33 +160,33 @@ function validateForm() {
   if (!form.value.full_name.trim()) {
     errors.value.full_name = "Full name is required.";
   } else if (form.value.full_name.trim().length < 2) {
-    errors.value.full_name = "Full name must be at least 2 characters.";
+    errors.value.full_name = "ឈ្មោះពេញត្រូវតែមានយ៉ាងហោចណាស់ 2 តួអក្សរ។";
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!form.value.email.trim()) {
     errors.value.email = "Email is required.";
   } else if (!emailRegex.test(form.value.email.trim())) {
-    errors.value.email = "Please enter a valid email.";
+    errors.value.email = "សូមបញ្ចូលអ៊ីមែលត្រឹមត្រូវ។";
   }
 
   const phoneRegex = /^[0-9]{9,15}$/;
   if (!form.value.phone.trim()) {
     errors.value.phone = "Phone number is required.";
   } else if (!phoneRegex.test(form.value.phone.trim())) {
-    errors.value.phone = "Phone must be 9–15 digits.";
+    errors.value.phone = "ត្រូវមានលេខ​ 0 នៅខាងមុខនឹង​ 10-12 លេខឡើងទៅ។";
   }
 
   if (!form.value.password.trim()) {
     errors.value.password = "Password is required.";
   } else if (form.value.password.length < 4) {
-    errors.value.password = "Password must be at least 4 characters.";
+    errors.value.password = "ពាក្យសម្ងាត់ត្រូវតែមានយ៉ាងហោចណាស់ 4 តួអក្សរ។";
   }
 
   if (!form.value.confirmPassword.trim()) {
     errors.value.confirmPassword = "Confirm password is required.";
   } else if (form.value.confirmPassword !== form.value.password) {
-    errors.value.confirmPassword = "Passwords do not match.";
+    errors.value.confirmPassword = "ពាក្យសម្ងាត់មិនត្រឹមត្រូវទេ";
   }
 
   return Object.keys(errors.value).length === 0;

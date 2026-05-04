@@ -11,12 +11,12 @@
         </svg>
       </div>
 
-      <h1>Forgot Password?</h1>
-      <p class="sub-text">Enter your email address and we'll send you a verification code.</p>
+      <h1>ភ្លេចលេខសម្ងាត់?</h1>
+      <p class="sub-text">បញ្ចូលអាសយដ្ឋានអ៊ីមែលរបស់អ្នក ហើយយើងនឹងផ្ញើលេខកូដផ្ទៀងផ្ទាត់ទៅអ្នក។</p>
 
       <form @submit.prevent="handleSubmit">
         <div class="form-group">
-          <label for="email">Email Address</label>
+          <label for="email">អាសយដ្ឋានអ៊ីមែល</label>
           <div class="input-wrap">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
               stroke-linecap="round" stroke-linejoin="round">
@@ -27,7 +27,8 @@
               id="email"
               v-model="email"
               type="email"
-              placeholder="Enter your email"
+              placeholder="
+បញ្ចូលអ៊ីមែលរបស់អ្នក"
               autocomplete="email"
               :disabled="isLoading"
             />
@@ -37,7 +38,7 @@
 
         <button type="submit" class="btn-submit" :disabled="isLoading">
           <span v-if="isLoading" class="spinner"></span>
-          <span>{{ isLoading ? 'Sending...' : 'Send OTP Code' }}</span>
+          <span>{{ isLoading ? 'កំពុងផ្ញើ...' : 'ផ្ញើលេខកូដ OTP' }}</span>
         </button>
       </form>
 
@@ -46,7 +47,7 @@
           stroke-linecap="round" stroke-linejoin="round">
           <polyline points="15 18 9 12 15 6" />
         </svg>
-        Back to Login
+        ត្រឡប់ទៅ ចូល
       </router-link>
 
     </div>
@@ -70,11 +71,11 @@ let isLoading  = ref(false)
 function validateEmail() {
   emailError.value = ''
   if (!email.value.trim()) {
-    emailError.value = 'Email address is required.'
+    emailError.value = 'អាសយដ្ឋានអ៊ីមែលត្រូវបានទាមទារ'
     return false
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-    emailError.value = 'Please enter a valid email address.'
+    emailError.value = 'សូមបញ្ចូលអាសយដ្ឋានអ៊ីមែលត្រឹមត្រូវ'
     return false
   }
   return true
@@ -85,10 +86,10 @@ async function handleSubmit() {
   isLoading.value = true
   try {
     await auth.forgotPassword(email.value)
-    notifier.success('OTP code sent! Please check your inbox.')
+    notifier.success('លេខកូដ OTP ត្រូវបានផ្ញើ! សូមពិនិត្យមើលប្រអប់សំបុត្ររបស់អ្នក')
     router.push({ name: 'verify-otp', query: { email: email.value } })
   } catch (err) {
-    notifier.error('Failed to send OTP. Please try again.')
+    notifier.error('បរាជ័យក្នុងការផ្ញើ OTP ។ សូមព្យាយាមម្តងទៀត')
   } finally {
     isLoading.value = false
   }
@@ -97,6 +98,7 @@ async function handleSubmit() {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&display=swap');
 
 .forgot-wrapper {
   min-height: 100vh;

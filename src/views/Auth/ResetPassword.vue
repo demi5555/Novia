@@ -13,17 +13,17 @@
       </div>
 
       <!-- Heading -->
-      <h1 class="rp-title">Create new password</h1>
-      <p class="rp-subtitle">Your new password must be at least 8 characters.</p>
+      <h1 class="rp-title">បង្កើតពាក្យសម្ងាត់ថ្មី</h1>
+      <p class="rp-subtitle">ពាក្យសម្ងាត់ថ្មីរបស់អ្នកត្រូវតែមានយ៉ាងហោចណាស់ 8 តួអក្សរ។</p>
 
       <!-- New Password -->
       <div class="rp-field">
-        <label class="rp-label">New password</label>
+        <label class="rp-label">ពាក្យសម្ងាត់ថ្មី</label>
         <div class="rp-input-wrap" :class="{ 'is-focused': focusPass, 'has-error': errors.new_pass }">
           <input
             v-model="new_pass"
             :type="showPass ? 'text' : 'password'"
-            placeholder="Enter new password"
+            placeholder="បញ្ចូលពាក្យសម្ងាត់ថ្មី"
             :disabled="loading"
             class="rp-input"
             @focus="focusPass = true"
@@ -57,12 +57,12 @@
 
       <!-- Confirm Password -->
       <div class="rp-field">
-        <label class="rp-label">Confirm password</label>
+        <label class="rp-label">បញ្ចាក់ពាក្យសម្ងាត់</label>
         <div class="rp-input-wrap" :class="{ 'is-focused': focusConfirm, 'has-error': errors.new_pass_confirmation, 'is-match': matchOk }">
           <input
             v-model="new_pass_confirmation"
             :type="showConfirm ? 'text' : 'password'"
-            placeholder="Re-enter new password"
+            placeholder="បញ្ចូលពាក្យសម្ងាត់ថ្មី"
             :disabled="loading"
             class="rp-input"
             @focus="focusConfirm = true"
@@ -90,7 +90,7 @@
       <!-- Submit Button -->
       <button class="rp-btn" :disabled="loading" @click="handleSubmit">
         <span v-if="loading" class="rp-spinner"></span>
-        <span>{{ loading ? 'Resetting...' : 'Reset Password' }}</span>
+        <span>{{ loading ? 'Resetting...' : 'កំណត់ពាក្យសម្ងាត់ឡើងវិញ' }}</span>
       </button>
 
       <!-- Back Link -->
@@ -99,7 +99,8 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="15 18 9 12 15 6"/>
           </svg>
-          Back to verify OTP
+    
+ត្រលប់ទៅការផ្ទៀងផ្ទាត់ OTP
         </router-link>
       </div>
 
@@ -165,18 +166,18 @@ function validate() {
   let valid = true
 
   if (!new_pass.value) {
-    errors.value.new_pass = 'New password is required.'
+    errors.value.new_pass = 'ទាមទារពាក្យសម្ងាត់ថ្មី'
     valid = false
   } else if (new_pass.value.length < 8) {
-    errors.value.new_pass = 'Password must be at least 8 characters.'
+    errors.value.new_pass = 'ពាក្យសម្ងាត់ត្រូវតែមានយ៉ាងហោចណាស់ 8 តួអក្សរ។'
     valid = false
   }
 
   if (!new_pass_confirmation.value) {
-    errors.value.new_pass_confirmation = 'Please confirm your password.'
+    errors.value.new_pass_confirmation = 'ពាក្យសម្ងាត់ត្រូវតែមានយ៉ាងហោចណាស់ 8 តួអក្សរ'
     valid = false
   } else if (new_pass.value !== new_pass_confirmation.value) {
-    errors.value.new_pass_confirmation = 'Passwords do not match.'
+    errors.value.new_pass_confirmation = 'ពាក្យសម្ងាត់មិនត្រូវគ្នាទេ'
     valid = false
   }
 
@@ -199,12 +200,12 @@ async function handleSubmit() {
     })
 
     if (res.data.result) {
-      toast.success(res.data.message || 'Password reset successfully!', '/')
+      toast.success(res.data.message || 'កំណត់ពាក្យសម្ងាត់ឡើងវិញដោយជោគជ័យ', '/')
     } else {
-      toast.error(res.data.message || 'Something went wrong. Please try again.')
+      toast.error(res.data.message || 'មានអ្វីមួយខុសប្រក្រតី។ សូមព្យាយាមម្តងទៀត។')
     }
   } catch (err) {
-    toast.error(err?.data?.message || err?.message || 'Network error. Please try again.')
+    toast.error(err?.data?.message || err?.message || 'កំហុសបណ្តាញអុិនធឺណេត។ សូមព្យាយាមម្តងទៀត')
   } finally {
     loading.value = false
   }
