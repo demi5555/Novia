@@ -49,11 +49,9 @@ export const usePostStore = defineStore('post', () => {
         },
       })
 
-      // ✅ FIXED: was res.data (the full response object)
-      //          must be res.data.data (the actual posts array)
+ 
       posts.value = res.data.data ?? []
 
-      // ✅ FIXED: was also reading from res.data.paginate directly on a broken root
       const p = res.data.paginate ?? {}
       pagination.has_page       = p.has_page       ?? false
       pagination.on_first_page  = p.on_first_page  ?? true
@@ -89,8 +87,7 @@ export const usePostStore = defineStore('post', () => {
         posts.value = res.data.data ?? []
       }
 
-      // ✅ FIXED: was res.data (the full response object)
-      //          must be res.data.data (the actual posts array)
+
       const p = res.data.paginate ?? {}
       pagination.has_page       = p.has_page       ?? false
       pagination.on_first_page  = p.on_first_page  ?? true
@@ -168,11 +165,10 @@ export const usePostStore = defineStore('post', () => {
         },
       })
 
-      // ✅ FIXED: was res.data (the full response object)
-      //          must be res.data.data (the actual posts array)
+     
       ownPosts.value = res.data.data ?? []
 
-      // ✅ FIXED: was also reading from res.data.paginate directly on a broken root
+
       const p = res.data.paginate ?? {}
       pagination.has_page       = p.has_page       ?? false
       pagination.on_first_page  = p.on_first_page  ?? true

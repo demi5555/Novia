@@ -10,8 +10,10 @@
 
               <!-- Header -->
               <div class="login-header text-center">
-                <h2 class="card-title">Welcome Back</h2>
-                <p class="card-text">Sign in to your account</p>
+                <h2 class="card-title ">សូមស្វាគមន៍មកកាន់គណនី</h2>
+                
+                <p class="card-text mt-3">ចូលគណនីរបស់អ្នក</p>
+                
               </div>
 
               <!-- Form -->
@@ -19,12 +21,14 @@
 
                 <!-- Email or Phone -->
                 <div class="form-group">
-                  <label class="custom-label">Email or Phone</label>
+                  <label class="custom-label">
+អ៊ីមែល ឬលេខទូរស័ព្ទ </label>
                   <input
                     v-model="email_or_phone"
                     type="text"
                     class="custom-input"
-                    placeholder="Enter your email or phone"
+                    placeholder="
+បញ្ចូលអ៊ីមែល ឬទូរស័ព្ទរបស់អ្នក"
                   />
                   <p v-if="err.email_or_phone" class="field-error">
                     {{ err.email_or_phone }}
@@ -33,13 +37,13 @@
 
                 <!-- Password -->
                 <div class="form-group">
-                  <label class="custom-label">Password</label>
+                  <label class="custom-label">លេខសង្ងាត់</label>
                   <div class="input-group">
                     <input
                       v-model="password"
                       :type="passwordType"
                       class="custom-input"
-                      placeholder="Enter your password"
+                      placeholder="បញ្ចូលពាក្យសម្ងាត់របស់អ្នក"
                     />
                     <span class="password-eye" @click="togglePassword">
                       <i :class="showPassword ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
@@ -52,15 +56,10 @@
 
                 <!-- Options -->
                 <div class="row login-options">
-                  <div class="col-6">
-                    <label class="remember-label">
-                      <input type="checkbox" v-model="rememberMe" class="custom-check" />
-                      Remember me
-                    </label>
-                  </div>
-                  <div class="col-6 text-end">
+                
+                  <div class="col-12 text-center">
                     <router-link to="/forget-password" class="forgot-link">
-                      Forgot password?
+                      ភ្លេចពាក្យសម្ងាត់​ ?
                     </router-link>
                   </div>
                 </div>
@@ -72,14 +71,14 @@
                   :disabled="isLoading"
                 >
                   <span v-if="isLoading" class="spinner-border spinner-border-sm"></span>
-                  <span v-else>Sign In</span>
+                  <span v-else>ចូលគណនី</span>
                 </button>
 
                 <!-- Redirect -->
                 <p class="redirect-text text-center">
-                  Don’t have an account?
+                  មិនមានគណនីទេ ?
                   <router-link to="/register" class="register-link">
-                    Register
+                   ចុះឈ្មោះ
                   </router-link>
                 </p>
 
@@ -142,9 +141,9 @@ async function handleLogin() {
 
   try {
     await auth.login(email_or_phone.value, password.value)
-    notifier.success('Login Successfully!', '/')
+    notifier.success('ចូលគណនីដោយជោគជ័យ!', '/')
   } catch (error) {
-    notifier.error('Invalid email or password')
+    notifier.error('អ៊ីមែល ឬពាក្យសម្ងាត់មិនត្រឹមត្រូវ')
   } finally {
     isLoading.value = false
   }
@@ -152,7 +151,6 @@ async function handleLogin() {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
 /* Page */
 .login-page {
@@ -160,7 +158,7 @@ async function handleLogin() {
   background: #0f172a;
   display: flex;
   align-items: center;
-  font-family: "Poppins", sans-serif;
+  /* font-family: "Poppins", sans-serif; */
 }
 
 /* Card */

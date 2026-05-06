@@ -6,8 +6,8 @@
     </button>
     <div class="page-icon-wrap"><GraduationCap :size="18" /></div>
     <div>
-      <h3 class="page-title">Education</h3>
-      <p class="page-sub">Add or update your academic background</p>
+      <h3 class="page-title">ការអប់រំ</h3>
+      <p class="page-sub">បន្ថែម ឬធ្វើបច្ចុប្បន្នភាពប្រវត្តិសិក្សារបស់អ្នក</p>
     </div>
   </div>
 
@@ -33,7 +33,7 @@
             Send: school_id (existing) OR school_name (new custom)
           -->
           <div class="field-group">
-            <label class="field-label">School / University <span class="req">*</span></label>
+            <label class="field-label">សាលា/សាកលវិទ្យាល័យ <span class="req">*</span></label>
             <div class="input-wrap">
               <Building2 :size="15" class="input-icon" />
               <input
@@ -72,13 +72,13 @@
             Send: degree_id (existing) OR degree_name (new custom)
           -->
           <div class="field-group">
-            <label class="field-label">Degree / Level <span class="req">*</span></label>
+            <label class="field-label">កម្រិត / កម្រិត <span class="req">*</span></label>
             <div class="select-wrap">
               <Award :size="15" class="input-icon" />
               <select v-model="form.degree_id" class="f-select" @change="onDegreeChange">
-                <option value="" disabled>Select degree level</option>
+                <option value="" disabled>ជ្រើសរើសកម្រិតសញ្ញាបត្រ</option>
                 <option v-for="d in degrees" :key="d.id" :value="d.id">{{ d.name }}</option>
-                <option value="custom">Other (type below)</option>
+                <option value="custom">ផ្សេងទៀត (ប្រភេទខាងក្រោម)</option>
               </select>
               <ChevronDown :size="14" class="select-arrow" />
             </div>
@@ -95,7 +95,7 @@
             Send: subject_id (existing) OR subject_name (new custom)
           -->
           <div class="field-group">
-            <label class="field-label">Subject / Major</label>
+            <label class="field-label">មុខវិជ្ជា / មុខវិជ្ជា</label>
             <div class="input-wrap">
               <BookOpen :size="15" class="input-icon" />
               <input
@@ -143,7 +143,7 @@
             </div>
             <div class="col-6">
               <div class="field-group mb-0">
-                <label class="field-label">End Date</label>
+                <label class="field-label">កាលបរិច្ឆេទបញ្ចប់</label>
                 <div class="input-wrap">
                   <CalendarDays :size="15" class="input-icon" />
                   <input
@@ -159,7 +159,7 @@
 
           <!-- Currently studying toggle -->
           <label class="toggle-row mt-3">
-            <span class="toggle-label">Currently studying here</span>
+            <span class="toggle-label">បច្ចុប្បន្នកំពុងសិក្សានៅទីនេះ</span>
             <span class="toggle-wrap">
               <input type="checkbox" v-model="form.is_current" class="toggle-input" @change="onCurrentChange" />
               <span class="toggle-track"><span class="toggle-thumb" /></span>
@@ -171,7 +171,7 @@
             API field: description → plain string
           -->
           <div class="field-group">
-            <label class="field-label">Description <span class="optional">(optional)</span></label>
+            <label class="field-label">ការពិពណ៌នា<span class="optional">(ស្រេចចិត្ត)</span></label>
             <textarea
               v-model="form.description"
               class="f-textarea"
@@ -185,19 +185,19 @@
           <!-- Actions -->
           <div class="form-footer">
             <button v-if="editingId" class="btn-ghost-v" @click="cancelEdit">
-              <X :size="14" /> Cancel
+              <X :size="14" /> បោះបង់
             </button>
             <button v-else class="btn-ghost-v" @click="resetForm">
-              <RefreshCcw :size="14" /> Reset
+              <RefreshCcw :size="14" />កំណត់ឡើងវិញ
             </button>
             <button
               class="btn-save"
-              :disabled="saving || !canSubmit"
+              :disabled="saving || !អាចដាក់ស្នើ"
               @click="save"
             >
               <Loader2 v-if="saving" :size="14" class="spin" />
               <component :is="editingId ? Save : Plus" v-else :size="14" />
-              {{ saving ? 'Saving…' : editingId ? 'Update' : 'Add Education' }}
+              {{ saving ? 'Saving…' : editingId ? 'ធ្វើបច្ចុប្បន្នភាព' : 'បន្ថែមការអប់រំ' }}
             </button>
           </div>
         </div>
@@ -210,7 +210,7 @@
         <div class="form-card-header">
           <div class="header-icon-wrap" style="background:#f0fdf4;color:#166534;"><ListChecks :size="16" /></div>
           <div>
-            <h6 class="card-heading">Education Records</h6>
+            <h6 class="card-heading">កំណត់ត្រាអប់រំ</h6>
             <p class="card-sub">{{ educations.length }} record{{ educations.length !== 1 ? 's' : '' }}</p>
           </div>
         </div>
@@ -301,11 +301,11 @@
             <strong>{{ deleteTarget?.school?.name }}</strong>?
           </p>
           <div class="modal-footer">
-            <button class="btn-ghost-v" @click="deleteTarget = null">Cancel</button>
+            <button class="btn-ghost-v" @click="deleteTarget = null">បោះបង់</button>
             <button class="btn-danger-v" :disabled="deleting" @click="doDelete">
               <Loader2 v-if="deleting" :size="13" class="spin me-1" />
               <Trash2 v-else :size="13" class="me-1" />
-              {{ deleting ? 'Deleting…' : 'Yes, Delete' }}
+              {{ deleting ? 'Deleting…' : 'យល់ព្រម, លុប' }}
             </button>
           </div>
         </div>
@@ -548,13 +548,13 @@ async function save() {
     // API returns full profile → extract educations[]
     if (res.data.result) {
       educations.value = res.data.data.educations ?? []
-      showToast(editingId.value ? "Education updated!" : "Education added!", "success")
+      showToast(editingId.value ? "Education updated!" : "ការអប់រំបន្ថែម!", "ជោគជ័យ")
       cancelEdit()
     } else {
-      showToast(res.data.message || "Failed.", "error")
+      showToast(res.data.message || "បរាជ័យ", "កំហុស")
     }
   } catch (e) {
-    showToast("Something went wrong.", "error")
+    showToast("មានអ្វីមួយខុសប្រក្រតី", "កំហុស")
   } finally {
     saving.value = false
   }

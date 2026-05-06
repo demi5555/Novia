@@ -10,8 +10,8 @@
         </svg>
       </div>
 
-      <h1>Check your email</h1>
-      <p class="sub-text">We sent a 6-character code to</p>
+      <h1>ពិនិត្យអ៊ីមែលរបស់អ្នក</h1>
+      <p class="sub-text">យើងបានផ្ញើលេខកូដ 6 តួអក្សរទៅ</p>
       <p class="email-text">{{ email }}</p>
 
       <!-- OTP Boxes -->
@@ -58,7 +58,7 @@
         @click="handleSubmit"
       >
         <span v-if="isLoading" class="spinner"></span>
-        <span>{{ isLoading ? 'Verifying...' : 'Verify Code' }}</span>
+        <span>{{ isLoading ? 'Verifying...' : 'ផ្ទៀងផ្ទាត់លេខកូដ' }}</span>
         <svg v-if="!isLoading" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
         </svg>
@@ -73,7 +73,7 @@
 
       <!-- Resend -->
       <p class="resend-text">
-        Didn't get the code?
+       មិនបានទទួលលេខកូដ?
         <span
           @click="handleResend"
           class="resend-link"
@@ -88,7 +88,7 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="15 18 9 12 15 6"/>
         </svg>
-        Back to forgot password
+        ត្រឡប់ទៅ ភ្លេចពាក្យសម្ងាត់
       </router-link>
 
     </div>
@@ -158,7 +158,7 @@ const otpValue = computed(() => otpDigits.value.join(''))
 async function handleSubmit() {
   otpError.value = ''
   if (otpValue.value.length < 6) {
-    otpError.value = 'Please enter the complete 6-character OTP code.'
+    otpError.value = 'សូមបញ្ចូលលេខកូដ OTP 6 តួអក្សរពេញលេញ។'
     return
   }
   isLoading.value = true
@@ -167,7 +167,7 @@ async function handleSubmit() {
     notifier.success('OTP verified!')
     router.push({ name: 'reset-password', query: { email: email.value, otp: otpValue.value } })
   } catch (err) {
-    otpError.value = 'Invalid OTP. Please try again.'
+    otpError.value = 'OTP មិនត្រឹមត្រូវ។ សូមព្យាយាមម្តងទៀត។'
     otpDigits.value = ['', '', '', '', '', '']
     nextTick(() => otpRefs.value[0]?.focus())
   } finally {
@@ -179,7 +179,7 @@ async function handleResend() {
   if (resendCooldown.value > 0) return
   try {
     await auth.forgotPassword(email.value)
-    notifier.success('A new OTP has been sent to your email.')
+    notifier.success('OTP ថ្មីត្រូវបានផ្ញើទៅអ៊ីមែលរបស់អ្នក។')
     otpDigits.value = ['', '', '', '', '', '']
     nextTick(() => otpRefs.value[0]?.focus())
     resendCooldown.value = 60
@@ -188,7 +188,7 @@ async function handleResend() {
       if (resendCooldown.value <= 0) clearInterval(timer)
     }, 1000)
   } catch (err) {
-    notifier.error('Failed to resend OTP. Please try again.')
+    notifier.error('បរាជ័យក្នុងការផ្ញើ OTP ឡើងវិញ។ សូមព្យាយាមម្តងទៀត')
   }
 }
 </script>
