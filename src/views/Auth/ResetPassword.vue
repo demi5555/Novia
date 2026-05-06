@@ -7,7 +7,6 @@
         <div class="rp-icon-circle">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-           
           </svg>
         </div>
       </div>

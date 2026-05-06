@@ -7,6 +7,7 @@ import 'vue-toast-notification/dist/theme-sugar.css' // ✅ toast styles
 
 import App from './App.vue'
 import router from './router'
+import "./assets/main.css"
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'

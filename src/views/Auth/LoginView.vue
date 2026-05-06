@@ -149,7 +149,6 @@ async function handleLogin() {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
 /* Page */
 .login-page {
@@ -157,7 +156,7 @@ async function handleLogin() {
   background: #0f172a;
   display: flex;
   align-items: center;
-  font-family: "Poppins", sans-serif;
+  /* font-family: "Poppins", sans-serif; */
 }
 
 /* Card */

@@ -1,6 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanuman:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+  --bs-body-font-family: "Inter", Hanuman, sans-serif, serif;
+
+}
+body {
+  font-family: var(--bs-body-font-family);
+  font-size: 15px;
+}
 ::-webkit-validation-bubble-heading {
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 5px;
 }
-@import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&display=swap');
