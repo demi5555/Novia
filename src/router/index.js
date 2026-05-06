@@ -11,14 +11,20 @@ import MessagePanelView from '@/views/MessagePanelView.vue'
 import PrivacySecurityView from '@/views/PrivacySecurityView.vue'
 
 // Public routes (no auth needed)
-const publicRoutes = ['login', 'register', 'landing', 'forget-password', 'verify-otp', 'reset-password']
+// Added 'landing' here to ensure logged-in users are redirected away from it
+const publicRoutes = ['landing', 'login', 'register', 'forget-password', 'verify-otp', 'reset-password']
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'landing', // Now the primary entry point
+      component: LandingView,
+    },
+    {
+      path: '/home',
+      name: 'home', // Dashboard moved here
       component: HomeView,
       meta: { requiresAuth: true }, 
     },
@@ -53,8 +59,8 @@ const router = createRouter({
       component: () => import('@/views/Auth/ResetPassword.vue'),
     },
     {
-      path: '/landing',
-      name: 'landing',
+      path: '/landing', // Keep path for backward compatibility
+      name: 'landing-alias',
       component: LandingView,
     },
     {

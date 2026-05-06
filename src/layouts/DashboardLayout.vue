@@ -140,4 +140,49 @@ onUnmounted(() => {
     padding: 1rem;
   }
 } */
+ /* Update these styles in DashboardLayout.vue */
+.dashboard-shell {
+  width: 100%;
+  min-height: 100vh;
+  margin-left: 0; /* REMOVED: was 120px */
+  overflow-x: hidden; /* Safety lock */
+  color: #e2e8f0;
+}
+
+.dashboard-body {
+  display: flex;
+  position: relative;
+  padding-top: 70px;
+  min-height: 100vh;
+  width: 100%; /* Ensure it doesn't exceed parent */
+}
+
+.main-content {
+  flex: 1;
+  /* Sync this with Sidebar width (260px) */
+  margin-left: 260px; 
+  min-width: 0; /* Crucial for flexbox overflow issues */
+  min-height: calc(100vh - 70px);
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.main-content.sidebar-closed {
+  margin-left: 0;
+}
+
+.content-wrapper {
+  padding: 2rem;
+  max-width: 100%; /* Prevent fixed width overflow */
+  margin: 0 auto;
+}
+
+@media (max-width: 991px) {
+  .main-content {
+    margin-left: 0 !important; /* Force zero on mobile */
+  }
+  .content-wrapper {
+    padding: 1rem;
+  }
+}
 </style>

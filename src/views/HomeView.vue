@@ -558,4 +558,44 @@ function userAvatar(user) {
 /* EMPTY */
 .empty-icon { font-size: 40px; color: #ccc; margin-bottom: 10px; }
 .text-center { text-align: center; }
+/* Update these styles in your Home page <style scoped> */
+.container {
+  max-width: 100%; /* Use 100% and let max-width handle the rest */
+  width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  flex-wrap: wrap; /* Allow sidebar to drop below on small screens */
+}
+
+.col-feed {
+  flex: 1;
+  min-width: 320px; /* Prevents feed from getting too squished */
+}
+
+.col-side {
+  width: 300px; /* Increased slightly for better modern feel */
+  flex-shrink: 0;
+}
+
+/* On tablet/small screens, stack columns to prevent horizontal scroll */
+@media (max-width: 992px) {
+  .col-side {
+    width: 100%;
+    order: 2; /* Move sidebar below feed on mobile */
+  }
+  .col-feed {
+    width: 100%;
+    order: 1;
+  }
+  .row {
+    gap: 16px;
+  }
+}
 </style>

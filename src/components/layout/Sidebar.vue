@@ -421,4 +421,21 @@ ul {
   text-align: left;
   cursor: pointer;
 }
+/* Update these styles in Sidebar.vue */
+.novia-sidebar {
+  width: 260px; /* Keep consistent with Layout margin-left */
+  height: calc(100vh - 70px);
+  position: fixed;
+  left: 0;
+  top: 70px;
+  /* ... rest of your styles ... */
+}
+
+/* Ensure mobile sidebar doesn't affect desktop width */
+@media (max-width: 991px) {
+  .novia-sidebar {
+    top: 0;
+    height: 100vh;
+  }
+}
 </style>
