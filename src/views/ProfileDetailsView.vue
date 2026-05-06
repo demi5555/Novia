@@ -19,9 +19,9 @@
       <!-- Error state -->
       <div v-else-if="error" class="pd-error">
         <UserX :size="40" />
-        <h5>Profile not found</h5>
-        <p>This user doesn't exist or you don't have permission to view their profile.</p>
-        <button class="btn-back" @click="$router.back()"><ArrowLeft :size="14" /> Go Back</button>
+        <h5>រកមិនឃើញប្រវត្តិរូប</h5>
+        <p>អ្នកប្រើប្រាស់នេះមិនមានទេ ឬអ្នកមិនមានការអនុញ្ញាតដើម្បីមើលប្រវត្តិរូបរបស់ពួកគេ។</p>
+        <button class="btn-back" @click="$router.back()"><ArrowLeft :size="14" /> ត្រឡប់ក្រោយ</button>
       </div>
 
       <!-- Profile Content -->
@@ -37,7 +37,7 @@
 
           <!-- Message button — anchored bottom-right of the cover -->
           <button class="btn-msg-cover" @click="openMessage">
-            <MessageCircle :size="16" /> Message
+            <MessageCircle :size="16" /> សារ
           </button>
 
           <div class="container">
@@ -66,7 +66,7 @@
                   <FileText :size="14" /> CV
                 </a>
                 <a v-if="user.portfolio_link" :href="user.portfolio_link" target="_blank" class="btn-ghost-action">
-                  <ExternalLink :size="14" /> Portfolio
+                  <ExternalLink :size="14" /> វិចិត្រសាល
                 </a>
               </div>
             </div>
@@ -84,20 +84,20 @@
               <div class="pd-card" v-if="user.professional?.job_title">
                 <div class="pd-card-header">
                   <Briefcase :size="16" />
-                  <h5>Professional Experience</h5>
+                  <h5>បទពិសោធន៍វិជ្ជាជីវៈ</h5>
                 </div>
                 <div class="pd-card-body">
                   <div class="pd-info-grid">
                     <div class="pd-info-item">
-                      <span class="pd-info-label">Position</span>
+                      <span class="pd-info-label">តំណែង</span>
                       <span class="pd-info-val">{{ user.professional.job_title }}</span>
                     </div>
                     <div class="pd-info-item">
-                      <span class="pd-info-label">Company</span>
+                      <span class="pd-info-label">ក្រុមហ៊ុន</span>
                       <span class="pd-info-val">{{ user.professional.company_name || '—' }}</span>
                     </div>
                     <div class="pd-info-item full" v-if="user.professional.responsibility">
-                      <span class="pd-info-label">Responsibilities</span>
+                      <span class="pd-info-label">ទំនួលខុសត្រូវ</span>
                       <span class="pd-info-val">{{ user.professional.responsibility }}</span>
                     </div>
                   </div>
@@ -108,7 +108,7 @@
               <div class="pd-card" v-if="user.cv">
                 <div class="pd-card-header">
                   <FileText :size="16" />
-                  <h5>CV / Resume</h5>
+                  <h5>CV / ប្រវត្តិរូបសង្ខេប</h5>
                 </div>
                 <div class="pd-card-body">
                   <div class="pd-cv-row">
@@ -116,15 +116,15 @@
                       <FileText :size="28" />
                     </div>
                     <div class="pd-cv-meta">
-                      <span class="pd-cv-label">Curriculum Vitae</span>
-                      <span class="pd-cv-sub">Available for download</span>
+                      <span class="pd-cv-label">ប្រវត្តិរូបសង្ខេប</span>
+                      <span class="pd-cv-sub">អាចទាញយកបាន</span>
                     </div>
                     <div class="pd-cv-btns">
                       <a :href="user.cv" target="_blank" class="pd-cv-btn-view">
-                        <ExternalLink :size="13" /> View
+                        <ExternalLink :size="13" /> មើល
                       </a>
                       <a :href="user.cv" download target="_blank" class="pd-cv-btn-dl">
-                        <Download :size="13" /> Download
+                        <Download :size="13" /> ទាញយក
                       </a>
                     </div>
                   </div>
@@ -135,7 +135,7 @@
               <div class="pd-card" v-if="user.skills?.length">
                 <div class="pd-card-header">
                   <Zap :size="16" />
-                  <h5>Skills</h5>
+                  <h5>ជំនាញ</h5>
                   <span class="pd-post-count">{{ user.skills.length }}</span>
                 </div>
                 <div class="pd-card-body">
@@ -149,23 +149,23 @@
               <div class="pd-card" v-if="user.collaboration?.company_logo || user.collaboration?.company_link">
                 <div class="pd-card-header">
                   <Handshake :size="16" />
-                  <h5>Collaboration</h5>
+                  <h5>កិច្ចសហការ</h5>
                 </div>
                 <div class="pd-card-body">
                   <div class="pd-collab-main">
                     <div class="pd-collab-logo-wrap" v-if="user.collaboration.company_logo">
-                      <img :src="user.collaboration.company_logo" alt="Company Logo" />
+                      <img :src="user.collaboration.company_logo" alt="និមិត្តសញ្ញាក្រុមហ៊ុន" />
                     </div>
                     <div class="pd-collab-info">
-                      <p class="pd-collab-title">Open to Collaboration</p>
-                      <p class="pd-collab-desc">This user is available for collaboration. Reach out or visit their company page.</p>
+                      <p class="pd-collab-title">បើកចំហសម្រាប់កិច្ចសហការ</p>
+                      <p class="pd-collab-desc">អ្នកប្រើប្រាស់នេះអាចរកបានសម្រាប់កិច្ចសហការ។ ទាក់ទងមក ឬចូលទៅកាន់ទំព័រក្រុមហ៊ុនរបស់ពួកគេ។</p>
                       <a
                         v-if="user.collaboration.company_link"
                         :href="user.collaboration.company_link"
                         target="_blank"
                         class="pd-collab-visit-btn"
                       >
-                        <ExternalLink :size="13" /> Visit Company
+                        <ExternalLink :size="13" /> ចូលទៅកាន់ក្រុមហ៊ុន
                       </a>
                     </div>
                   </div>
@@ -176,7 +176,7 @@
               <div class="pd-card" v-if="user.educations?.length">
                 <div class="pd-card-header">
                   <GraduationCap :size="16" />
-                  <h5>Education</h5>
+                  <h5>ការអប់រំ</h5>
                 </div>
                 <div class="pd-card-body">
                   <div class="pd-edu-timeline">
@@ -192,7 +192,7 @@
                         </div>
                         <p class="pd-edu-date">
                           <CalendarDays :size="11" />
-                          {{ edu.start_date }} – {{ edu.end_date || 'Present' }}
+                          {{ edu.start_date }} – {{ edu.end_date || 'បច្ចុប្បន្ន' }}
                         </p>
                         <p class="pd-edu-desc" v-if="edu.description">{{ edu.description }}</p>
                       </div>
@@ -205,7 +205,7 @@
               <div class="pd-card" v-if="user.projects?.length">
                 <div class="pd-card-header">
                   <FolderOpen :size="16" />
-                  <h5>Projects</h5>
+                  <h5>គម្រោង</h5>
                 </div>
                 <div class="pd-card-body">
                   <div class="pd-projects-grid">
@@ -231,18 +231,18 @@
               <div class="pd-card">
                 <div class="pd-card-header">
                   <Newspaper :size="16" />
-                  <h5>Posts</h5>
+                  <h5>ការបង្ហោះ</h5>
                   <span class="pd-post-count" v-if="userPosts.length">{{ userPosts.length }}</span>
                 </div>
 
                 <div v-if="loadingPosts" class="pd-posts-loading">
                   <div class="pd-spin" />
-                  <span>Loading posts…</span>
+                  <span>កំពុងផ្ទុកការបង្ហោះ…</span>
                 </div>
 
                 <div v-else-if="userPosts.length === 0" class="pd-posts-empty">
                   <Newspaper :size="28" />
-                  <p>No posts yet</p>
+                  <p>មិនទាន់មានការបង្ហោះទេ</p>
                 </div>
 
                 <div v-else class="pd-posts-list">
@@ -263,7 +263,7 @@
               <div class="pd-card">
                 <div class="pd-card-header">
                   <User :size="16" />
-                  <h5>Personal Info</h5>
+                  <h5>ព័ត៌មានផ្ទាល់ខ្លួន</h5>
                 </div>
                 <div class="pd-card-body">
                   <div class="pd-side-item" v-if="user.email">
@@ -284,19 +284,18 @@
                   </div>
                   <div class="pd-side-item" v-if="user.dob">
                     <CalendarDays :size="13" class="pd-side-icon" />
-                    <span>{{ formatDate(user.dob) }} ({{ getAge(user.dob) }} yrs)</span>
+                    <span>{{ formatDate(user.dob) }} ({{ getAge(user.dob) }} ឆ្នាំ)</span>
                   </div>
                   <div class="pd-side-item" v-if="user.gender">
                     <Users :size="13" class="pd-side-icon" />
-                    <span>{{ user.gender === 1 ? 'Male' : user.gender === 2 ? 'Female' : 'Other' }}</span>
+                    <span>{{ user.gender === 1 ? 'ប្រុស' : user.gender === 2 ? 'ស្រី' : 'ផ្សេងទៀត' }}</span>
                   </div>
                   <div class="pd-side-item" v-if="user.portfolio_link">
                     <Link2 :size="13" class="pd-side-icon" />
-                    <a :href="user.portfolio_link" target="_blank" class="pd-ext-link">Portfolio</a>
+                    <a :href="user.portfolio_link" target="_blank" class="pd-ext-link">វិចិត្រសាល</a>
                   </div>
                 </div>
               </div>
-
 
             </div>
           </div>
@@ -304,8 +303,6 @@
       </template>
 
     </div>
-
-
   </DashboardLayout>
 </template>
 
@@ -370,7 +367,6 @@ onMounted(() => {
   if (id) {
     loadProfile(id)
   } else {
-    // /profileDetail route — no id, show error or redirect
     error.value = true
     loading.value = false
   }
@@ -386,7 +382,7 @@ function defaultAvatar(name) {
 
 function formatDate(dateStr) {
   if (!dateStr) return ''
-  return new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+  return new Date(dateStr).toLocaleDateString('km-KH', { year: 'numeric', month: 'long', day: 'numeric' })
 }
 
 function getAge(dob) {
@@ -784,5 +780,4 @@ function openMessage() {
   margin-top: 2px;
 }
 .pd-collab-visit-btn:hover { border-color: #6366f1; color: #6366f1; background: #f8f5ff; }
-
 </style>

@@ -7,8 +7,8 @@
     </button>
     <div class="page-icon-wrap"><FolderOpen :size="18" /></div>
     <div>
-      <h3 class="page-title">Projects</h3>
-      <p class="page-sub">Showcase your work and portfolio</p>
+      <h3 class="page-title">គម្រោង</h3>
+      <p class="page-sub">បង្ហាញការងារ និងផលប័ត្ររបស់អ្នក</p>
     </div>
   </div>
 
@@ -28,7 +28,7 @@
         <div class="form-body">
 
           <div class="field-group">
-            <label class="field-label">Project Title <span class="req">*</span></label>
+            <label class="field-label">ចំណងជើងគម្រោង <span class="req">*</span></label>
             <div class="input-wrap">
               <FolderOpen :size="15" class="input-icon" />
               <input
@@ -43,7 +43,7 @@
           </div>
 
           <div class="field-group">
-            <label class="field-label">Project URL <span class="req">*</span></label>
+            <label class="field-label">URL គម្រោង <span class="req">*</span></label>
             <div class="input-wrap">
               <LinkIcon :size="15" class="input-icon" />
               <input
@@ -69,10 +69,10 @@
 
           <div class="form-footer">
             <button v-if="editingId" class="btn-ghost-v text-black" @click="cancelEdit">
-              <X :size="14" /> Cancel
+              <X :size="14" /> បោះបង់
             </button>
             <button v-else class="btn-ghost-v" @click="resetForm">
-              <RefreshCcw :size="14" /> Reset
+              <RefreshCcw :size="14" /> កំណត់ឡើងវិញ
             </button>
             <button
               class="btn-save text-black"
@@ -90,8 +90,8 @@
       <div class="info-box">
         <Info :size="13" class="info-icon" />
         <p>
-          Each project stores a <strong>title</strong> and a <strong>link</strong>.
-          The API returns the full profile after each save — the project list is refreshed automatically.
+         គម្រោងនីមួយៗរក្សាទុក <strong>អក្សរ</strong> នឹង <strong>លីញ</strong>.
+          API ត្រឡប់ទម្រង់ពេញលេញបន្ទាប់ពីការរក្សាទុកនីមួយៗ — បញ្ជីគម្រោងត្រូវបានធ្វើឱ្យស្រស់ដោយស្វ័យប្រវត្តិ។
         </p>
       </div>
     </div>
@@ -101,7 +101,7 @@
         <div class="form-card-header">
           <div class="header-icon-wrap" style="background:#fef3c7;color:#92400e;"><ListChecks :size="16" /></div>
           <div>
-            <h6 class="card-heading">Your Projects</h6>
+            <h6 class="card-heading">គម្រោងរបស់អ្នក។</h6>
             <p class="card-sub">{{ projects.length }} project{{ projects.length !== 1 ? 's' : '' }}</p>
           </div>
         </div>
@@ -120,8 +120,8 @@
         <!-- Empty -->
         <div class="empty-state" v-else-if="!projects.length">
           <div class="empty-icon"><FolderOpen :size="26" /></div>
-          <p class="empty-t">No projects yet</p>
-          <p class="empty-s">Add your first project on the left</p>
+          <p class="empty-t">មិនទាន់មានគម្រោងនៅឡើយ</p>
+          <p class="empty-s">បន្ថែមគម្រោងដំបូងរបស់អ្នកនៅខាងឆ្វេង</p>
         </div>
 
         <div class="proj-list" v-else>
@@ -171,10 +171,11 @@
       <div class="modal-backdrop" v-if="deleteTarget" @click.self="deleteTarget = null">
         <div class="modal-box">
           <div class="modal-icon warn"><AlertTriangle :size="24" /></div>
-          <h6 class="modal-title">Delete Project?</h6>
+          <h6 class="modal-title">លុបគម្រោង?</h6>
           <p class="modal-msg">
-            Remove <strong>{{ deleteTarget?.title }}</strong>?
-            This cannot be undone.
+            លុប <strong>{{ deleteTarget?.title }}</strong>?
+           នេះមិនអាចត្រឡប់វិញបានទេ។
+
           </p>
           <div class="modal-footer">
             <button class="btn-ghost-v" @click="deleteTarget = null">Cancel</button>

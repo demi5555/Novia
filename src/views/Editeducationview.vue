@@ -134,7 +134,7 @@
           <div class="row g-3">
             <div class="col-6">
               <div class="field-group mb-0">
-                <label class="field-label">Start Date <span class="req">*</span></label>
+                <label class="field-label">កាលបរិច្ឆេទចាប់ផ្តើម <span class="req">*</span></label>
                 <div class="input-wrap">
                   <CalendarDays :size="15" class="input-icon" />
                   <input v-model="form.start_date" type="month" class="f-input" />
@@ -229,8 +229,8 @@
         <!-- Empty -->
         <div class="empty-state" v-else-if="!educations.length">
           <div class="empty-icon"><GraduationCap :size="26" /></div>
-          <p class="empty-t">No records yet</p>
-          <p class="empty-s">Add your first education entry</p>
+          <p class="empty-t">មិនទាន់មានកំណត់ត្រានៅឡើយ</p>
+          <p class="empty-s">បន្ថែមការចូលរៀនដំបូងរបស់អ្នក។</p>
         </div>
 
         <!-- List -->
@@ -270,7 +270,7 @@
                 <CalendarDays :size="11" class="me-1" />
                 {{ edu.start_date || '—' }}
                 <span v-if="edu.end_date"> → {{ edu.end_date }}</span>
-                <span v-else class="current-badge">Ongoing</span>
+                <span v-else class="current-badge">កំពុងដំណើរការ</span>
               </p>
               <!-- Description preview -->
               <p class="edu-desc" v-if="edu.description">{{ edu.description }}</p>
@@ -295,7 +295,7 @@
       <div class="modal-backdrop" v-if="deleteTarget" @click.self="deleteTarget = null">
         <div class="modal-box">
           <div class="modal-icon warn"><AlertTriangle :size="24" /></div>
-          <h6 class="modal-title">Delete Education?</h6>
+          <h6 class="modal-title">លុបការអប់រំ?</h6>
           <p class="modal-msg">
             Remove <strong>{{ deleteTarget?.degree?.name }}</strong> at
             <strong>{{ deleteTarget?.school?.name }}</strong>?

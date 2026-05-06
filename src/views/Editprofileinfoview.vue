@@ -7,8 +7,8 @@
     </button>
     <div class="page-icon-wrap"><UserCog :size="18" /></div>
     <div>
-      <h3 class="page-title">Edit Profile</h3>
-      <p class="page-sub">Update your personal & professional details</p>
+      <h3 class="page-title">កែសម្រួលប្រវត្តិរូប</h3>
+      <p class="page-sub">ធ្វើបច្ចុប្បន្នភាពព័ត៌មានលម្អិតផ្ទាល់ខ្លួន និងវិជ្ជាជីវៈរបស់អ្នក។</p>
     </div>
   </div>
 
@@ -19,15 +19,15 @@
         <div class="form-card-header">
           <div class="header-icon-wrap"><User :size="16" /></div>
           <div>
-            <h6 class="card-heading">Personal Information</h6>
-            <p class="card-sub">Basic details about you</p>
+            <h6 class="card-heading">ព័ត៌មានផ្ទាល់ខ្លួន</h6>
+            <p class="card-sub">ព័ត៌មានលម្អិតជាមូលដ្ឋានអំពីអ្នក។</p>
           </div>
         </div>
 
         <div class="form-body">
           <!-- Full name -->
           <div class="field-group">
-            <label class="field-label">Full Name <span class="req">*</span></label>
+            <label class="field-label">ឈ្មោះពេញ <span class="req">*</span></label>
             <div class="input-wrap">
               <User :size="15" class="input-icon" />
               <input v-model="personal.full_name" type="text" class="f-input" placeholder="Your full name" />
@@ -36,7 +36,7 @@
 
           <!-- Date of birth -->
           <div class="field-group">
-            <label class="field-label">Date of Birth</label>
+            <label class="field-label">ថ្ងៃខែឆ្នាំកំណើត</label>
             <div class="input-wrap">
               <CalendarDays :size="15" class="input-icon" />
               <input v-model="personal.dob" type="date" class="f-input" />
@@ -45,26 +45,26 @@
 
           <!-- Gender -->
           <div class="field-group">
-            <label class="field-label">Gender</label>
+            <label class="field-label">ភេទ</label>
             <div class="gender-row">
               <label class="gender-opt" :class="{ active: personal.gender === 1 }">
                 <input type="radio" v-model="personal.gender" :value="1" hidden />
-                <span class="gender-icon">♂</span> Male
+                <span class="gender-icon">♂</span> ប្រុស
               </label>
               <label class="gender-opt" :class="{ active: personal.gender === 2 }">
                 <input type="radio" v-model="personal.gender" :value="2" hidden />
-                <span class="gender-icon">♀</span> Female
+                <span class="gender-icon">♀</span>ស្រី
               </label>
               <label class="gender-opt" :class="{ active: personal.gender === 3 }">
                 <input type="radio" v-model="personal.gender" :value="3" hidden />
-                <span class="gender-icon">◎</span> Other
+                <span class="gender-icon">◎</span> ផ្សេងៗ
               </label>
             </div>
           </div>
 
           <!-- Phone -->
           <div class="field-group">
-            <label class="field-label">Phone Number</label>
+            <label class="field-label">លេខទូរស័ព្ទ</label>
             <div class="input-wrap">
               <Phone :size="15" class="input-icon" />
               <input v-model="personal.phone" type="tel" class="f-input" placeholder="e.g. 012 345 678" />
@@ -75,7 +75,7 @@
           <div class="row g-3">
             <div class="col-6">
               <div class="field-group mb-0">
-                <label class="field-label">Current City</label>
+                <label class="field-label">ទីក្រុងបច្ចុប្បន្ន</label>
                 <div class="input-wrap">
                   <MapPin :size="15" class="input-icon" />
                   <input v-model="personal.current_city" type="text" class="f-input" placeholder="City" />
@@ -84,7 +84,7 @@
             </div>
             <div class="col-6">
               <div class="field-group mb-0">
-                <label class="field-label">Home Town</label>
+                <label class="field-label">ទីប្រជុំជនផ្ទះ</label>
                 <div class="input-wrap">
                   <Home :size="15" class="input-icon" />
                   <input v-model="personal.home_town" type="text" class="f-input" placeholder="Town" />
@@ -95,7 +95,7 @@
 
           <!-- Portfolio link -->
           <div class="field-group">
-            <label class="field-label">Portfolio / Website</label>
+            <label class="field-label">ផលប័ត្រ/គេហទំព័រ</label>
             <div class="input-wrap">
               <Globe :size="15" class="input-icon" />
               <input v-model="personal.portfolio_link" type="url" class="f-input" placeholder="https://yoursite.com" />
@@ -121,15 +121,16 @@
         <div class="form-card-header">
           <div class="header-icon-wrap" style="background:#fef3c7;color:#92400e;"><Briefcase :size="16" /></div>
           <div>
-            <h6 class="card-heading">Professional Information</h6>
-            <p class="card-sub">Your work & career details</p>
+            <h6 class="card-heading">ព័ត៌មានវិជ្ជាជីវៈ</h6>
+            <p class="card-sub">
+ព័ត៌មានលម្អិតអំពីការងារ និងអាជីពរបស់អ្នក។</p>
           </div>
         </div>
 
         <div class="form-body">
           <!-- Job title -->
           <div class="field-group">
-            <label class="field-label">Job Title</label>
+            <label class="field-label">ចំណងជើងការងារ</label>
             <div class="input-wrap">
               <Briefcase :size="15" class="input-icon" />
               <input v-model="professional.job_title" type="text" class="f-input" placeholder="e.g. Frontend Developer" />
@@ -138,7 +139,7 @@
 
           <!-- Company -->
           <div class="field-group">
-            <label class="field-label">Company</label>
+            <label class="field-label">ក្រុមហ៊ុន</label>
             <div class="input-wrap">
               <Building2 :size="15" class="input-icon" />
               <input v-model="professional.company_name" type="text" class="f-input" placeholder="Company name" />
@@ -147,7 +148,7 @@
 
           <!-- Responsibility -->
           <div class="field-group">
-            <label class="field-label">Responsibility</label>
+            <label class="field-label">ទំនួលខុសត្រូវ</label>
             <textarea
               v-model="professional.responsibility"
               class="f-textarea"
@@ -159,11 +160,11 @@
 
           <!-- Change password section -->
           <div class="divider-section">
-            <span>Change Password</span>
+            <span>ផ្លាស់ប្តូរពាក្យសម្ងាត់</span>
           </div>
 
           <div class="field-group">
-            <label class="field-label">Current Password</label>
+            <label class="field-label">ពាក្យសម្ងាត់បច្ចុប្បន្ន</label>
             <div class="input-wrap">
               <KeyRound :size="15" class="input-icon" />
               <input v-model="passwords.current" :type="showPwd[0] ? 'text' : 'password'" class="f-input pe-10" placeholder="Current password" />
@@ -175,7 +176,7 @@
           <div class="row g-3">
             <div class="col-6">
               <div class="field-group mb-0">
-                <label class="field-label">New Password</label>
+                <label class="field-label">ពាក្យសម្ងាត់ថ្មី</label>
                 <div class="input-wrap">
                   <KeyRound :size="15" class="input-icon" />
                   <input v-model="passwords.password" :type="showPwd[1] ? 'text' : 'password'" class="f-input pe-10" placeholder="New password" />
@@ -187,7 +188,7 @@
             </div>
             <div class="col-6">
               <div class="field-group mb-0">
-                <label class="field-label">Confirm Password</label>
+                <label class="field-label">បញ្ចាក់ពាក្យសម្ងាត់</label>
                 <div class="input-wrap">
                   <KeyRound :size="15" class="input-icon" />
                   <input v-model="passwords.password_confirmation" :type="showPwd[2] ? 'text' : 'password'" class="f-input pe-10" placeholder="Confirm" />
@@ -206,7 +207,7 @@
               :disabled="!passwords.current"
               @click="savePassword"
             >
-              <KeyRound :size="13" class="me-1" /> Update Password
+              <KeyRound :size="13" class="me-1" /> ធ្វើបច្ចុប្បន្នភាពពាក្យសម្ងាត់
             </button>
             <button class="btn-save" :disabled="savingPro" @click="saveProfessional">
               <Loader2 v-if="savingPro" :size="14" class="spin me-1 " />

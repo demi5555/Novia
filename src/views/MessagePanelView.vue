@@ -4,8 +4,8 @@
     <div class="message-header">
       <div class="d-flex align-items-center justify-content-between">
         <div>
-          <h2 class="message-title">Messages</h2>
-          <p class="message-subtitle">Stay connected with your network</p>
+          <h2 class="message-title">សារ</h2>
+          <p class="message-subtitle">រក្សាទំនាក់ទំនងជាមួយបណ្តាញរបស់អ្នក</p>
         </div>
         <button class="btn btn-close-panel" @click="closePanel">
           <i class="bi bi-x-lg"></i>
@@ -23,7 +23,7 @@
             <input
               type="text"
               class="form-control search-input"
-              placeholder="Search conversations..."
+              placeholder="ស្វែងរកការសន្ទនា..."
               v-model="searchQuery"
             />
           </div>
@@ -31,12 +31,12 @@
 
         <div v-if="msgStore.loading" class="loading-state">
           <div class="sp"></div>
-          <p>Loading messages…</p>
+          <p>កំពុងផ្ទុកសារ…</p>
         </div>
 
         <div v-else-if="filteredConversations.length === 0" class="empty-conv">
           <i class="bi bi-chat-dots"></i>
-          <p>No conversations yet</p>
+          <p>មិនទាន់មានការសន្ទនាទេ</p>
         </div>
 
         <div v-else class="conversations-list">
@@ -60,7 +60,7 @@
                 <span class="conversation-time">{{ timeAgo(conv.created_at) }}</span>
               </div>
               <p class="conversation-message">
-                <span v-if="conv.isOwn" class="you-prefix">You: </span>{{ truncate(conv.message, 40) }}
+                <span v-if="conv.isOwn" class="you-prefix">អ្នក: </span>{{ truncate(conv.message, 40) }}
               </p>
             </div>
           </div>
@@ -80,7 +80,7 @@
                 <div class="chat-info">
                   <h6 class="chat-name">{{ activePartner.full_name }}</h6>
                   <router-link :to="`/profile/${activePartner.id}`" class="view-profile-link">
-                    View profile
+                    មើលប្រវត្តិរូប
                   </router-link>
                 </div>
               </div>
@@ -91,7 +91,7 @@
           <div class="messages-list" ref="messagesContainer">
             <div v-if="thread.length === 0" class="no-messages">
               <i class="bi bi-chat-heart"></i>
-              <p>Say hello to {{ activePartner.full_name }}!</p>
+              <p>សួស្តី {{ activePartner.full_name }}!</p>
             </div>
 
             <div
@@ -130,7 +130,7 @@
             <div class="input-wrapper">
               <textarea
                 class="form-control message-textarea"
-                placeholder="Type your message…"
+                placeholder="វាយសាររបស់អ្នក…"
                 v-model="draft"
                 @keydown.enter.exact.prevent="sendMessage"
                 rows="1"
@@ -146,8 +146,8 @@
         <!-- Empty State -->
         <div v-else class="empty-state">
           <div class="empty-icon"><i class="bi bi-chat-dots"></i></div>
-          <h5>Select a conversation</h5>
-          <p>Choose a conversation from the list to start messaging</p>
+          <h5>ជ្រើសរើសការសន្ទនា</h5>
+          <p>ជ្រើសរើសការសន្ទនាពីបញ្ជីដើម្បីចាប់ផ្តើមផ្ញើសារ</p>
         </div>
       </div>
     </div>
@@ -205,11 +205,11 @@ function timeAgo(dateStr) {
   if (!dateStr) return ''
   const diff = Date.now() - new Date(dateStr).getTime()
   const m = Math.floor(diff / 60000)
-  if (m < 1) return 'now'
-  if (m < 60) return `${m}m`
+  if (m < 1) return 'ឥឡូវ'
+  if (m < 60) return `${m}នាទី`
   const h = Math.floor(m / 60)
-  if (h < 24) return `${h}h`
-  return `${Math.floor(h / 24)}d`
+  if (h < 24) return `${h}ម៉ោង`
+  return `${Math.floor(h / 24)}ថ្ងៃ`
 }
 
 function formatTime(dateStr) {
@@ -257,19 +257,16 @@ onMounted(async () => {
   const toId = route.query.to ? Number(route.query.to) : null
 
   if (toId) {
-    // Try to find existing conversation first
     const existing = msgStore.conversations.find(c => c.partner.id === toId)
     if (existing) {
       selectConversation(existing.partner)
     } else {
-      // No prior conversation — fetch user info and open empty thread
       try {
         const res = await api.get(`/api/profile/users/${toId}`)
         if (res.data.result) {
           selectConversation(res.data.data)
         }
       } catch {
-        // Silently fall back to first conversation
         if (msgStore.conversations.length > 0) {
           selectConversation(msgStore.conversations[0].partner)
         }

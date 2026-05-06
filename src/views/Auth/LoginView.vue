@@ -21,14 +21,12 @@
 
                 <!-- Email or Phone -->
                 <div class="form-group">
-                  <label class="custom-label">
-អ៊ីមែល ឬលេខទូរស័ព្ទ </label>
+                  <label class="custom-label">អ៊ីមែល ឬលេខទូរស័ព្ទ </label>
                   <input
                     v-model="email_or_phone"
                     type="text"
                     class="custom-input"
-                    placeholder="
-បញ្ចូលអ៊ីមែល ឬទូរស័ព្ទរបស់អ្នក"
+                    placeholder="បញ្ចូលអ៊ីមែល ឬទូរស័ព្ទរបស់អ្នក"
                   />
                   <p v-if="err.email_or_phone" class="field-error">
                     {{ err.email_or_phone }}
