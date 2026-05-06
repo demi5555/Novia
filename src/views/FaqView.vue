@@ -110,8 +110,8 @@ const faqs = [
             <i class="bi bi-question-circle-fill"></i>
           </div>
           <div>
-            <h1>Frequently Asked Questions</h1>
-            <p>Quick answers to the most common questions about Novia.</p>
+            <h1>សំណួរដែលសួរញឹកញាប់</h1>
+            <p>ចម្លើយរហ័សចំពោះសំណួរទូទៅបំផុតអំពី Connexion ។</p>
           </div>
         </div>
 
@@ -140,11 +140,11 @@ const faqs = [
         <div class="faq-footer">
           <i class="bi bi-headset"></i>
           <div>
-            <strong>Didn't find your answer?</strong>
-            <p>Visit the Help Center for step-by-step guides on every feature.</p>
+            <strong>រកមិនឃើញចម្លើយរបស់អ្នកទេ?</strong>
+            <p>ចូលទៅកាន់មជ្ឈមណ្ឌលជំនួយសម្រាប់ការណែនាំជាជំហាន ៗ លើគ្រប់មុខងារទាំងអស់។</p>
           </div>
           <button class="btn-help" @click="router.push('/help')">
-            <i class="bi bi-life-preserver"></i> Help Center
+            <i class="bi bi-life-preserver"></i> មជ្ឈមណ្ឌលជំនួយ
           </button>
         </div>
 

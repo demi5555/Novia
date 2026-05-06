@@ -10,8 +10,8 @@
                             <i class="bi bi-gear-wide-connected"></i>
                         </div>
                         <div>
-                            <h1 class="page-title">Settings</h1>
-                            <p class="page-subtitle">Manage your account security and preferences</p>
+                            <h1 class="page-title">ការកំណត់</h1>
+                            <p class="page-subtitle">គ្រប់គ្រងសុវត្ថិភាព និងចំណូលចិត្តគណនីរបស់អ្នក</p>
                         </div>
                     </div>
                 </header>
@@ -25,8 +25,8 @@
                                     <i class="bi bi-shield-lock-fill"></i>
                                 </div>
                                 <div>
-                                    <h2 class="section-title">Security</h2>
-                                    <p class="section-desc">Update your password to keep your account secure</p>
+                                    <h2 class="section-title">សុវត្ថិភាព</h2>
+                                    <p class="section-desc">ធ្វើបច្ចុប្បន្នភាពពាក្យសម្ងាត់ ដើម្បីការពារគណនីរបស់អ្នក</p>
                                 </div>
                             </div>
                         </div>
@@ -34,12 +34,12 @@
                         <form @submit.prevent="handlePasswordChange" class="settings-form">
                             <!-- Current Password -->
                             <div class="form-group">
-                                <label class="form-label">Current Password</label>
+                                <label class="form-label">ពាក្យសម្ងាត់បច្ចុប្បន្ន</label>
                                 <div class="input-group">
                                     <span class="input-icon"><i class="bi bi-key-fill"></i></span>
                                     <input :type="showCurrent ? 'text' : 'password'" v-model="passwordForm.current"
                                         class="form-control" :class="{ 'is-invalid': errors.current }"
-                                        placeholder="Enter current password" />
+                                        placeholder="បញ្ចូលពាក្យសម្ងាត់បច្ចុប្បន្ន" />
                                     <button type="button" class="toggle-btn" @click="showCurrent = !showCurrent">
                                         <i :class="showCurrent ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
                                     </button>
@@ -51,12 +51,12 @@
 
                             <!-- New Password -->
                             <div class="form-group">
-                                <label class="form-label">New Password</label>
+                                <label class="form-label">ពាក្យសម្ងាត់ថ្មី</label>
                                 <div class="input-group">
                                     <span class="input-icon"><i class="bi bi-lock-fill"></i></span>
                                     <input :type="showNew ? 'text' : 'password'" v-model="passwordForm.new"
                                         class="form-control" :class="{ 'is-invalid': errors.new }"
-                                        placeholder="Enter new password" />
+                                        placeholder="បញ្ចូលពាក្យសម្ងាត់ថ្មី" />
                                     <button type="button" class="toggle-btn" @click="showNew = !showNew">
                                         <i :class="showNew ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
                                     </button>
@@ -64,18 +64,18 @@
                                 <span v-if="errors.new" class="error-text">{{ errors.new }}</span>
                                 <small class="form-hint">
                                     <i class="bi bi-info-circle"></i>
-                                    Must be at least 6 characters
+                                    ត្រូវមានយ៉ាងតិច ៦ តួអក្សរ
                                 </small>
                             </div>
 
                             <!-- Confirm Password -->
                             <div class="form-group">
-                                <label class="form-label">Confirm New Password</label>
+                                <label class="form-label">បញ្ជាក់ពាក្យសម្ងាត់ថ្មី</label>
                                 <div class="input-group">
                                     <span class="input-icon"><i class="bi bi-check-circle-fill"></i></span>
                                     <input :type="showConfirm ? 'text' : 'password'" v-model="passwordForm.confirm"
                                         class="form-control" :class="{ 'is-invalid': errors.confirm }"
-                                        placeholder="Confirm new password" />
+                                        placeholder="បញ្ជាក់ពាក្យសម្ងាត់ថ្មី" />
                                     <button type="button" class="toggle-btn" @click="showConfirm = !showConfirm">
                                         <i :class="showConfirm ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
                                     </button>
@@ -96,7 +96,7 @@
                                 <button type="submit" class="btn btn-primary btn-glow" :disabled="isLoading">
                                     <span v-if="isLoading" class="spinner-border spinner-border-sm me-2"></span>
                                     <i v-else class="bi bi-arrow-repeat me-2"></i>
-                                    {{ isLoading ? 'Updating...' : 'Update Password' }}
+                                    {{ isLoading ? 'កំពុងធ្វើបច្ចុប្បន្នភាព...' : 'ធ្វើបច្ចុប្បន្នភាពពាក្យសម្ងាត់' }}
                                 </button>
                             </div>
                         </form>
@@ -112,27 +112,24 @@
                                     <i class="bi bi-exclamation-triangle-fill"></i>
                                 </div>
                                 <div>
-                                    <h2 class="section-title text-danger">Danger Zone</h2>
-                                    <p class="section-desc">Irreversible and destructive actions</p>
+                                    <h2 class="section-title text-danger">តំបន់គ្រោះថ្នាក់</h2>
+                                    <p class="section-desc">សកម្មភាពដែលមិនអាចត្រឡប់វិញបាន</p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="danger-content">
                             <div class="danger-notice">
-                                <h3>Delete Account</h3>
+                                <h3>លុបគណនី</h3>
                                 <p>
-                                    Once you delete your account, there is no going back. This action permanently
-                                    removes
-                                    all
-                                    your data,
-                                    including your profile, posts, and activity history.
+                                    នៅពេលអ្នកលុបគណនី វាមិនអាចត្រឡប់វិញបានទេ។ សកម្មភាពនេះនឹងលុបទិន្នន័យទាំងអស់
+                                    របស់អ្នកជាអចិន្ត្រៃយ៍ រួមមានប្រូហ្វាល អត្ថបទ និងប្រវត្តិសកម្មភាព។
                                 </p>
                             </div>
 
                             <button class="btn btn-outline-danger btn-glow-danger" @click="showDeleteModal = true">
                                 <i class="bi bi-trash-fill me-2"></i>
-                                Delete Account
+                                លុបគណនី
                             </button>
                         </div>
                     </div>
@@ -146,7 +143,7 @@
                                 <div class="modal-header border-danger">
                                     <h3 class="modal-title text-danger">
                                         <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                                        Confirm Account Deletion
+                                        បញ្ជាក់ការលុបគណនី
                                     </h3>
                                     <button class="btn-close" @click="closeModal">
                                         <i class="bi bi-x-lg"></i>
@@ -155,15 +152,13 @@
 
                                 <div class="modal-body">
                                     <p class="warning-text">
-                                        This action <strong class="text-danger">cannot be undone</strong>.
-                                        This will permanently delete your account and remove all associated data from
-                                        our
-                                        servers.
+                                        សកម្មភាពនេះ <strong class="text-danger">មិនអាចត្រឡប់វិញបានទេ</strong>។
+                                        វានឹងលុបគណនីរបស់អ្នកជាអចិន្ត្រៃយ៍ និងដកទិន្នន័យទាំងអស់ចេញពីម៉ាស៊ីនមេរបស់យើង។
                                     </p>
 
                                     <div class="confirmation-input">
                                         <label>
-                                            Please type <code class="text-danger fw-bold">DELETE</code> to confirm:
+                                            សូមវាយ <code class="text-danger fw-bold">DELETE</code> ដើម្បីបញ្ជាក់៖
                                         </label>
                                         <input v-model="deleteConfirmText" type="text" class="form-control"
                                             placeholder="DELETE" :disabled="isDeleting" />
@@ -179,13 +174,13 @@
 
                                 <div class="modal-footer">
                                     <button class="btn btn-secondary" @click="closeModal" :disabled="isDeleting">
-                                        Cancel
+                                        បោះបង់
                                     </button>
                                     <button class="btn btn-danger"
                                         :disabled="deleteConfirmText !== 'DELETE' || isDeleting"
                                         @click="handleDeleteAccount">
                                         <span v-if="isDeleting" class="spinner-border spinner-border-sm me-2"></span>
-                                        {{ isDeleting ? 'Deleting...' : 'Delete Account' }}
+                                        {{ isDeleting ? 'កំពុងលុប...' : 'លុបគណនី' }}
                                     </button>
                                 </div>
                             </div>
@@ -240,23 +235,23 @@ const validatePassword = () => {
     errors.confirm = ''
 
     if (!passwordForm.current) {
-        errors.current = 'Current password is required'
+        errors.current = 'ពាក្យសម្ងាត់បច្ចុប្បន្នត្រូវការ'
         valid = false
     }
 
     if (!passwordForm.new) {
-        errors.new = 'New password is required'
+        errors.new = 'ពាក្យសម្ងាត់ថ្មីត្រូវការ'
         valid = false
     } else if (passwordForm.new.length < 6) {
-        errors.new = 'Password must be at least 6 characters'
+        errors.new = 'ពាក្យសម្ងាត់ត្រូវមានយ៉ាងតិច ៦ តួអក្សរ'
         valid = false
     }
 
     if (!passwordForm.confirm) {
-        errors.confirm = 'Please confirm your password'
+        errors.confirm = 'សូមបញ្ជាក់ពាក្យសម្ងាត់របស់អ្នក'
         valid = false
     } else if (passwordForm.new !== passwordForm.confirm) {
-        errors.confirm = 'Passwords do not match'
+        errors.confirm = 'ពាក្យសម្ងាត់មិនដូចគ្នា'
         valid = false
     }
 
@@ -268,7 +263,7 @@ const handlePasswordChange = async () => {
 
     isLoading.value = true
     successMessage.value = ''
-    errors.current = '' 
+    errors.current = ''
 
     try {
         const params = new URLSearchParams({
@@ -281,15 +276,15 @@ const handlePasswordChange = async () => {
         const data = response?.data ?? {}
 
         if (!data.result) {
-            throw new Error(data.message || 'Failed to update password')
+            throw new Error(data.message || 'បរាជ័យក្នុងការធ្វើបច្ចុប្បន្នភាពពាក្យសម្ងាត់')
         }
-        successMessage.value = 'Password updated successfully!'
+        successMessage.value = 'ពាក្យសម្ងាត់បានធ្វើបច្ចុប្បន្នភាពដោយជោគជ័យ!'
         passwordForm.current = ''
         passwordForm.new = ''
         passwordForm.confirm = ''
 
     } catch (err) {
-        errors.current = err?.response?.data?.message || err.message || 'Failed to update password'
+        errors.current = err?.response?.data?.message || err.message || 'បរាជ័យក្នុងការធ្វើបច្ចុប្បន្នភាពពាក្យសម្ងាត់'
     } finally {
         isLoading.value = false
     }
@@ -314,17 +309,14 @@ const handleDeleteAccount = async () => {
         const data = response?.data ?? {}
 
         if (!data.result) {
-            throw new Error(data.message || 'Failed to delete account')
+            throw new Error(data.message || 'បរាជ័យក្នុងការលុបគណនី')
         }
 
-        // Success - Clear local storage if you have a token
-        localStorage.clear() 
-        
-        // Redirect to login
+        localStorage.clear()
         router.push('/login')
 
     } catch (err) {
-        deleteError.value = err?.response?.data?.message || err.message || 'Failed to delete account'
+        deleteError.value = err?.response?.data?.message || err.message || 'បរាជ័យក្នុងការលុបគណនី'
     } finally {
         isDeleting.value = false
     }

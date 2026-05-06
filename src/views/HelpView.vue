@@ -15,8 +15,8 @@ const router = useRouter()
             <i class="bi bi-life-preserver"></i>
           </div>
           <div>
-            <h1>Help Center</h1>
-            <p>Everything you need to get the most out of Novia.</p>
+            <h1>មជ្ឈមណ្ឌលជំនួយ</h1>
+            <p>អ្វីគ្រប់យ៉ាងដែលអ្នកត្រូវការដើម្បីទទួលបានអត្ថប្រយោជន៍ច្រើនបំផុតពី Connexion ។</p>
           </div>
         </div>
 
@@ -27,14 +27,14 @@ const router = useRouter()
             <div class="topic-icon profile">
               <i class="bi bi-person-circle"></i>
             </div>
-            <h3>Setting Up Your Profile</h3>
+            <h3>ការដំឡើងប្រវត្តិរូបរបស់អ្នក។</h3>
             <ul>
-              <li>Go to <strong>My Profile</strong> from the top navigation or avatar menu.</li>
-              <li>Upload a profile photo and cover image using the camera icons.</li>
-              <li>Click <strong>Edit Profile</strong> to fill in your name, location, phone, and date of birth.</li>
-              <li>Add your <strong>Professional</strong> details — job title and company.</li>
-              <li>Use the <strong>Skills</strong> button to add or search for your technical skills.</li>
-              <li>In the <strong>CV tab</strong>, upload your resume (PDF, DOC, or DOCX).</li>
+              <li>ទៅកាន់<strong>រូបភាព</strong> ពីម៉ឺនុយរុករកកំពូល ឬរូបតំណាង។</li>
+              <li>បង្ហោះរូបថតកម្រងព័ត៌មាន និងរូបភាពគម្របដោយប្រើរូបតំណាងកាមេរ៉ា។</li>
+              <li>ចុច <strong>កែសម្រួលប្រវត្តិរូប</strong>ដើម្បីបំពេញឈ្មោះ ទីតាំង ទូរស័ព្ទ និងថ្ងៃខែឆ្នាំកំណើត។</li>
+              <li>បន្ថែមរបស់អ្នក <strong>វិជ្ជាជីវៈ</strong> ព័ត៌មានលម្អិត - ចំណងជើងការងារ និងក្រុមហ៊ុន។</li>
+              <li>ប្រើ <strong>ជំនាញ</strong>ប៊ូតុងដើម្បីបន្ថែម ឬស្វែងរកជំនាញបច្ចេកទេសរបស់អ្នក។</li>
+              <li>នៅក្នុង <strong>ផ្ទាំង CV</strong>ផ្ទុកប្រវត្តិរូបសង្ខេបរបស់អ្នក (PDF, DOC, ឬ DOCX) ។</li>
             </ul>
           </div>
 
@@ -42,13 +42,13 @@ const router = useRouter()
             <div class="topic-icon post">
               <i class="bi bi-pencil-square"></i>
             </div>
-            <h3>Creating a Post</h3>
+            <h3>ការបង្កើតប្រកាស</h3>
             <ul>
-              <li>Click the <strong>Create Post</strong> button in the top navigation bar.</li>
-              <li>Write your content in the editor. You can attach images or files.</li>
-              <li>Choose a <strong>category</strong> — Community, Job, Event, or Project.</li>
-              <li>Hit <strong>Publish</strong> to share with the community.</li>
-              <li>Your post will appear on the Home feed for all users to see.</li>
+             <li>ចុចលើប៊ូតុង <strong>បង្កើតប្រកាស</strong> នៅក្នុងរបាររុករកកំពូល។</li>
+             <li>សរសេរខ្លឹមសាររបស់អ្នកនៅក្នុងកម្មវិធីនិពន្ធ។ អ្នកអាចភ្ជាប់រូបភាព ឬឯកសារ។</li>
+              <li>ជ្រើសរើស <strong>ប្រភេទ</strong> — សហគមន៍ ការងារ ព្រឹត្តិការណ៍ ឬគម្រោង។</li>
+              <li>ចុច <strong>បោះផ្សាយ</strong> ដើម្បីចែករំលែកជាមួយសហគមន៍។</li>
+              <li>ការបង្ហោះរបស់អ្នកនឹងបង្ហាញនៅលើទំព័រដើមសម្រាប់អ្នកប្រើប្រាស់ទាំងអស់ឃើញ។</li>
             </ul>
           </div>
 
@@ -56,25 +56,26 @@ const router = useRouter()
             <div class="topic-icon message">
               <i class="bi bi-chat-dots-fill"></i>
             </div>
-            <h3>Sending Messages</h3>
-            <ul>
-              <li>Open the <strong>Message</strong> page from the left sidebar.</li>
-              <li>Use the search to find a user by name, then start a conversation.</li>
-              <li>You can also click the <strong>Message</strong> button on someone's profile to start chatting directly.</li>
-              <li>Messages are real-time — replies appear instantly.</li>
+            <h3>ការផ្ញើសារ</h3>
+          <ul>
+              <li>បើកទំព័រ <strong>សារ</strong> ពីរបារចំហៀងខាងឆ្វេង។</li>
+              <li>ប្រើការស្វែងរកដើម្បីស្វែងរកអ្នកប្រើប្រាស់តាមឈ្មោះ បន្ទាប់មកចាប់ផ្តើមការសន្ទនា។</li>
+              <li>អ្នកក៏អាចចុចប៊ូតុង <strong>សារ</strong> នៅលើកម្រងព័ត៌មានរបស់នរណាម្នាក់ ដើម្បីចាប់ផ្តើមជជែកដោយផ្ទាល់។</li>
+              <li>សារ​គឺ​ជា​ពេល​វេលា​ពិត​ប្រាកដ — ការ​ឆ្លើយតប​នឹង​លេច​ឡើង​ភ្លាមៗ។</li>
             </ul>
+
           </div>
 
           <div class="topic-card">
             <div class="topic-icon collab">
               <i class="bi bi-building"></i>
             </div>
-            <h3>Adding Collaboration Info</h3>
+        <h3>ការបន្ថែមព័ត៌មានសហការ</h3>
             <ul>
-              <li>Go to your profile and click the <strong>Collaboration</strong> tab.</li>
-              <li>Upload your company or organization logo.</li>
-              <li>Add the company website or portfolio link.</li>
-              <li>This info will be visible to anyone viewing your public profile, helping companies find you.</li>
+              <li>ចូលទៅកាន់កម្រងព័ត៌មានរបស់អ្នក ហើយចុចលើផ្ទាំង <strong>កិច្ចសហការ</strong>។</li>
+              <li>បង្ហោះរូបសញ្ញាក្រុមហ៊ុន ឬស្ថាប័នរបស់អ្នក។</li>
+              <li>បន្ថែមគេហទំព័រក្រុមហ៊ុន ឬតំណភ្ជាប់ផលប័ត្រ។</li>
+              <li>ព័ត៌មាន​នេះ​នឹង​អាច​មើល​ឃើញ​ដោយ​អ្នក​ណា​ម្នាក់​ដែល​មើល​កម្រង​ព័ត៌មាន​សាធារណៈ​របស់​អ្នក ដោយ​ជួយ​ក្រុមហ៊ុន​រក​ឃើញ​អ្នក។</li>
             </ul>
           </div>
 

@@ -15,8 +15,8 @@ const router = useRouter()
             <i class="bi bi-hexagon-fill"></i>
           </div>
           <div class="hero-text">
-            <h1>About <span class="brand">Novia</span></h1>
-            <p>A Tech Community built for developers, designers, and creators — where talent meets opportunity.</p>
+            <h1>អំពី <span class="brand">Connexion</span></h1>
+            <p>សហគមន៍បច្ចេកវិទ្យាដែលបង្កើតឡើងសម្រាប់អ្នកអភិវឌ្ឍន៍ អ្នករចនា និងអ្នកបង្កើត — ជាកន្លែងដែលទេពកោសល្យជួបនឹងឱកាស។</p>
           </div>
         </div>
 
@@ -24,8 +24,8 @@ const router = useRouter()
         <div class="mission-banner">
           <i class="bi bi-rocket-takeoff-fill mission-icon"></i>
           <div>
-            <strong>Our Mission</strong>
-            <p>To connect tech professionals across Cambodia and Southeast Asia through shared knowledge, job opportunities, and meaningful events.</p>
+            <strong>បេសកកម្មរបស់យើង</strong>
+            <p>ដើម្បីភ្ជាប់អ្នកជំនាញផ្នែកបច្ចេកវិទ្យានៅទូទាំងប្រទេសកម្ពុជា និងអាស៊ីអាគ្នេយ៍តាមរយៈការចែករំលែកចំណេះដឹង ឱកាសការងារ និងព្រឹត្តិការណ៍ដ៏មានអត្ថន័យ</p>
           </div>
         </div>
 
@@ -36,17 +36,17 @@ const router = useRouter()
             <div class="pillar-icon community">
               <i class="bi bi-people-fill"></i>
             </div>
-            <h3>Tech Community</h3>
+            <h3>សហគមន៍បច្ចេកវិទ្យា</h3>
             <p>
-              Novia is a space where developers, designers, students, and tech professionals connect.
-              Share posts, showcase your projects, discover what others are building, and grow your
-              professional network — all in one place.
+             Connexion គឺជាកន្លែងមួយដែលអ្នកអភិវឌ្ឍន៍ អ្នករចនា សិស្សានុសិស្ស និងអ្នកជំនាញផ្នែកបច្ចេកវិទ្យាតភ្ជាប់។
+              ចែករំលែកការបង្ហោះ បង្ហាញគម្រោងរបស់អ្នក ស្វែងយល់ពីអ្វីដែលអ្នកដទៃកំពុងសាងសង់ និងពង្រីករបស់អ្នក។
+              បណ្តាញវិជ្ជាជីវៈ - ទាំងអស់នៅកន្លែងតែមួយ។
             </p>
             <ul class="pillar-list">
-              <li><i class="bi bi-check2-circle"></i> Create a professional profile with CV & skills</li>
-              <li><i class="bi bi-check2-circle"></i> Share tech ideas, news, and projects</li>
-              <li><i class="bi bi-check2-circle"></i> Direct message anyone in the network</li>
-              <li><i class="bi bi-check2-circle"></i> Collaborate with companies and teams</li>
+              <li><i class="bi bi-check2-circle"></i> បង្កើតប្រវត្តិរូបអាជីពជាមួយ CV & ជំនាញ</li>
+              <li><i class="bi bi-check2-circle"></i> ចែករំលែកគំនិតបច្ចេកវិទ្យា ព័ត៌មាន និងគម្រោង</li>
+              <li><i class="bi bi-check2-circle"></i>សារដោយផ្ទាល់ទៅនរណាម្នាក់នៅក្នុងបណ្តាញ</li>
+              <li><i class="bi bi-check2-circle"></i> សហការជាមួយក្រុមហ៊ុន និងក្រុម</li>
             </ul>
           </div>
 
@@ -54,17 +54,17 @@ const router = useRouter()
             <div class="pillar-icon jobs">
               <i class="bi bi-briefcase-fill"></i>
             </div>
-            <h3>Jobs & Opportunities</h3>
+            <h3>ការងារ និងឱកាស </h3>
             <p>
-              Looking for your next role, freelance gig, or internship? Novia lets companies and
-              recruiters post opportunities directly to the tech community. Upload your CV and let
-              the right people find you.
+           កំពុងរកមើលតួនាទីបន្ទាប់របស់អ្នក ការងារឯករាជ្យ ឬកម្មសិក្សា? Novia អនុញ្ញាតឱ្យក្រុមហ៊ុននិង
+              អ្នកជ្រើសរើសបុគ្គលិកប្រកាសឱកាសដោយផ្ទាល់ទៅកាន់សហគមន៍បច្ចេកវិទ្យា។ ផ្ទុក CV របស់អ្នកហើយអនុញ្ញាតឱ្យ
+              មនុស្សត្រឹមត្រូវរកអ្នក។
             </p>
             <ul class="pillar-list">
-              <li><i class="bi bi-check2-circle"></i> Browse tech job postings</li>
-              <li><i class="bi bi-check2-circle"></i> Upload your resume / CV</li>
-              <li><i class="bi bi-check2-circle"></i> Showcase your portfolio and experience</li>
-              <li><i class="bi bi-check2-circle"></i> Get discovered by companies</li>
+              <li><i class="bi bi-check2-circle"></i> រកមើលការប្រកាសការងារបច្ចេកវិទ្យា</li>
+              <li><i class="bi bi-check2-circle"></i>ផ្ទុកប្រវត្តិរូបសង្ខេប / CV របស់អ្នក។</li>
+              <li><i class="bi bi-check2-circle"></i>បង្ហាញផលប័ត្រ និងបទពិសោធន៍របស់អ្នក។</li>
+              <li><i class="bi bi-check2-circle"></i> រកឃើញដោយក្រុមហ៊ុននានា</li>
             </ul>
           </div>
 
@@ -72,17 +72,18 @@ const router = useRouter()
             <div class="pillar-icon events">
               <i class="bi bi-calendar-event-fill"></i>
             </div>
-            <h3>Events & Meetups</h3>
+            <h3>ព្រឹត្តិការណ៍ និងកិច្ចប្រជុំ</h3>
             <p>
-              Stay connected with the local tech scene. Novia surfaces hackathons, workshops,
-              webinars, and networking events so you never miss a chance to learn, compete, or
-              meet like-minded people.
+             រក្សាទំនាក់ទំនងជាមួយឈុតបច្ចេកវិទ្យាក្នុងស្រុក។ Connexion surfaces hackathons, សិក្ខាសាលា,
+              webinars និងព្រឹត្តិការណ៍បណ្តាញ ដូច្នេះអ្នកមិនដែលខកខានឱកាសដើម្បីរៀន ប្រកួតប្រជែង ឬ
+              ជួបមនុស្សដែលមានគំនិតដូចគ្នា។
+
             </p>
             <ul class="pillar-list">
-              <li><i class="bi bi-check2-circle"></i> Discover upcoming tech events</li>
-              <li><i class="bi bi-check2-circle"></i> Post and promote your own events</li>
-              <li><i class="bi bi-check2-circle"></i> Join hackathons and coding competitions</li>
-              <li><i class="bi bi-check2-circle"></i> Connect with speakers and organizers</li>
+              <li><i class="bi bi-check2-circle"></i> ស្វែងយល់ពីព្រឹត្តិការណ៍បច្ចេកវិទ្យានាពេលខាងមុខ</li>
+              <li><i class="bi bi-check2-circle"></i> ប្រកាស និងផ្សព្វផ្សាយព្រឹត្តិការណ៍ផ្ទាល់ខ្លួនរបស់អ្នក។</li>
+              <li><i class="bi bi-check2-circle"></i>ចូលរួមកម្មវិធី hackathons និងការប្រកួតសរសេរកូដ</li>
+              <li><i class="bi bi-check2-circle"></i>ភ្ជាប់ជាមួយវាគ្មិន និងអ្នករៀបចំ</li>
             </ul>
           </div>
 
@@ -90,34 +91,34 @@ const router = useRouter()
 
         <!-- How it works -->
         <div class="section-card">
-          <h2><i class="bi bi-diagram-3-fill"></i> How It Works</h2>
+          <h2><i class="bi bi-diagram-3-fill"></i> របៀបដែលវាដំណើរការ</h2>
           <div class="steps">
             <div class="step">
               <div class="step-num">1</div>
               <div>
-                <strong>Create Your Profile</strong>
-                <p>Sign up and build your professional profile. Add your skills, education, work experience, CV, and collaboration details.</p>
+                <strong>បង្កើត Profile របស់អ្នក</strong>
+                <p>ចុះឈ្មោះ និងបង្កើតទម្រង់វិជ្ជាជីវៈរបស់អ្នក។ បន្ថែមជំនាញ ការអប់រំ បទពិសោធន៍ការងារ ប្រវត្តិរូបសង្ខេប និងព័ត៌មានលម្អិតអំពីការសហការរបស់អ្នក។</p>
               </div>
             </div>
             <div class="step">
               <div class="step-num">2</div>
               <div>
-                <strong>Explore the Community</strong>
-                <p>Browse posts from other tech professionals. Discover jobs, events, and projects being shared across the platform.</p>
+                <strong>រុករកសហគមន៍</strong>
+                <p>រកមើលប្រកាសពីអ្នកជំនាញបច្ចេកវិទ្យាផ្សេងទៀត។ ស្វែងរកការងារ ព្រឹត្តិការណ៍ និងគម្រោងដែលត្រូវបានចែករំលែកនៅទូទាំងវេទិកា។</p>
               </div>
             </div>
             <div class="step">
               <div class="step-num">3</div>
               <div>
-                <strong>Share & Engage</strong>
-                <p>Publish your own posts — share what you're working on, a job you're hiring for, or an upcoming event you're organizing.</p>
+                <strong>ចែករំលែក និងចូលរួម</strong>
+                <p>បោះផ្សាយប្រកាសផ្ទាល់ខ្លួនរបស់អ្នក — ចែករំលែកអ្វីដែលអ្នកកំពុងធ្វើការ ការងារដែលអ្នកកំពុងជួល ឬព្រឹត្តិការណ៍នាពេលខាងមុខដែលអ្នកកំពុងរៀបចំ។</p>
               </div>
             </div>
             <div class="step">
               <div class="step-num">4</div>
               <div>
-                <strong>Connect & Collaborate</strong>
-                <p>Message professionals directly, visit their profiles, and build real working relationships in the tech space.</p>
+                <strong>ភ្ជាប់ និងសហការ</strong>
+                <p>ផ្ញើសារទៅកាន់អ្នកជំនាញដោយផ្ទាល់ ទស្សនាកម្រងព័ត៌មានរបស់ពួកគេ និងបង្កើតទំនាក់ទំនងការងារពិតប្រាកដនៅក្នុងចន្លោះបច្ចេកវិទ្យា។</p>
               </div>
             </div>
           </div>
@@ -127,15 +128,15 @@ const router = useRouter()
         <div class="quick-links">
           <button class="ql-btn" @click="router.push('/faq')">
             <i class="bi bi-question-circle-fill"></i>
-            <span>Read the FAQ</span>
+            <span>អាន FAQ</span>
           </button>
           <button class="ql-btn" @click="router.push('/help')">
             <i class="bi bi-life-preserver"></i>
-            <span>Visit Help Center</span>
+            <span>ចូលទៅកាន់មជ្ឈមណ្ឌលជំនួយ</span>
           </button>
           <button class="ql-btn" @click="router.push('/')">
             <i class="bi bi-house-door-fill"></i>
-            <span>Back to Home</span>
+            <span>ត្រឡប់ទៅផ្ទះវិញ។</span>
           </button>
         </div>
 

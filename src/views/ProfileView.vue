@@ -17,7 +17,7 @@
         <button class="cover-edit-btn" @click="coverInput.click()" :disabled="uploadingCover">
           <Loader2 v-if="uploadingCover" :size="14" class="spin" />
           <ImageIcon v-else :size="14" />
-          {{ uploadingCover ? 'Uploading…' : 'Change Cover' }}
+          {{ uploadingCover ? 'កំពុងផ្ទុកឡើង…' : 'ផ្លាស់ប្ដូររូបព័ទ្ធ' }}
         </button>
         <input ref="coverInput" type="file" accept="image/*" hidden @change="onCoverFile" />
 
@@ -36,7 +36,7 @@
             <div class="hero-info">
               <h2 class="hero-name">{{ profile.full_name }}</h2>
               <p class="hero-role">
-                {{ profile.professional?.job_title || 'Add your job title' }}
+                {{ profile.professional?.job_title || 'បន្ថែមតួនាទីការងារ' }}
               </p>
               <p class="hero-company" v-if="profile.professional?.company_name">
                 {{ profile.professional.company_name }}
@@ -53,11 +53,11 @@
       <div class="profile-tabs">
         <div class="container">
           <div class="tabs">
-            <span class="tab" :class="{ active: activeTab === 'overview' }"    @click="activeTab = 'overview'">Overview</span>
-            <span class="tab" :class="{ active: activeTab === 'professional' }" @click="activeTab = 'professional'">Professional</span>
-            <span class="tab" :class="{ active: activeTab === 'education' }"   @click="activeTab = 'education'">Education</span>
-            <span class="tab" :class="{ active: activeTab === 'collaboration' }" @click="activeTab = 'collaboration'">Collaboration</span>
-            <span class="tab" :class="{ active: activeTab === 'cv' }"          @click="activeTab = 'cv'">CV</span>
+            <span class="tab" :class="{ active: activeTab === 'overview' }"    @click="activeTab = 'overview'">ទិដ្ឋភាពទូទៅ</span>
+            <span class="tab" :class="{ active: activeTab === 'professional' }" @click="activeTab = 'professional'">វិជ្ជាជីវៈ</span>
+            <span class="tab" :class="{ active: activeTab === 'education' }"   @click="activeTab = 'education'">ការអប់រំ</span>
+            <span class="tab" :class="{ active: activeTab === 'collaboration' }" @click="activeTab = 'collaboration'">កិច្ចសហប្រតិបត្តិការ</span>
+            <span class="tab" :class="{ active: activeTab === 'cv' }"          @click="activeTab = 'cv'">ប្រវត្តិរូប</span>
           </div>
         </div>
       </div>
@@ -74,7 +74,7 @@
             <!-- Contact -->
             <div class="card">
               <div class="card-body">
-                <h6 class="card-title">Contact</h6>
+                <h6 class="card-title">ទំនាក់ទំនង</h6>
                 <div class="info-row" v-if="profile.email">
                   <Mail :size="13" class="info-icon" />
                   <span>{{ profile.email }}</span>
@@ -89,9 +89,9 @@
                 </div>
                 <div class="info-row" v-if="profile.portfolio_link">
                   <Link2 :size="13" class="info-icon" />
-                  <a :href="profile.portfolio_link" target="_blank" class="info-link">Portfolio</a>
+                  <a :href="profile.portfolio_link" target="_blank" class="info-link">ផតហ្វូលីយ៉ូ</a>
                 </div>
-                <router-link to="/editProfile" class="edit-link">Edit Info</router-link>
+                <router-link to="/editProfile" class="edit-link">កែប្រែព័ត៌មាន</router-link>
               </div>
             </div>
 
@@ -99,8 +99,8 @@
             <div class="card">
               <div class="card-body">
                 <div class="card-title-row">
-                  <h6 class="card-title">Skills</h6>
-                  <button class="icon-action-btn" @click="showSkillModal = true" title="Manage skills">
+                  <h6 class="card-title">ជំនាញ</h6>
+                  <button class="icon-action-btn" @click="showSkillModal = true" title="គ្រប់គ្រងជំនាញ">
                     <Settings :size="13" />
                   </button>
                 </div>
@@ -108,8 +108,8 @@
                   <span class="skill-badge" v-for="s in profile.skills" :key="s.id">{{ s.name }}</span>
                 </div>
                 <p v-else class="empty-text">
-                  No skills yet.
-                  <button class="text-btn" @click="showSkillModal = true">Add skills</button>
+                  មិនទាន់មានជំនាញ។
+                  <button class="text-btn" @click="showSkillModal = true">បន្ថែមជំនាញ</button>
                 </p>
               </div>
             </div>
@@ -118,8 +118,8 @@
             <div class="card">
               <div class="card-body">
                 <div class="card-title-row">
-                  <h6 class="card-title">Education</h6>
-                  <router-link to="/editEducation" class="icon-action-btn" title="Manage education">
+                  <h6 class="card-title">ការអប់រំ</h6>
+                  <router-link to="/editEducation" class="icon-action-btn" title="គ្រប់គ្រងការអប់រំ">
                     <Settings :size="13" />
                   </router-link>
                 </div>
@@ -130,8 +130,8 @@
                   </div>
                 </template>
                 <p v-else class="empty-text">
-                  No education yet.
-                  <router-link to="/editEducation" class="text-btn">Add education</router-link>
+                  មិនទាន់មានទិន្នន័យការអប់រំ។
+                  <router-link to="/editEducation" class="text-btn">បន្ថែមការអប់រំ</router-link>
                 </p>
               </div>
             </div>
@@ -145,9 +145,9 @@
             <div v-if="activeTab === 'overview'" class="card">
               <div class="card-body">
                 <div class="section-header">
-                  <h6 class="card-title">My Posts ({{ postCount }})</h6>
+                  <h6 class="card-title">អត្ថបទរបស់ខ្ញុំ ({{ postCount }})</h6>
                   <router-link to="/create-post" class="btn-sm-primary">
-                    <Plus :size="13" /> Create Post
+                    <Plus :size="13" /> បង្កើតអត្ថបទ
                   </router-link>
                 </div>
 
@@ -157,7 +157,7 @@
                 <div v-else-if="paginatedPosts.length">
                   <PostCard v-for="post in paginatedPosts" :key="post.id" :post="post" class="mb-3" />
                 </div>
-                <div v-else class="empty-state-sm">No posts yet.</div>
+                <div v-else class="empty-state-sm">មិនទាន់មានអត្ថបទ។</div>
 
                 <div class="pager" v-if="totalPages > 1">
                   <button class="page-btn" :disabled="currentPage === 1" @click="currentPage--">‹</button>
@@ -171,30 +171,30 @@
             <div v-if="activeTab === 'professional'" class="card">
               <div class="card-body">
                 <div class="section-header">
-                  <h6 class="card-title">Professional Info</h6>
+                  <h6 class="card-title">ព័ត៌មានវិជ្ជាជីវៈ</h6>
                   <router-link to="/editProfile" class="btn-sm-ghost">
-                    <Pencil :size="13" /> Edit
+                    <Pencil :size="13" /> កែប្រែ
                   </router-link>
                 </div>
                 <template v-if="profile.professional?.job_title">
                   <div class="prof-grid">
                     <div class="prof-item">
-                      <span class="prof-label">Job Title</span>
+                      <span class="prof-label">តួនាទីការងារ</span>
                       <span class="prof-value">{{ profile.professional.job_title }}</span>
                     </div>
                     <div class="prof-item">
-                      <span class="prof-label">Company</span>
+                      <span class="prof-label">ក្រុមហ៊ុន</span>
                       <span class="prof-value">{{ profile.professional.company_name || '—' }}</span>
                     </div>
                     <div class="prof-item full">
-                      <span class="prof-label">Responsibilities</span>
+                      <span class="prof-label">ទំនួលខុសត្រូវ</span>
                       <span class="prof-value">{{ profile.professional.responsibility || '—' }}</span>
                     </div>
                   </div>
                 </template>
                 <div v-else class="empty-state-sm">
-                  No professional info yet.
-                  <router-link to="/editProfile" class="text-btn">Add info</router-link>
+                  មិនទាន់មានព័ត៌មានវិជ្ជាជីវៈ។
+                  <router-link to="/editProfile" class="text-btn">បន្ថែមព័ត៌មាន</router-link>
                 </div>
               </div>
             </div>
@@ -203,9 +203,9 @@
             <div v-if="activeTab === 'education'" class="card">
               <div class="card-body">
                 <div class="section-header">
-                  <h6 class="card-title">Education</h6>
+                  <h6 class="card-title">ការអប់រំ</h6>
                   <router-link to="/editEducation" class="btn-sm-primary">
-                    <Plus :size="13" /> Manage
+                    <Plus :size="13" /> គ្រប់គ្រង
                   </router-link>
                 </div>
                 <template v-if="profile.educations?.length">
@@ -222,7 +222,7 @@
                         </p>
                         <p class="edu-dates-text">
                           <CalendarDays :size="11" />
-                          {{ edu.start_date }} → {{ edu.end_date || 'Ongoing' }}
+                          {{ edu.start_date }} → {{ edu.end_date || 'កំពុងបន្ត' }}
                         </p>
                         <p class="edu-desc-text" v-if="edu.description">{{ edu.description }}</p>
                       </div>
@@ -230,8 +230,8 @@
                   </div>
                 </template>
                 <div v-else class="empty-state-sm">
-                  No education records yet.
-                  <router-link to="/editEducation" class="text-btn">Add education</router-link>
+                  មិនទាន់មានទិន្នន័យការអប់រំ។
+                  <router-link to="/editEducation" class="text-btn">បន្ថែមការអប់រំ</router-link>
                 </div>
               </div>
             </div>
@@ -240,13 +240,13 @@
             <div v-if="activeTab === 'collaboration'" class="card">
               <div class="card-body">
                 <div class="section-header">
-                  <h6 class="card-title">Collaboration</h6>
+                  <h6 class="card-title">កិច្ចសហប្រតិបត្តិការ</h6>
                   <button class="btn-sm-primary" @click="openCollabModal">
                     <template v-if="profile.collaboration">
-                      <Pencil :size="13" /> Edit
+                      <Pencil :size="13" /> កែប្រែ
                     </template>
                     <template v-else>
-                      <Plus :size="13" /> Add
+                      <Plus :size="13" /> បន្ថែម
                     </template>
                   </button>
                 </div>
@@ -265,7 +265,7 @@
                     </div>
                   </div>
                   <div class="collab-info">
-                    <p class="collab-link-label">Company / Portfolio Link</p>
+                    <p class="collab-link-label">តំណភ្ជាប់ក្រុមហ៊ុន / ផតហ្វូលីយ៉ូ</p>
                     <a
                       v-if="profile.collaboration.company_link"
                       :href="profile.collaboration.company_link"
@@ -275,17 +275,17 @@
                       <ExternalLink :size="13" />
                       {{ profile.collaboration.company_link }}
                     </a>
-                    <span v-else class="empty-text">No link provided</span>
+                    <span v-else class="empty-text">មិនទាន់មានតំណភ្ជាប់</span>
                   </div>
                 </div>
 
                 <!-- Empty state -->
                 <div v-else class="empty-state collab-empty">
                   <div class="empty-icon"><Handshake :size="28" /></div>
-                  <h5 class="empty-title">No Collaboration Yet</h5>
-                  <p class="empty-desc">Add your company logo and website to attract partners.</p>
+                  <h5 class="empty-title">មិនទាន់មានកិច្ចសហប្រតិបត្តិការ</h5>
+                  <p class="empty-desc">បន្ថែមរូបសញ្ញា និងគេហទំព័រក្រុមហ៊ុនរបស់អ្នក ដើម្បីទាក់ទាញដៃគូ។</p>
                   <button class="btn-primary" @click="openCollabModal">
-                    <Plus :size="14" /> Add Collaboration
+                    <Plus :size="14" /> បន្ថែមកិច្ចសហប្រតិបត្តិការ
                   </button>
                 </div>
               </div>
@@ -295,11 +295,11 @@
             <div v-if="activeTab === 'cv'" class="card">
               <div class="card-body">
                 <div class="section-header">
-                  <h6 class="card-title">CV / Resume</h6>
+                  <h6 class="card-title">ប្រវត្តិរូប / CV</h6>
                   <button class="btn-sm-primary" @click="cvInput.click()" :disabled="uploadingCV">
                     <Loader2 v-if="uploadingCV" :size="13" class="spin" />
                     <Upload v-else :size="13" />
-                    {{ uploadingCV ? 'Uploading…' : (profile.cv ? 'Replace CV' : 'Upload CV') }}
+                    {{ uploadingCV ? 'កំពុងផ្ទុកឡើង…' : (profile.cv ? 'ជំនួស CV' : 'ផ្ទុក CV ឡើង') }}
                   </button>
                   <input ref="cvInput" type="file" accept=".pdf,.doc,.docx" hidden @change="onCvFile" />
                 </div>
@@ -307,14 +307,14 @@
                 <div v-if="profile.cv" class="cv-preview">
                   <div class="cv-icon"><FileText :size="28" /></div>
                   <div>
-                    <p class="cv-name">Curriculum Vitae</p>
+                    <p class="cv-name">ប្រវត្តិរូបសង្ខេប</p>
                     <a :href="profile.cv" target="_blank" class="cv-link">
-                      <ExternalLink :size="12" /> View / Download
+                      <ExternalLink :size="12" /> មើល / ទាញយក
                     </a>
                   </div>
                 </div>
                 <div v-else class="empty-state-sm">
-                  No CV uploaded yet.
+                  មិនទាន់មាន CV ផ្ទុកឡើង។
                 </div>
               </div>
             </div>
@@ -415,7 +415,7 @@ const profile = computed(() => {
   const u = auth.user || {}
   return {
     id:           u.id,
-    full_name:    u.full_name   || 'User',
+    full_name:    u.full_name   || 'អ្នកប្រើប្រាស់',
     avatar:       u.avatar      || null,
     cover:        u.cover       || '',
     email:        u.email       || '',
@@ -485,18 +485,18 @@ async function onCropped(blob) {
     try {
       await profileStore.updateAvatar(file)
       await auth.fetchUser()
-      showToast('Profile photo updated!', 'success')
+      showToast('រូបថតប្រូហ្វាលបានធ្វើបច្ចុប្បន្នភាព!', 'success')
     } catch {
-      showToast('Failed to update photo.', 'error')
+      showToast('បរាជ័យក្នុងការធ្វើបច្ចុប្បន្នភាពរូបថត។', 'error')
     }
   } else if (pendingCropType === 'cover') {
     uploadingCover.value = true
     try {
       await profileStore.updateCover(file)
       await auth.fetchUser()
-      showToast('Cover photo updated!', 'success')
+      showToast('រូបព័ទ្ធបានធ្វើបច្ចុប្បន្នភាព!', 'success')
     } catch {
-      showToast('Failed to update cover.', 'error')
+      showToast('បរាជ័យក្នុងការធ្វើបច្ចុប្បន្នភាពរូបព័ទ្ធ។', 'error')
     } finally {
       uploadingCover.value = false
     }
@@ -513,9 +513,9 @@ async function onCvFile(e) {
   try {
     await profileStore.updateCV(file)
     await auth.fetchUser()
-    showToast('CV uploaded!', 'success')
+    showToast('CV បានផ្ទុកឡើងដោយជោគជ័យ!', 'success')
   } catch {
-    showToast('Failed to upload CV.', 'error')
+    showToast('បរាជ័យក្នុងការផ្ទុក CV ឡើង។', 'error')
   } finally {
     uploadingCV.value = false
   }
@@ -527,12 +527,12 @@ function openCollabModal() {
 }
 
 function onCollabSaved() {
-  showToast('Collaboration updated!', 'success')
+  showToast('កិច្ចសហប្រតិបត្តិការបានធ្វើបច្ចុប្បន្នភាព!', 'success')
 }
 
 // ── Skills ───────────────────────────────────────────────────
 function onSkillsSaved() {
-  showToast('Skills updated!', 'success')
+  showToast('ជំនាញបានធ្វើបច្ចុប្បន្នភាព!', 'success')
 }
 
 // ── Toast ─────────────────────────────────────────────────────

@@ -168,7 +168,7 @@ const submitPost = async () => {
     <!-- OPEN POST BUTTON -->
     <div class="post-trigger-btn" @click="openModal">
       <img :src="userAvatar" alt="avatarSrc" class="avatar">
-      <p>What is on your mind?</p>
+      <p>តើ​មាន​អ្វី​នៅ​ក្នុង​ចិត្ត​របស់​អ្នក?</p>
       <i class="bi bi-pencil-square ms-auto"></i>
     </div>
 
@@ -181,7 +181,7 @@ const submitPost = async () => {
       <!-- HEADER -->
       <template #header>
         <div class="d-flex justify-content-between w-100">
-          <h5>Create Post</h5>
+          <h5>បង្កើតប្រកាស</h5>
           <button class="btn-close" @click="closeModal"></button>
         </div>
       </template>
@@ -209,7 +209,7 @@ const submitPost = async () => {
           <img v-if="imagePreview" :src="imagePreview" class="preview" />
 
           <!-- CATEGORY -->
-          <p class="text-muted mt-3">Select Categories:</p>
+          <p class="text-muted mt-3">ជ្រើសរើសប្រភេទ៖</p>
 
           <div class="category-box">
             <span
@@ -267,7 +267,7 @@ const submitPost = async () => {
 
       <!-- FOOTER -->
       <template #footer>
-        <small class="text-muted">Share your thoughts with others</small>
+        <small class="text-muted">ចែករំលែកគំនិតរបស់អ្នកជាមួយអ្នកដទៃ</small>
       </template>
 
     </BaseModal>

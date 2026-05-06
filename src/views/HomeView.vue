@@ -34,7 +34,7 @@ onMounted(async () => {
       fetchSuggestedUsers(),
     ])
   } catch (error) {
-    $toast.error(error.response?.data?.message || 'Failed to load data.')
+    $toast.error(error.response?.data?.message || 'បរាជ័យក្នុងការផ្ទុកទិន្នន័យ។')
   } finally {
     loading.value = false
   }
@@ -43,7 +43,6 @@ onMounted(async () => {
 async function fetchSuggestedUsers() {
   loadingPeople.value = true
   try {
-    // Try a broad search to get some users
     const res = await api.get('/api/users/search', { params: { q: '' } })
     if (res.data.result && Array.isArray(res.data.data)) {
       suggestedUsers.value = res.data.data.slice(0, 5)
@@ -58,9 +57,9 @@ async function fetchSuggestedUsers() {
 const handlePostCreated = async () => {
   try {
     await postStore.fetchPosts()
-    $toast.success('Post created successfully!')
+    $toast.success('បានបង្កើតការបង្ហោះដោយជោគជ័យ!')
   } catch {
-    $toast.error('Failed to refresh posts')
+    $toast.error('បរាជ័យក្នុងការធ្វើឱ្យការបង្ហោះថ្មី')
   }
 }
 
@@ -70,7 +69,7 @@ const filterByCategory = async (categoryId) => {
     await postStore.fetchPosts('', 1, 20, categoryId)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   } catch {
-    $toast.error('Failed to filter posts')
+    $toast.error('បរាជ័យក្នុងការច្រោះការបង្ហោះ')
   } finally {
     loading.value = false
   }
@@ -83,7 +82,7 @@ const loadMorePosts = async () => {
     const nextPage = postStore.pagination.current_page + 1
     await postStore.fetchPostsAppend('', nextPage)
   } catch {
-    $toast.error('Failed to load more posts')
+    $toast.error('បរាជ័យក្នុងការផ្ទុកការបង្ហោះបន្ថែម')
   } finally {
     loading.value = false
   }
@@ -129,14 +128,14 @@ function userAvatar(user) {
                 :class="{ active: searchTab === 'feed' }"
                 @click="searchTab = 'feed'"
               >
-                <i class="bi bi-newspaper"></i> Feed
+                <i class="bi bi-newspaper"></i> ព័ត៌មាន
               </button>
               <button
                 class="stab"
                 :class="{ active: searchTab === 'people' }"
                 @click="searchTab = 'people'"
               >
-                <i class="bi bi-people-fill"></i> People
+                <i class="bi bi-people-fill"></i> មនុស្ស
                 <span v-if="postStore.searchUsers.length" class="stab-badge">{{ postStore.searchUsers.length }}</span>
               </button>
             </div>
@@ -146,7 +145,7 @@ function userAvatar(user) {
               <div v-if="loading && postStore.posts.length === 0" class="card text-center">
                 <div class="card-body">
                   <div class="spinner"></div>
-                  <p class="card-text">Loading posts...</p>
+                  <p class="card-text">កំពុងផ្ទុកការបង្ហោះ...</p>
                 </div>
               </div>
 
@@ -161,15 +160,15 @@ function userAvatar(user) {
               <div v-else class="card text-center">
                 <div class="card-body">
                   <i class="bi bi-newspaper empty-icon"></i>
-                  <h4 class="card-title">No posts yet</h4>
-                  <p class="card-text">Be the first to share something!</p>
+                  <h4 class="card-title">មិនទាន់មានការបង្ហោះទេ</h4>
+                  <p class="card-text">សូមក្លាយជាអ្នកដំបូងដែលចែករំលែកអ្វីមួយ!</p>
                 </div>
               </div>
 
               <div v-if="postStore.pagination?.has_more_pages" class="load-more">
                 <button class="btn-load" @click="loadMorePosts" :disabled="loading">
                   <span v-if="loading" class="spinner small"></span>
-                  Load More Posts
+                  ផ្ទុកការបង្ហោះបន្ថែម
                 </button>
               </div>
             </template>
@@ -179,8 +178,8 @@ function userAvatar(user) {
               <div v-if="postStore.searchUsers.length === 0" class="card text-center">
                 <div class="card-body">
                   <i class="bi bi-person-x empty-icon"></i>
-                  <h4 class="card-title">No people found</h4>
-                  <p class="card-text">Try a different search term.</p>
+                  <h4 class="card-title">រកមិនឃើញអ្នកណា</h4>
+                  <p class="card-text">សូមសាកល្បងពាក្យស្វែងរកផ្សេង។</p>
                 </div>
               </div>
 
@@ -196,9 +195,9 @@ function userAvatar(user) {
                       <img :src="userAvatar(u)" class="search-person-av" :alt="u.full_name" />
                       <div class="search-person-info">
                         <p class="search-person-name">{{ u.full_name }}</p>
-                        <p class="search-person-role">{{ u.professional?.job_title || 'User' }}</p>
+                        <p class="search-person-role">{{ u.professional?.job_title || 'អ្នកប្រើប្រាស់' }}</p>
                       </div>
-                      <span class="search-person-btn">View Profile</span>
+                      <span class="search-person-btn">មើលប្រវត្តិរូប</span>
                     </router-link>
                   </div>
                 </div>
@@ -213,7 +212,7 @@ function userAvatar(user) {
               <!-- Categories -->
               <div class="card">
                 <div class="card-body">
-                  <h6 class="card-title">Categories</h6>
+                  <h6 class="card-title">ប្រភេទ</h6>
                   <div v-if="categoryStore.loading" class="text-center">
                     <div class="spinner small"></div>
                   </div>
@@ -234,7 +233,7 @@ function userAvatar(user) {
               <!-- People You May Know -->
               <div class="card">
                 <div class="card-body">
-                  <h6 class="card-title">People You May Know</h6>
+                  <h6 class="card-title">មនុស្សដែលអ្នកប្រហែលស្គាល់</h6>
 
                   <div v-if="loadingPeople" class="text-center">
                     <div class="spinner small"></div>
@@ -253,18 +252,18 @@ function userAvatar(user) {
                         <router-link :to="`/profile/${person.id}`" class="person-name">
                           {{ person.full_name }}
                         </router-link>
-                        <p class="person-role">{{ person.professional?.job_title || 'User' }}</p>
+                        <p class="person-role">{{ person.professional?.job_title || 'អ្នកប្រើប្រាស់' }}</p>
                       </div>
                       <router-link
                         :to="`/profile/${person.id}`"
                         class="person-view-btn"
-                        title="View profile"
-                      >View</router-link>
+                        title="មើលប្រវត្តិរូប"
+                      >មើល</router-link>
                     </div>
                   </template>
 
                   <div v-else class="people-empty">
-                    <p>Search for people using the search bar above.</p>
+                    <p>ស្វែងរកមនុស្សដោយប្រើរបារស្វែងរកខាងលើ។</p>
                   </div>
                 </div>
               </div>
