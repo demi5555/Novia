@@ -1,157 +1,157 @@
 <template>
-  <div class="message-panel">
-    <!-- Header -->
-    <div class="message-header">
-      <div class="d-flex align-items-center justify-content-between">
-        <div>
-          <h2 class="message-title">សារ</h2>
-          <p class="message-subtitle">រក្សាទំនាក់ទំនងជាមួយបណ្តាញរបស់អ្នក</p>
-        </div>
-        <button class="btn btn-close-panel" @click="closePanel">
-          <i class="bi bi-x-lg"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- Content -->
-    <div class="message-content">
-      <!-- Conversations Sidebar -->
-      <div class="conversations-sidebar">
-        <div class="search-section">
-          <div class="search-input-wrapper">
-            <i class="bi bi-search search-icon"></i>
-            <input
-              type="text"
-              class="form-control search-input"
-              placeholder="ស្វែងរកការសន្ទនា..."
-              v-model="searchQuery"
-            />
+    <div class="message-panel">
+      <!-- Header -->
+      <div class="message-header">
+        <div class="d-flex align-items-center justify-content-between">
+          <div>
+            <h2 class="message-title">សារ</h2>
+            <p class="message-subtitle">រក្សាទំនាក់ទំនងជាមួយបណ្តាញរបស់អ្នក</p>
           </div>
+          <button class="btn btn-close-panel" @click="closePanel">
+            <i class="bi bi-x-lg"></i>
+          </button>
         </div>
-
-        <div v-if="msgStore.loading" class="loading-state">
-          <div class="sp"></div>
-          <p>កំពុងផ្ទុកសារ…</p>
-        </div>
-
-        <div v-else-if="filteredConversations.length === 0" class="empty-conv">
-          <i class="bi bi-chat-dots"></i>
-          <p>មិនទាន់មានការសន្ទនាទេ</p>
-        </div>
-
-        <div v-else class="conversations-list">
-          <div
-            v-for="conv in filteredConversations"
-            :key="conv.partner.id"
-            class="conversation-item"
-            :class="{ active: activePartner?.id === conv.partner.id }"
-            @click="selectConversation(conv.partner)"
-          >
-            <div class="conversation-avatar">
-              <img
-                :src="partnerAvatar(conv.partner)"
-                :alt="conv.partner.full_name"
-                class="avatar-img"
+      </div>
+  
+      <!-- Content -->
+      <div class="message-content">
+        <!-- Conversations Sidebar -->
+        <div class="conversations-sidebar">
+          <div class="search-section">
+            <div class="search-input-wrapper">
+              <i class="bi bi-search search-icon"></i>
+              <input
+                type="text"
+                class="form-control search-input"
+                placeholder="ស្វែងរកការសន្ទនា..."
+                v-model="searchQuery"
               />
             </div>
-            <div class="conversation-info">
-              <div class="conversation-header">
-                <h6 class="conversation-name">{{ conv.partner.full_name }}</h6>
-                <span class="conversation-time">{{ timeAgo(conv.created_at) }}</span>
-              </div>
-              <p class="conversation-message">
-                <span v-if="conv.isOwn" class="you-prefix">អ្នក: </span>{{ truncate(conv.message, 40) }}
-              </p>
-            </div>
           </div>
-        </div>
-      </div>
-
-      <!-- Messages Area -->
-      <div class="messages-area">
-        <div v-if="activePartner" class="messages-container">
-          <!-- Chat Header -->
-          <div class="chat-header">
-            <div class="d-flex align-items-center justify-content-between">
-              <div class="d-flex align-items-center">
-                <div class="chat-avatar">
-                  <img :src="partnerAvatar(activePartner)" :alt="activePartner.full_name" class="avatar-img" />
-                </div>
-                <div class="chat-info">
-                  <h6 class="chat-name">{{ activePartner.full_name }}</h6>
-                  <router-link :to="`/profile/${activePartner.id}`" class="view-profile-link">
-                    មើលប្រវត្តិរូប
-                  </router-link>
-                </div>
-              </div>
-            </div>
+  
+          <div v-if="msgStore.loading" class="loading-state">
+            <div class="sp"></div>
+            <p>កំពុងផ្ទុកសារ…</p>
           </div>
-
-          <!-- Messages -->
-          <div class="messages-list" ref="messagesContainer">
-            <div v-if="thread.length === 0" class="no-messages">
-              <i class="bi bi-chat-heart"></i>
-              <p>សួស្តី {{ activePartner.full_name }}!</p>
-            </div>
-
+  
+          <div v-else-if="filteredConversations.length === 0" class="empty-conv">
+            <i class="bi bi-chat-dots"></i>
+            <p>មិនទាន់មានការសន្ទនាទេ</p>
+          </div>
+  
+          <div v-else class="conversations-list">
             <div
-              v-for="msg in thread"
-              :key="msg.id"
-              class="message-item"
-              :class="{ 'message-own': msg.isOwn }"
+              v-for="conv in filteredConversations"
+              :key="conv.partner.id"
+              class="conversation-item"
+              :class="{ active: activePartner?.id === conv.partner.id }"
+              @click="selectConversation(conv.partner)"
             >
-              <div class="message-avatar">
+              <div class="conversation-avatar">
                 <img
-                  :src="msg.isOwn ? myAvatar : partnerAvatar(activePartner)"
+                  :src="partnerAvatar(conv.partner)"
+                  :alt="conv.partner.full_name"
                   class="avatar-img"
                 />
               </div>
-              <div class="message-content-wrapper">
-                <div class="message-bubble" :class="{ 'message-own-bubble': msg.isOwn }">
-                  <p class="message-text">{{ msg.message }}</p>
+              <div class="conversation-info">
+                <div class="conversation-header">
+                  <h6 class="conversation-name">{{ conv.partner.full_name }}</h6>
+                  <span class="conversation-time">{{ timeAgo(conv.created_at) }}</span>
                 </div>
-                <span class="message-time">{{ formatTime(msg.created_at) }}</span>
+                <p class="conversation-message">
+                  <span v-if="conv.isOwn" class="you-prefix">អ្នក: </span>{{ truncate(conv.message, 40) }}
+                </p>
               </div>
-            </div>
-
-            <div v-if="sending" class="message-item message-own sending-indicator">
-              <div class="message-content-wrapper">
-                <div class="message-bubble message-own-bubble">
-                  <span class="dot-anim"></span>
-                  <span class="dot-anim"></span>
-                  <span class="dot-anim"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Input -->
-          <div class="message-input-section">
-            <div class="input-wrapper">
-              <textarea
-                class="form-control message-textarea"
-                placeholder="វាយសាររបស់អ្នក…"
-                v-model="draft"
-                @keydown.enter.exact.prevent="sendMessage"
-                rows="1"
-              ></textarea>
-              <button class="btn btn-send" @click="sendMessage" :disabled="!draft.trim() || sending">
-                <i v-if="sending" class="bi bi-hourglass-split"></i>
-                <i v-else class="bi bi-send-fill"></i>
-              </button>
             </div>
           </div>
         </div>
-
-        <!-- Empty State -->
-        <div v-else class="empty-state">
-          <div class="empty-icon"><i class="bi bi-chat-dots"></i></div>
-          <h5>ជ្រើសរើសការសន្ទនា</h5>
-          <p>ជ្រើសរើសការសន្ទនាពីបញ្ជីដើម្បីចាប់ផ្តើមផ្ញើសារ</p>
+  
+        <!-- Messages Area -->
+        <div class="messages-area">
+          <div v-if="activePartner" class="messages-container">
+            <!-- Chat Header -->
+            <div class="chat-header">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                  <div class="chat-avatar">
+                    <img :src="partnerAvatar(activePartner)" :alt="activePartner.full_name" class="avatar-img" />
+                  </div>
+                  <div class="chat-info">
+                    <h6 class="chat-name">{{ activePartner.full_name }}</h6>
+                    <router-link :to="`/profile/${activePartner.id}`" class="view-profile-link">
+                      មើលប្រវត្តិរូប
+                    </router-link>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Messages -->
+            <div class="messages-list" ref="messagesContainer">
+              <div v-if="thread.length === 0" class="no-messages">
+                <i class="bi bi-chat-heart"></i>
+                <p>សួស្តី {{ activePartner.full_name }}!</p>
+              </div>
+  
+              <div
+                v-for="msg in thread"
+                :key="msg.id"
+                class="message-item"
+                :class="{ 'message-own': msg.isOwn }"
+              >
+                <div class="message-avatar">
+                  <img
+                    :src="msg.isOwn ? myAvatar : partnerAvatar(activePartner)"
+                    class="avatar-img"
+                  />
+                </div>
+                <div class="message-content-wrapper">
+                  <div class="message-bubble" :class="{ 'message-own-bubble': msg.isOwn }">
+                    <p class="message-text">{{ msg.message }}</p>
+                  </div>
+                  <span class="message-time">{{ formatTime(msg.created_at) }}</span>
+                </div>
+              </div>
+  
+              <div v-if="sending" class="message-item message-own sending-indicator">
+                <div class="message-content-wrapper">
+                  <div class="message-bubble message-own-bubble">
+                    <span class="dot-anim"></span>
+                    <span class="dot-anim"></span>
+                    <span class="dot-anim"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Input -->
+            <div class="message-input-section">
+              <div class="input-wrapper">
+                <textarea
+                  class="form-control message-textarea"
+                  placeholder="វាយសាររបស់អ្នក…"
+                  v-model="draft"
+                  @keydown.enter.exact.prevent="sendMessage"
+                  rows="1"
+                ></textarea>
+                <button class="btn btn-send" @click="sendMessage" :disabled="!draft.trim() || sending">
+                  <i v-if="sending" class="bi bi-hourglass-split"></i>
+                  <i v-else class="bi bi-send-fill"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Empty State -->
+          <div v-else class="empty-state">
+            <div class="empty-icon"><i class="bi bi-chat-dots"></i></div>
+            <h5>ជ្រើសរើសការសន្ទនា</h5>
+            <p>ជ្រើសរើសការសន្ទនាពីបញ្ជីដើម្បីចាប់ផ្តើមផ្ញើសារ</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script setup>
