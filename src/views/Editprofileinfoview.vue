@@ -104,7 +104,7 @@
 
           <!-- Save personal -->
           <div class="form-footer">
-            <button class="btn-ghost-v" @click="$router.back()">Cancel</button>
+            <button class="btn-ghost-v" @click="$router.back()">បោះបង់</button>
             <button class="btn-save" :disabled="savingPersonal" @click="savePersonal">
               <Loader2 v-if="savingPersonal" :size="14" class="spin me-1" />
               <Save v-else :size="14" class="me-1 text-black" />

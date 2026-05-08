@@ -148,7 +148,7 @@
             </div>
 
             <!-- Editing badge -->
-            <span class="editing-badge" v-if="editingId === proj.id">Editing</span>
+            <span class="editing-badge" v-if="editingId === proj.id">កែប្រែ</span>
 
             <!-- Actions -->
             <div class="proj-actions">
@@ -178,7 +178,7 @@
 
           </p>
           <div class="modal-footer">
-            <button class="btn-ghost-v" @click="deleteTarget = null">Cancel</button>
+            <button class="btn-ghost-v" @click="deleteTarget = null">បោះបង់</button>
             <button class="btn-danger-v" :disabled="deleting" @click="doDelete">
               <Loader2 v-if="deleting" :size="13" class="spin me-1" />
               <Trash2 v-else :size="13" class="me-1" />
