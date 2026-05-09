@@ -7,7 +7,7 @@
                     <div class="logo-icon">
                         <i class="bi bi-hexagon-fill"></i>
                     </div>
-                    <span class="logo-text">Novia</span>
+                    <span class="logo-text">Connexion</span>
                 </router-link>
             </div>
 
@@ -18,7 +18,7 @@
                         <i class="bi bi-search search-icon"></i>
                         <input
                             type="text"
-                            placeholder="Search posts & people..."
+                            placeholder="ស្វែងរក"
                             class="search-input"
                             v-model="searchQuery"
                             @input="handleSearch"
@@ -132,9 +132,10 @@ const closeDropdown = () => {
 }
 
 const logout = () => {
-    auth.logout()
-    router.push('/login')
-    closeDropdown()
+    user.value = null
+    token.value = null
+    localStorage.removeItem('token')   // remove token from storage
+    // or sessionStorage.removeItem('token')
 }
 
 const handleSearch = async (e) => {
@@ -212,16 +213,18 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+
+/* Updated CSS for .novia-navbar */
 .novia-navbar {
-    position: sticky;
+    position: fixed;    /* Changed from sticky to fixed */
     top: 0;
     left: 0;
-    right: 0;
+    width: 100%;        /* Ensure it spans the full width */
     height: 70px;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-    z-index: 1030;
+    z-index: 9999;      /* Set high to stay above everything */
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 

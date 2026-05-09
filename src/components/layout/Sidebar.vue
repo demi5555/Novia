@@ -22,7 +22,7 @@
 
         <!-- Main -->
         <div class="nav-group">
-          <span class="nav-label">Main Menu</span>
+          <span class="nav-label">ម៉ឺនុយ</span>
           <ul>
             <li v-for="item in menuItems" :key="item.key">
               <router-link
@@ -43,7 +43,7 @@
 
         <!-- Settings -->
         <div class="nav-group">
-          <span class="nav-label">Settings</span>
+          <span class="nav-label">កំណត់</span>
           <ul>
             <li v-for="item in settingsItems" :key="item.key">
               <router-link
@@ -64,7 +64,7 @@
 
         <!-- Help & Info -->
         <div class="nav-group">
-          <span class="nav-label">Help & Info</span>
+          <span class="nav-label">ជំនួយ</span>
           <ul>
             <li v-for="item in helpItems" :key="item.key">
               <router-link
@@ -85,12 +85,12 @@
 
         <!-- Logout -->
         <div class="nav-group bottom">
-          <span class="nav-label">Account</span>
+          <span class="nav-label">គណនី</span>
           <button class="nav-link logout" @click="handleLogout">
             <span class="link-icon">
               <i class="bi bi-box-arrow-left"></i>
             </span>
-            <span class="link-text">Log Out</span>
+            <span class="link-text">ចាកចេញ</span>
           </button>
         </div>
 
@@ -118,19 +118,19 @@ const isDesktop = computed(() => windowWidth.value >= 992)
 
 /* Menu */
 const menuItems = [
-  { key: 'home',     label: 'Home',    icon: 'bi-house-door', to: '/' },
-  { key: 'messages', label: 'Message', icon: 'bi-chat-dots',  to: '/messages' },
+  { key: 'home',     label: 'ទំព័រដើម',    icon: 'bi-house-door', to: '/' },
+  { key: 'messages', label: 'សារ', icon: 'bi-chat-dots',  to: '/messages' },
 ]
 
 const settingsItems = [
-  { key: 'settings', label: 'Settings',          icon: 'bi-gear',         to: '/settings' },
-  { key: 'privacy',  label: 'Privacy & Security', icon: 'bi-shield-check', to: '/privacy' },
+  { key: 'settings', label: 'ការកំណត់',          icon: 'bi-gear',         to: '/settings' },
+  { key: 'privacy',  label: 'ឯកសារឯកជន', icon: 'bi-shield-check', to: '/privacy' },
 ]
 
 const helpItems = [
-  { key: 'about', label: 'About Novia', icon: 'bi-info-circle',    to: '/about' },
-  { key: 'faq',   label: 'FAQ',         icon: 'bi-question-circle', to: '/faq' },
-  { key: 'help',  label: 'Help Center', icon: 'bi-life-preserver',  to: '/help' },
+  { key: 'about', label: 'អំពីពួកយើង', icon: 'bi-info-circle',    to: '/about' },
+  { key: 'faq',   label: 'សំណូរ​ធនធាតុ',         icon: 'bi-question-circle', to: '/faq' },
+  { key: 'help',  label: 'ជំនួយ', icon: 'bi-life-preserver',  to: '/help' },
 ]
 
 const allItems = [...menuItems, ...settingsItems, ...helpItems]

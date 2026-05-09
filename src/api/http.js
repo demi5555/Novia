@@ -2,7 +2,7 @@ import { useAuthStores } from "@/stores/auth";
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'https://novia2.csm.linkpc.net',
+  baseURL: 'https://api-novia.g2.ant.com.kh',
     headers: {
         // "Content-Type": "multipart/form-data"
     }

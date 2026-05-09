@@ -176,12 +176,14 @@
                                     <button class="btn btn-secondary" @click="closeModal" :disabled="isDeleting">
                                         បោះបង់
                                     </button>
-                                    <button class="btn btn-danger"
-                                        :disabled="deleteConfirmText !== 'DELETE' || isDeleting"
-                                        @click="handleDeleteAccount">
-                                        <span v-if="isDeleting" class="spinner-border spinner-border-sm me-2"></span>
-                                        {{ isDeleting ? 'កំពុងលុប...' : 'លុបគណនី' }}
-                                    </button>
+                                    <button 
+    class="btn btn-danger"
+    :disabled="deleteConfirmText.trim().toUpperCase() !== 'DELETE' || isDeleting"
+    @click="handleDeleteAccount"
+>
+    <span v-if="isDeleting" class="spinner-border spinner-border-sm me-2"></span>
+    {{ isDeleting ? 'កំពុងលុប...' : 'លុបគណនី' }}
+</button>
                                 </div>
                             </div>
                         </div>
@@ -201,7 +203,7 @@ import api from '@/api/http'
 
 const router = useRouter()
 
-// --- Password Change State ---
+// --- Password Change State (Existing) ---
 const passwordForm = reactive({
     current: '',
     new: '',
@@ -297,23 +299,33 @@ const closeModal = () => {
     deleteError.value = ''
 }
 
+/**
+ * FIXED DELETE ACCOUNT LOGIC
+ */
 const handleDeleteAccount = async () => {
-    if (deleteConfirmText.value !== 'DELETE') return
+    // Use .trim().toUpperCase() to ensure it matches even if user types lowercase or adds a space
+    if (deleteConfirmText.value.trim().toUpperCase() !== 'DELETE') return
 
     isDeleting.value = true
     deleteError.value = ''
 
     try {
-        const response = await api.delete('/api/profile/delete-acc')
+        const token = localStorage.getItem('token')
+
+        const response = await api.delete('/api/profile/delete-acc', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
 
         const data = response?.data ?? {}
 
-        if (!data.result) {
+        if (data.result === true) {
+            localStorage.clear()
+            router.push('/login')
+        } else {
             throw new Error(data.message || 'បរាជ័យក្នុងការលុបគណនី')
         }
-
-        localStorage.clear()
-        router.push('/login')
 
     } catch (err) {
         deleteError.value = err?.response?.data?.message || err.message || 'បរាជ័យក្នុងការលុបគណនី'

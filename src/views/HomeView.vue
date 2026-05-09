@@ -90,14 +90,14 @@ const loadMorePosts = async () => {
 
 const getCategoryIcon = (categoryName) => {
   const iconMap = {
-    'event': 'bi-calendar-event',
-    'internship': 'bi-briefcase',
-    'jobs': 'bi-briefcase-fill',
-    'presentation': 'bi-easel',
-    'project': 'bi-diagram-3',
-    'study': 'bi-book',
-    'posts': 'bi-newspaper',
-    'all posts': 'bi-newspaper'
+    'ព្រឹត្តិការណ៍': 'bi-calendar-event',
+    'ការងារហាត់ការ': 'bi-briefcase',
+    'ការងារ': 'bi-briefcase-fill',
+    'បទបង្ហាញ': 'bi-easel',
+    'គម្រោង': 'bi-diagram-3',
+    'ការសិក្សា': 'bi-book',
+    'ការបង្ហោះ': 'bi-newspaper',
+    'ការបង្ហោះទាំងអស់': 'bi-newspaper'
   }
   return 'bi ' + (iconMap[categoryName.toLowerCase()] || 'bi-tag')
 }
