@@ -274,7 +274,7 @@ html, body, #app {
 .left-panel {
   width: 60%;
   background: #1e293b;
-  padding: 2.9rem 6.9rem;
+  padding: 0.50rem 6.9rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
