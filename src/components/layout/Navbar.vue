@@ -131,13 +131,18 @@ const closeDropdown = () => {
     showProfileDropdown.value = false
 }
 
-const logout = () => {
-    user.value = null
-    token.value = null
-    localStorage.removeItem('token')   // remove token from storage
-    // or sessionStorage.removeItem('token')
+const logout = async () => {
+  try {
+    await api.post('/api/logout')
+  } catch (err) {
+    console.warn('Logout API failed:', err)
+  } finally {
+    auth.user = null
+    auth.token = null
+    localStorage.removeItem('token')
+    router.push('/login')
+  }
 }
-
 const handleSearch = async (e) => {
     const query = e.target.value.trim()
 
