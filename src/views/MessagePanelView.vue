@@ -1,234 +1,319 @@
 <template>
-    <div class="message-panel">
-      <!-- Header -->
-      <div class="message-header">
-        <div class="d-flex align-items-center justify-content-between">
-          <div>
-            <h2 class="message-title">សារ</h2>
-            <p class="message-subtitle">រក្សាទំនាក់ទំនងជាមួយបណ្តាញរបស់អ្នក</p>
-          </div>
-          <button class="btn btn-close-panel" @click="closePanel">
-            <i class="bi bi-x-lg"></i>
-          </button>
-        </div>
-      </div>
-  
-      <!-- Content -->
-      <div class="message-content">
-        <!-- Conversations Sidebar -->
-        <div class="conversations-sidebar">
-          <div class="search-section">
-            <div class="search-input-wrapper">
-              <i class="bi bi-search search-icon"></i>
-              <input
-                type="text"
-                class="form-control search-input"
-                placeholder="ស្វែងរកការសន្ទនា..."
-                v-model="searchQuery"
-              />
+  <DashboardLayout>
+    <div class="chat-app pt-4 pb-5">
+      <div class="container-fluid">
+        <div class="row g-3">
+          <div class="col-lg-4 col-md-5">
+            <div class="card shadow-sm border-0 h-100">
+              <div class="card-body p-3">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <h2 class="h5 fw-bold mb-0 text-primary"><i class="bi bi-chat-fill me-2"></i>សារ</h2>
+                  <button class="btn btn-link text-secondary p-0" @click="closePanel">
+                    <i class="bi bi-x-lg"></i>
+                  </button>
+                </div>
+                <div class="position-relative mb-3">
+                  <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary"></i>
+                  <input v-model="searchQuery" type="text" class="form-control rounded-pill ps-5 py-2"
+                    placeholder="ស្វែងរកការសន្ទនា..." />
+                </div>
+                <div v-if="msgStore.loading" class="text-center py-5">
+                  <div class="spinner-border text-primary spinner-border-sm"></div>
+                  <p class="small text-muted mt-2 mb-0"> កំពុងផ្ទុកសារ... </p>
+                </div>
+                <div v-else-if="filteredConversations.length === 0" class="text-center py-5">
+                  <div class="empty-chat-icon mx-auto">
+                    <i class="bi bi-chat-dots"></i>
+                  </div>
+                  <p class="text-muted mb-0">មិនទាន់មានការសន្ទនា</p>
+                </div>
+                <div v-else class="d-flex flex-column gap-2">
+                  <div v-for="conv in filteredConversations" :key="conv.partner.id"
+                    class="conversation-item d-flex align-items-center p-2" :class="{
+                      'active-conv': activePartner?.id === conv.partner.id
+                    }" @click="selectConversation(conv.partner)">
+                    <div class="position-relative me-3 flex-shrink-0">
+                      <img :src="partnerAvatar(conv.partner)" class="rounded-circle" width="48" height="48"
+                        style="object-fit: cover;" />
+                      <span v-if="conv.partner.online" class="online-dot position-absolute bottom-0 end-0"></span>
+                    </div>
+                    <div class="flex-grow-1 overflow-hidden">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="fw-semibold text-truncate">
+                          {{ conv.partner.full_name }}
+                        </div>
+                        <small class="text-muted">
+                          {{ timeAgo(conv.created_at) }}
+                        </small>
+                      </div>
+                      <div class="d-flex justify-content-between align-items-center mt-1">
+                        <small class="text-muted text-truncate">
+                          <span v-if="conv.isOwn">អ្នក:</span>
+                          {{ truncate(conv.message, 35) }}
+                        </small>
+                        <span v-if="conv.unread > 0" class="badge rounded-pill bg-primary">
+                          {{ conv.unread }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-  
-          <div v-if="msgStore.loading" class="loading-state">
-            <div class="sp"></div>
-            <p>កំពុងផ្ទុកសារ…</p>
-          </div>
-  
-          <div v-else-if="filteredConversations.length === 0" class="empty-conv">
-            <i class="bi bi-chat-dots"></i>
-            <p>មិនទាន់មានការសន្ទនាទេ</p>
-          </div>
-  
-          <div v-else class="conversations-list">
-            <div
-              v-for="conv in filteredConversations"
-              :key="conv.partner.id"
-              class="conversation-item"
-              :class="{ active: activePartner?.id === conv.partner.id }"
-              @click="selectConversation(conv.partner)"
-            >
-              <div class="conversation-avatar">
-                <img
-                  :src="partnerAvatar(conv.partner)"
-                  :alt="conv.partner.full_name"
-                  class="avatar-img"
-                />
-              </div>
-              <div class="conversation-info">
-                <div class="conversation-header">
-                  <h6 class="conversation-name">{{ conv.partner.full_name }}</h6>
-                  <span class="conversation-time">{{ timeAgo(conv.created_at) }}</span>
+
+          <div class="col-lg-8 col-md-7" v-if="activePartner">
+            <div class="chat-window card border-0 shadow-sm d-flex flex-column" style="height: calc(100vh - 140px);">
+              <div class="bg-white px-4 py-3 border-bottom">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="position-relative">
+                    <img :src="partnerAvatar(activePartner)" class="rounded-circle" width="48" height="48" style="object-fit: cover;" />
+                    <span v-if="activePartner.online" class="online-dot position-absolute bottom-0 end-0"></span>
+                  </div>
+                  <div>
+                    <h6 class="fw-bold mb-1">
+                      {{ activePartner.full_name }}
+                    </h6>
+                    <div class="d-flex align-items-center gap-2 small">
+                      <span v-if="activePartner.online" class="text-success">
+                        ● កំពុងអនឡាញ
+                      </span>
+                      <span v-else class="text-muted">
+                        ● អនឡាញចុងក្រោយ
+                        {{ timeAgo(activePartner.last_seen) }}
+                      </span>
+                      <span class="text-muted">•</span>
+                      <router-link :to="`/profile/${activePartner.id}`" class="text-decoration-none">
+                        មើលប្រវត្តិរូប
+                      </router-link>
+                    </div>
+                  </div>
                 </div>
-                <p class="conversation-message">
-                  <span v-if="conv.isOwn" class="you-prefix">អ្នក: </span>{{ truncate(conv.message, 40) }}
+              </div>
+              <div ref="messagesContainer" class="messages-area flex-grow-1 px-4 py-3">
+                <div v-if="thread.length === 0"
+                  class="d-flex flex-column justify-content-center align-items-center h-100">
+                  <div class="empty-chat-icon mb-3">
+                    <i class="bi bi-chat-heart"></i>
+                  </div>
+                  <p class="text-muted text-center mb-0">សួស្តី<strong>{{ activePartner.full_name }}</strong><br /> ចាប់ផ្តើមការសន្ទនា</p>
+                </div>
+                <template v-for="(group, idx) in groupedThread" :key="idx">
+                  <div class="text-center my-3">
+                    <span class="badge rounded-pill text-bg-light px-3 py-2">
+                      {{ group.date }}
+                    </span>
+                  </div>
+                  <div v-for="msg in group.messages" :key="msg.id" class="d-flex align-items-end mb-2"
+                    :class="msg.isOwn ? 'justify-content-end' : 'justify-content-start'">
+                    <img v-if="!msg.isOwn" :src="partnerAvatar(activePartner)" class="rounded-circle me-2 flex-shrink-0"
+                      width="30" height="30" style="object-fit: cover;" />
+                    <div class="message-bubble" :class="msg.isOwn ? 'bubble-own' : 'bubble-partner'">
+                      <p class="mb-1">
+                        {{ msg.message }}
+                      </p>
+                      <div class="small opacity-75" :class="msg.isOwn ? 'text-end text-white' : 'text-muted'">
+                        {{ formatTime(msg.created_at) }}
+                        <i v-if="msg.isOwn" class="bi bi-check2-all ms-1"
+                          :class="msg.read ? 'text-info' : 'opacity-50'"></i>
+                      </div>
+                    </div>
+                    <img v-if="msg.isOwn" :src="myAvatar" class="rounded-circle ms-2 flex-shrink-0" width="30"
+                      height="30" style="object-fit: cover;" />
+                  </div>
+                </template>
+              </div>
+              <div class="bg-white border-top px-4 py-3">
+                <div class="input-wrapper d-flex align-items-center gap-2">
+                  <button class="btn btn-light rounded-circle">
+                    <i class="bi bi-paperclip text-primary"></i>
+                  </button>
+                  <textarea ref="textareaRef" v-model="draft" rows="1"
+                    class="form-control border-0 shadow-none bg-transparent" placeholder="វាយសាររបស់អ្នក..."
+                    @keydown.enter.exact.prevent="sendMessage" @input="autoResize"></textarea>
+                  <button class="btn rounded-circle send-btn" :class="draft.trim() ? 'btn-primary' : 'btn-light'"
+                    :disabled="!draft.trim() || sending" @click="sendMessage">
+                    <i class="bi bi-send-fill"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8 col-md-7" v-else>
+            <div class="card border-0 shadow-sm text-center py-5 h-100">
+              <div class="card-body d-flex flex-column justify-content-center">
+                <div class="empty-chat-icon mx-auto mb-3">
+                  <i class="bi bi-chat-dots"></i>
+                </div>
+                <p class="text-muted mb-0">
+                  ជ្រើសរើសការសន្ទនា
                 </p>
               </div>
             </div>
           </div>
         </div>
-  
-        <!-- Messages Area -->
-        <div class="messages-area">
-          <div v-if="activePartner" class="messages-container">
-            <!-- Chat Header -->
-            <div class="chat-header">
-              <div class="d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center">
-                  <div class="chat-avatar">
-                    <img :src="partnerAvatar(activePartner)" :alt="activePartner.full_name" class="avatar-img" />
-                  </div>
-                  <div class="chat-info">
-                    <h6 class="chat-name">{{ activePartner.full_name }}</h6>
-                    <router-link :to="`/profile/${activePartner.id}`" class="view-profile-link">
-                      មើលប្រវត្តិរូប
-                    </router-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-  
-            <!-- Messages -->
-            <div class="messages-list" ref="messagesContainer">
-              <div v-if="thread.length === 0" class="no-messages">
-                <i class="bi bi-chat-heart"></i>
-                <p>សួស្តី {{ activePartner.full_name }}!</p>
-              </div>
-  
-              <div
-                v-for="msg in thread"
-                :key="msg.id"
-                class="message-item"
-                :class="{ 'message-own': msg.isOwn }"
-              >
-                <div class="message-avatar">
-                  <img
-                    :src="msg.isOwn ? myAvatar : partnerAvatar(activePartner)"
-                    class="avatar-img"
-                  />
-                </div>
-                <div class="message-content-wrapper">
-                  <div class="message-bubble" :class="{ 'message-own-bubble': msg.isOwn }">
-                    <p class="message-text">{{ msg.message }}</p>
-                  </div>
-                  <span class="message-time">{{ formatTime(msg.created_at) }}</span>
-                </div>
-              </div>
-  
-              <div v-if="sending" class="message-item message-own sending-indicator">
-                <div class="message-content-wrapper">
-                  <div class="message-bubble message-own-bubble">
-                    <span class="dot-anim"></span>
-                    <span class="dot-anim"></span>
-                    <span class="dot-anim"></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-  
-            <!-- Input -->
-            <div class="message-input-section">
-              <div class="input-wrapper">
-                <textarea
-                  class="form-control message-textarea"
-                  placeholder="វាយសាររបស់អ្នក…"
-                  v-model="draft"
-                  @keydown.enter.exact.prevent="sendMessage"
-                  rows="1"
-                ></textarea>
-                <button class="btn btn-send" @click="sendMessage" :disabled="!draft.trim() || sending">
-                  <i v-if="sending" class="bi bi-hourglass-split"></i>
-                  <i v-else class="bi bi-send-fill"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-  
-          <!-- Empty State -->
-          <div v-else class="empty-state">
-            <div class="empty-icon"><i class="bi bi-chat-dots"></i></div>
-            <h5>ជ្រើសរើសការសន្ទនា</h5>
-            <p>ជ្រើសរើសការសន្ទនាពីបញ្ជីដើម្បីចាប់ផ្តើមផ្ញើសារ</p>
-          </div>
-        </div>
       </div>
     </div>
+  </DashboardLayout>
 </template>
 
 <script setup>
+import DashboardLayout from '@/layouts/DashboardLayout.vue'
 import { ref, computed, onMounted, nextTick } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useMessageStore } from '@/stores/message'
 import { useAuthStores } from '@/stores/auth'
 import api from '@/api/http'
 
-const router   = useRouter()
-const route    = useRoute()
+const router = useRouter()
+const route = useRoute()
 const msgStore = useMessageStore()
-const auth     = useAuthStores()
-
-const searchQuery      = ref('')
-const activePartner    = ref(null)
-const draft            = ref('')
-const sending          = ref(false)
+const auth = useAuthStores()
+const searchQuery = ref('')
+const activePartner = ref(null)
+const draft = ref('')
+const sending = ref(false)
 const messagesContainer = ref(null)
-
+const textareaRef = ref(null)
 const myAvatar = computed(() =>
   auth.user?.avatar ||
-  `https://ui-avatars.com/api/?name=${encodeURIComponent(auth.user?.full_name || 'Me')}&background=6366f1&color=fff&size=64`
+  `https://ui-avatars.com/api/?name=${encodeURIComponent(auth.user?.full_name || 'Me')}&background=6366f1&color=fff`
 )
-
 const thread = computed(() => {
   if (!activePartner.value) return []
   return msgStore.threadWith(activePartner.value.id)
 })
-
 const filteredConversations = computed(() => {
-  if (!searchQuery.value.trim()) return msgStore.conversations
+  if (!searchQuery.value.trim()) {
+    return msgStore.conversations
+  }
   const q = searchQuery.value.toLowerCase()
   return msgStore.conversations.filter(c =>
     c.partner.full_name?.toLowerCase().includes(q) ||
     c.message?.toLowerCase().includes(q)
   )
 })
-
+const groupedThread = computed(() => {
+  const groups = []
+  let currentDate = null
+  let currentGroup = null
+  for (const msg of thread.value) {
+    const d = new Date(msg.created_at)
+    const label = formatDateLabel(d)
+    if (label !== currentDate) {
+      currentDate = label
+      currentGroup = {
+        date: label,
+        messages: []
+      }
+      groups.push(currentGroup)
+    }
+    currentGroup.messages.push(msg)
+  }
+  return groups
+})
 function partnerAvatar(partner) {
-  return partner?.avatar ||
-    `https://ui-avatars.com/api/?name=${encodeURIComponent(partner?.full_name || 'U')}&background=6366f1&color=fff&size=64`
+  return (
+    partner?.avatar ||
+    `https://ui-avatars.com/api/?name=${encodeURIComponent(partner?.full_name || 'U')}&background=6366f1&color=fff`
+  )
 }
-
 function truncate(str, n) {
   if (!str) return ''
-  return str.length > n ? str.slice(0, n) + '…' : str
+  return str.length > n
+    ? str.slice(0, n) + '…'
+    : str
 }
-
 function timeAgo(dateStr) {
   if (!dateStr) return ''
-  const diff = Date.now() - new Date(dateStr).getTime()
-  const m = Math.floor(diff / 60000)
-  if (m < 1) return 'ឥឡូវ'
-  if (m < 60) return `${m}នាទី`
-  const h = Math.floor(m / 60)
-  if (h < 24) return `${h}ម៉ោង`
-  return `${Math.floor(h / 24)}ថ្ងៃ`
+  const date = new Date(dateStr)
+  const now = new Date()
+  const diff = now - date
+  const mins = Math.floor(diff / 60000)
+  if (mins < 1) return 'ឥឡូវ'
+  if (mins < 60) {
+    return `${mins}នាទី`
+  }
+  const todayStart = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate()
+  )
+  const yesterdayStart =
+    new Date(todayStart - 86400000)
+  if (date >= todayStart) {
+    return date.toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+  }
+  if (date >= yesterdayStart) {
+    return 'ម្សិល'
+  }
+  return date.toLocaleDateString([], {
+    day: 'numeric',
+    month: 'short'
+  })
 }
-
 function formatTime(dateStr) {
   if (!dateStr) return ''
-  return new Date(dateStr).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  return new Date(dateStr).toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit'
+  })
 }
-
-function selectConversation(partner) {
+function formatDateLabel(date) {
+  const now = new Date()
+  const todayStart = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate()
+  )
+  const yesterdayStart =
+    new Date(todayStart - 86400000)
+  if (date >= todayStart) {
+    return 'ថ្ងៃនេះ'
+  }
+  if (date >= yesterdayStart) {
+    return 'ម្សិល'
+  }
+  return date.toLocaleDateString([], {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long'
+  })
+}
+function autoResize() {
+  const el = textareaRef.value
+  if (!el) return
+  el.style.height = 'auto'
+  el.style.height =
+    Math.min(el.scrollHeight, 120) + 'px'
+}
+async function selectConversation(partner) {
   activePartner.value = partner
+  await msgStore.fetchThread(partner.id)
   scrollToBottom()
 }
-
 async function sendMessage() {
-  if (!draft.value.trim() || !activePartner.value) return
+  if (
+    !draft.value.trim() ||
+    !activePartner.value ||
+    sending.value
+  ) return
   sending.value = true
   const text = draft.value.trim()
   draft.value = ''
+  nextTick(() => {
+    if (textareaRef.value) {
+      textareaRef.value.style.height = 'auto'
+    }
+  })
   try {
-    await msgStore.sendMessage(activePartner.value.id, text)
+    await msgStore.sendMessage(
+      activePartner.value.id,
+      text
+    )
     await msgStore.fetchAll()
     scrollToBottom()
   } catch (e) {
@@ -238,418 +323,138 @@ async function sendMessage() {
     sending.value = false
   }
 }
-
 function scrollToBottom() {
   nextTick(() => {
     if (messagesContainer.value) {
-      messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight
+      messagesContainer.value.scrollTop =
+        messagesContainer.value.scrollHeight
     }
   })
 }
-
 function closePanel() {
   router.push('/')
 }
-
 onMounted(async () => {
   await msgStore.fetchAll()
-
-  const toId = route.query.to ? Number(route.query.to) : null
-
+  const toId = route.query.to
+    ? Number(route.query.to)
+    : null
   if (toId) {
-    const existing = msgStore.conversations.find(c => c.partner.id === toId)
+    const existing =
+      msgStore.conversations.find(
+        c => c.partner.id === toId
+      )
     if (existing) {
       selectConversation(existing.partner)
     } else {
       try {
-        const res = await api.get(`/api/profile/users/${toId}`)
+        const res =
+          await api.get(`/api/profile/users/${toId}`)
         if (res.data.result) {
           selectConversation(res.data.data)
         }
       } catch {
         if (msgStore.conversations.length > 0) {
-          selectConversation(msgStore.conversations[0].partner)
+
+          selectConversation(
+            msgStore.conversations[0].partner
+          )
         }
       }
     }
   } else if (msgStore.conversations.length > 0) {
-    selectConversation(msgStore.conversations[0].partner)
+
+    selectConversation(
+      msgStore.conversations[0].partner
+    )
   }
 })
 </script>
-
 <style scoped>
-.message-panel {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: white;
-  z-index: 1050;
-  display: flex;
-  flex-direction: column;
+.chat-app {
+  min-height: 100vh;
+  background: #f0f2f5;
 }
-
-.message-header {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  color: white;
-  padding: 1.5rem 2rem;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  flex-shrink: 0;
-}
-
-.message-title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0;
-  font-family: 'Cormorant Garamond', serif;
-}
-
-.message-subtitle {
-  margin: 0.5rem 0 0;
-  opacity: 0.9;
-  font-size: 0.9rem;
-}
-
-.btn-close-panel {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.25rem;
-  padding: 0.5rem;
-  border-radius: 8px;
-  transition: background 0.2s;
-  cursor: pointer;
-}
-.btn-close-panel:hover { background: rgba(255,255,255,0.2); }
-
-.message-content {
-  flex: 1;
-  display: flex;
-  overflow: hidden;
-}
-
-/* ── Left sidebar ── */
-.conversations-sidebar {
-  width: 320px;
-  background: #f8fafc;
-  border-right: 1px solid #e2e8f0;
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-}
-
-.search-section {
-  padding: 1rem;
-  border-bottom: 1px solid #e2e8f0;
-  background: white;
-  flex-shrink: 0;
-}
-
-.search-input-wrapper { position: relative; }
-
-.search-icon {
-  position: absolute;
-  left: 0.75rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #94a3b8;
-  z-index: 1;
-}
-
-.search-input {
-  padding-left: 2.5rem;
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-}
-.search-input:focus {
-  background: white;
-  border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
-}
-
-.loading-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  gap: 10px;
-  color: #94a3b8;
-  font-size: .86rem;
-}
-
-.sp {
-  width: 22px; height: 22px;
-  border: 2px solid #e2e8f0;
-  border-top-color: #6366f1;
-  border-radius: 50%;
-  animation: spin .7s linear infinite;
-}
-
-.empty-conv {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  gap: 8px;
-  color: #94a3b8;
-  font-size: .86rem;
-}
-.empty-conv i { font-size: 2rem; opacity: .5; }
-.empty-conv p { margin: 0; }
-
-.conversations-list {
-  flex: 1;
-  overflow-y: auto;
-  padding: 0.5rem;
-}
-
-.conversation-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.875rem;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.2s;
-  margin-bottom: 0.25rem;
-}
-.conversation-item:hover { background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-.conversation-item.active { background: white; box-shadow: 0 2px 8px rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.2); }
-
-.conversation-avatar { position: relative; flex-shrink: 0; }
-
-.avatar-img {
-  width: 48px; height: 48px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.conversation-info { flex: 1; min-width: 0; }
-
-.conversation-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.25rem;
-}
-
-.conversation-name {
-  margin: 0;
-  font-weight: 600;
-  color: #1e293b;
-  font-size: 0.9rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.conversation-time { font-size: 0.72rem; color: #94a3b8; flex-shrink: 0; }
-
-.conversation-message {
-  margin: 0;
-  font-size: 0.82rem;
-  color: #64748b;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.you-prefix { color: #94a3b8; }
-
-/* ── Messages area ── */
-.messages-area {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background: white;
-  overflow: hidden;
-}
-
-.messages-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.chat-header {
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid #e2e8f0;
-  background: white;
-  flex-shrink: 0;
-}
-
-.chat-avatar {
-  position: relative;
-  margin-right: 0.75rem;
-  flex-shrink: 0;
-}
-.chat-avatar .avatar-img { width: 40px; height: 40px; }
-
-.chat-info h6 { margin: 0; font-size: 0.9rem; font-weight: 600; color: #1e293b; }
-
-.view-profile-link { font-size: .76rem; color: #6366f1; text-decoration: none; }
-.view-profile-link:hover { text-decoration: underline; }
-
-.messages-list {
-  flex: 1;
-  overflow-y: auto;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  background: #f8fafc;
-}
-
-.no-messages {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  gap: 10px;
-  color: #94a3b8;
-  text-align: center;
-  margin: auto;
-}
-.no-messages i { font-size: 2.5rem; opacity: .4; }
-.no-messages p { margin: 0; font-size: .86rem; }
-
-.message-item {
-  display: flex;
-  gap: 0.75rem;
-  align-items: flex-end;
-}
-.message-item.message-own { flex-direction: row-reverse; }
-
-.message-avatar { flex-shrink: 0; }
-.message-avatar .avatar-img { width: 32px; height: 32px; }
-
-.message-content-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  max-width: 70%;
-}
-.message-item.message-own .message-content-wrapper { align-items: flex-end; }
-
-.message-bubble {
-  padding: 0.75rem 1rem;
-  border-radius: 18px;
-  word-wrap: break-word;
-  background: #fff;
-  color: #1e293b;
-  border: 1px solid #e2e8f0;
-  border-bottom-left-radius: 4px;
-}
-.message-own-bubble {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  color: white;
-  border: none;
-  border-bottom-left-radius: 18px;
-  border-bottom-right-radius: 4px;
-}
-
-.message-text { margin: 0; font-size: 0.9rem; line-height: 1.4; }
-
-.message-time {
-  font-size: 0.72rem;
-  color: #94a3b8;
-  margin-top: 0.25rem;
-  padding: 0 0.5rem;
-}
-
-/* sending dots */
-.sending-indicator .message-bubble {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  padding: 12px 16px;
-}
-.dot-anim {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.8);
-  display: inline-block;
-  animation: bounce .9s infinite ease-in-out;
-}
-.dot-anim:nth-child(2) { animation-delay: .15s; }
-.dot-anim:nth-child(3) { animation-delay: .3s; }
-@keyframes bounce {
-  0%, 80%, 100% { transform: scale(0.7); opacity: .6; }
-  40%            { transform: scale(1);   opacity: 1; }
-}
-
-/* ── Input ── */
-.message-input-section {
-  border-top: 1px solid #e2e8f0;
-  padding: 1rem 1.5rem;
-  background: white;
-  flex-shrink: 0;
-}
-
-.input-wrapper {
-  display: flex;
-  align-items: flex-end;
-  gap: 0.75rem;
-}
-
-.message-textarea {
-  flex: 1;
-  border: 1px solid #e2e8f0;
+.chat-window {
   border-radius: 20px;
-  padding: 0.75rem 1rem;
-  resize: none;
-  background: #f8fafc;
-  font-size: 0.9rem;
-  line-height: 1.4;
-  max-height: 120px;
+  overflow: hidden;
+}
+.messages-area {
   overflow-y: auto;
+  background: #f8fafc;
 }
-.message-textarea:focus {
-  outline: none;
-  border-color: #6366f1;
-  background: white;
-  box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
-}
-
-.btn-send {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  border: none;
-  color: white;
-  padding: 0.75rem;
-  border-radius: 12px;
-  transition: all 0.2s;
-  flex-shrink: 0;
+.conversation-item {
+  border-radius: 14px;
   cursor: pointer;
+  transition: .2s;
 }
-.btn-send:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 4px 8px rgba(99,102,241,0.3); }
-.btn-send:disabled { opacity: 0.5; cursor: not-allowed; }
-
-/* ── Empty state ── */
-.empty-state {
-  flex: 1;
+.conversation-item:hover {
+  background: #f8f5ff;
+}
+.active-conv {
+  background: #eef2ff;
+  border-left: 4px solid #6366f1;
+}
+.online-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 2px solid white;
+}
+.message-bubble {
+  max-width: 70%;
+  padding: 10px 14px;
+  word-wrap: break-word;
+}
+.bubble-own {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  border-radius: 18px 18px 4px 18px;
+}
+.bubble-partner {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px 18px 18px 4px;
+}
+.input-wrapper {
+  border-radius: 16px;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  padding: 8px 12px;
+}
+.send-btn {
+  width: 42px;
+  height: 42px;
+}
+.empty-chat-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #eef2ff;
+  color: #6366f1;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  color: #64748b;
+  font-size: 28px;
 }
-.empty-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.5; }
-.empty-state h5 { margin-bottom: 0.5rem; color: #1e293b; }
-.empty-state p { margin: 0; font-size: 0.9rem; }
-
-@keyframes spin { to { transform: rotate(360deg); } }
-
+textarea {
+  resize: none;
+  max-height: 120px;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: #c4b5fd;
+  border-radius: 999px;
+}
 @media (max-width: 768px) {
-  .conversations-sidebar { width: 260px; }
-  .message-title { font-size: 1.5rem; }
-  .message-header { padding: 1rem 1.5rem; }
-}
-@media (max-width: 576px) {
-  .conversations-sidebar { display: none; }
+  .message-bubble {
+    max-width: 85%;
+  }
+  .chat-window {
+    height: calc(100vh - 90px) !important;
+  }
 }
 </style>
