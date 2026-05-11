@@ -79,7 +79,7 @@
           class="resend-link"
           :class="{ 'resend-link--disabled': resendCooldown > 0 }"
         >
-          {{ resendCooldown > 0 ? `Resend in ${resendCooldown}s` : 'Resend code' }}
+          {{ resendCooldown > 0 ? `Resend in ${resendCooldown}s` : 'ផ្ញើរកូដ​​ ម្តងទៀត' }}
         </span>
       </p>
 

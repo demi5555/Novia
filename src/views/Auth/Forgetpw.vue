@@ -85,6 +85,8 @@ async function handleSubmit() {
   if (!validateEmail()) return
   isLoading.value = true
   try {
+  console.log(email.value);
+  
     await auth.forgotPassword(email.value)
     notifier.success('លេខកូដ OTP ត្រូវបានផ្ញើ! សូមពិនិត្យមើលប្រអប់សំបុត្ររបស់អ្នក')
     router.push({ name: 'verify-otp', query: { email: email.value } })
