@@ -129,19 +129,17 @@ const settingsItems = [
 
 const helpItems = [
   { key: 'about', label: 'អំពីពួកយើង', icon: 'bi-info-circle',    to: '/about' },
-  { key: 'faq',   label: 'សំណូរ​ធនធាតុ',         icon: 'bi-question-circle', to: '/faq' },
+  { key: 'faq',   label: 'សំណួរ',         icon: 'bi-question-circle', to: '/faq' },
   { key: 'help',  label: 'ជំនួយ', icon: 'bi-life-preserver',  to: '/help' },
 ]
 
 const allItems = [...menuItems, ...settingsItems, ...helpItems]
 
-/* Derive active key directly from the current route — no manual tracking */
 const activeItem = computed(() => {
   const match = allItems.find(item => item.to === route.path)
   return match?.key ?? ''
 })
 
-/* On mobile, close the drawer after navigation */
 const setActive = () => {
   if (!isDesktop.value) emit('close')
 }
@@ -150,13 +148,11 @@ const handleLogout = async () => {
   try {
     await auth.logout()
   } catch {
-    // even if the API call fails, clear local state
     localStorage.removeItem('token')
   }
   router.push('/login')
 }
 
-/* Resize listener */
 const handleResize = () => {
   windowWidth.value = window.innerWidth
 }
@@ -169,7 +165,6 @@ onUnmounted(() => {
   window.removeEventListener('resize', handleResize)
 })
 
-/* Lock body scroll on mobile */
 watch(() => props.isOpen, (val) => {
   if (!isDesktop.value) {
     document.body.style.overflow = val ? 'hidden' : ''
