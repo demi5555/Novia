@@ -179,7 +179,7 @@ function userAvatar(user) {
                 <div class="card-body">
                   <i class="bi bi-person-x empty-icon"></i>
                   <h4 class="card-title">រកមិនឃើញអ្នកណា</h4>
-                  <p class="card-text">សូមសាកល្បងពាក្យស្វែងរកផ្សេង។</p>
+                  <p class="card-text">សូមសាកល្បងស្វែងរកពាក្យផ្សេង។</p>
                 </div>
               </div>
 
@@ -233,7 +233,7 @@ function userAvatar(user) {
               <!-- People You May Know -->
               <div class="card">
                 <div class="card-body">
-                  <h6 class="card-title">មនុស្សដែលអ្នកប្រហែលស្គាល់</h6>
+                  <h6 class="card-title">មនុស្សដែលអ្នកធ្លាប់ស្គាល់</h6>
 
                   <div v-if="loadingPeople" class="text-center">
                     <div class="spinner small"></div>
@@ -263,7 +263,7 @@ function userAvatar(user) {
                   </template>
 
                   <div v-else class="people-empty">
-                    <p>ស្វែងរកមនុស្សដោយប្រើរបារស្វែងរកខាងលើ។</p>
+                    <p>ស្វែងរកមនុស្សដែលអ្នកចង់ស្វែងរក។</p>
                   </div>
                 </div>
               </div>

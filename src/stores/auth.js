@@ -59,6 +59,8 @@ export const useAuthStores = defineStore('auth', () => {
       const form = new FormData()
       form.append('email', email)
       const res = await api.post('/api/forgot/pass', form)
+      console.log(res);
+      
 
       if (!res.data.result) {
         throw new Error(res.data.message || 'Failed to send OTP')

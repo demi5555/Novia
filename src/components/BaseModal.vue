@@ -71,4 +71,20 @@ const emit = defineEmits<{
   align-items: center;
   justify-content: center;
 }
+
+/* Override Bootstrap .modal display:block so flexbox can center */
+.modal {
+  position: static !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.modal-dialog {
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 100%;
+}
 </style>
