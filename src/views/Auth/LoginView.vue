@@ -1,92 +1,85 @@
 <template>
   <main class="login-page">
-    <div class="container">
-      <div class="row justify-content-center align-items-center min-vh-100">
+    <div class="login-card">
 
-        <!-- Login Card -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="card login-card">
-            <div class="card-body">
-
-              <!-- Header -->
-              <div class="login-header text-center">
-                <h2 class="card-title ">សូមស្វាគមន៍មកកាន់គណនី</h2>
-                
-                <p class="card-text mt-3">ចូលគណនីរបស់អ្នក</p>
-                
-              </div>
-
-              <!-- Form -->
-              <form @submit.prevent="handleLogin">
-
-                <!-- Email or Phone -->
-                <div class="form-group">
-                  <label class="custom-label">អ៊ីមែល ឬលេខទូរស័ព្ទ </label>
-                  <input
-                    v-model="email_or_phone"
-                    type="text"
-                    class="custom-input"
-                    placeholder="បញ្ចូលអ៊ីមែល ឬទូរស័ព្ទរបស់អ្នក"
-                  />
-                  <p v-if="err.email_or_phone" class="field-error">
-                    {{ err.email_or_phone }}
-                  </p>
-                </div>
-
-                <!-- Password -->
-                <div class="form-group">
-                  <label class="custom-label">លេខសង្ងាត់</label>
-                  <div class="input-group">
-                    <input
-                      v-model="password"
-                      :type="passwordType"
-                      class="custom-input"
-                      placeholder="បញ្ចូលពាក្យសម្ងាត់របស់អ្នក"
-                    />
-                    <span class="password-eye" @click="togglePassword">
-                      <i :class="showPassword ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
-                    </span>
-                  </div>
-                  <p v-if="err.password" class="field-error">
-                    {{ err.password }}
-                  </p>
-                </div>
-
-                <!-- Options -->
-                <div class="row login-options">
-                
-                  <div class="col-12 text-center">
-                    <router-link to="/forget-password" class="forgot-link">
-                      ភ្លេចពាក្យសម្ងាត់​ ?
-                    </router-link>
-                  </div>
-                </div>
-
-                <!-- Submit -->
-                <button
-                  type="submit"
-                  class="login-btn"
-                  :disabled="isLoading"
-                >
-                  <span v-if="isLoading" class="spinner-border spinner-border-sm"></span>
-                  <span v-else>ចូលគណនី</span>
-                </button>
-
-                <!-- Redirect -->
-                <p class="redirect-text text-center">
-                  មិនមានគណនីទេ ?
-                  <router-link to="/register" class="register-link">
-                   ចុះឈ្មោះ
-                  </router-link>
-                </p>
-
-              </form>
-
-            </div>
-          </div>
+      <!-- LEFT PANEL: Form -->
+      <div class="left-panel">
+        <div class="login-header text-center mb-4">
+          <h2 class="card-title">សូមស្វាគមន៍មកកាន់គណនី</h2>
+          <p class="card-text mt-2">ចូលគណនីរបស់អ្នក</p>
         </div>
 
+        <form @submit.prevent="handleLogin">
+
+          <!-- Email or Phone -->
+          <div class="form-group">
+            <label class="custom-label">អ៊ីមែល ឬលេខទូរស័ព្ទ</label>
+            <input
+              v-model="email_or_phone"
+              type="text"
+              class="custom-input"
+              placeholder="បញ្ចូលអ៊ីមែល ឬទូរស័ព្ទរបស់អ្នក"
+            />
+            <p v-if="err.email_or_phone" class="field-error">
+              {{ err.email_or_phone }}
+            </p>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label class="custom-label">លេខសង្ងាត់</label>
+            <div class="input-group">
+              <input
+                v-model="password"
+                :type="passwordType"
+                class="custom-input"
+                placeholder="បញ្ចូលពាក្យសម្ងាត់របស់អ្នក"
+              />
+              <span class="password-eye" @click="togglePassword">
+                <i :class="showPassword ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
+              </span>
+            </div>
+            <p v-if="err.password" class="field-error">
+              {{ err.password }}
+            </p>
+          </div>
+
+          <!-- Options -->
+          <div class="row login-options">
+            <div class="col-12 text-center">
+              <router-link to="/forget-password" class="forgot-link">
+                ភ្លេចពាក្យសម្ងាត់​ ?
+              </router-link>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <button
+            type="submit"
+            class="login-btn"
+            :disabled="isLoading"
+          >
+            <span v-if="isLoading" class="spinner-border spinner-border-sm"></span>
+            <span v-else>ចូលគណនី</span>
+          </button>
+
+          <!-- Redirect -->
+          <p class="redirect-text text-center">
+            មិនមានគណនីទេ ?
+            <router-link to="/register" class="register-link">
+              ចុះឈ្មោះ
+            </router-link>
+          </p>
+
+        </form>
       </div>
+
+      <!-- RIGHT PANEL: Welcome -->
+      <div class="right-panel">
+        <h1>សូមស្វាគមន៍<br><br>មកវិញ!</h1>
+        <p>ចូលគណនីរបស់អ្នក<br>ដើម្បីបន្តប្រើប្រាស់សេវាកម្ម។</p>
+      </div>
+
     </div>
   </main>
 </template>
@@ -156,28 +149,50 @@ async function handleLogin() {
   background: #0f172a;
   display: flex;
   align-items: center;
-  /* font-family: "Poppins", sans-serif; */
+  justify-content: center;
 }
 
 /* Card */
 .login-card {
-  background: #1e293b;
+  display: flex;
+  width: 780px;
+  max-width: 98vw;
+  min-height: 420px;
   border-radius: 16px;
-  padding: 30px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  overflow: hidden;
+  border: 2px solid #a855f7;
+  box-shadow:
+    0 0 14px rgba(168, 85, 247, 0.6),
+    0 0 50px rgba(168, 85, 247, 0.2),
+    0 0 100px rgba(168, 85, 247, 0.08);
   animation: fadeIn 0.4s ease;
+  position: relative;
+}
+
+/* LEFT PANEL */
+.left-panel {
+  width: 58%;
+  background: #1e293b;
+  padding: 2.8rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  /* diagonal cut: top-right corner pulls inward */
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
 }
 
 .card-title {
   color: #ffffff;
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   font-weight: 600;
 }
 
 .card-text {
   color: #94a3b8;
   font-size: 0.85rem;
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 
 /* Form */
@@ -193,7 +208,7 @@ async function handleLogin() {
 }
 
 .custom-input {
-  width: 100%;
+  width: 90%;
   padding: 12px;
   border-radius: 10px;
   background: #0f172a;
@@ -207,8 +222,8 @@ async function handleLogin() {
 }
 
 .custom-input:focus {
-  border-color: #6366f1;
-  box-shadow: 0 0 0 2px rgba(99,102,241,0.2);
+  border-color: #a855f7;
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.2);
   outline: none;
 }
 
@@ -219,7 +234,8 @@ async function handleLogin() {
 
 .password-eye {
   position: absolute;
-  right: 12px;
+  right: 50px;
+
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
@@ -230,17 +246,6 @@ async function handleLogin() {
 .login-options {
   margin: 12px 0;
   font-size: 0.8rem;
-}
-
-.remember-label {
-  color: #cbd5f5;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.custom-check {
-  accent-color: #6366f1;
 }
 
 /* Links */
@@ -255,7 +260,7 @@ async function handleLogin() {
 
 /* Button */
 .login-btn {
-  width: 100%;
+  width: 90%;
   margin-top: 10px;
   padding: 12px;
   border-radius: 10px;
@@ -294,6 +299,42 @@ async function handleLogin() {
   margin-top: 4px;
 }
 
+/* RIGHT PANEL */
+.right-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  /* starts exactly where left panel diagonal ends */
+  left: 48%;
+  background: linear-gradient(135deg, #3b0764 0%, #7c3aed 50%, #c77dff 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 2rem 2.5rem 5rem;
+  /* matching diagonal on left edge */
+  clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%);
+  text-align: center;
+  z-index: 1;
+}
+
+.right-panel h1 {
+  color: #fff;
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+}
+
+.right-panel p {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
 /* Animation */
 @keyframes fadeIn {
   from {
@@ -303,6 +344,33 @@ async function handleLogin() {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .login-card {
+    flex-direction: column;
+    width: 95vw;
+    min-height: unset;
+  }
+
+  .left-panel {
+    width: 100%;
+    clip-path: none;
+    padding: 2rem 1.5rem;
+  }
+
+  .right-panel {
+    position: relative;
+    left: unset;
+    clip-path: none;
+    padding: 2rem 1.5rem;
+    min-height: 180px;
+  }
+
+  .right-panel h1 {
+    font-size: 1.6rem;
   }
 }
 </style>
