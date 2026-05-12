@@ -60,6 +60,15 @@ const props = defineProps({
 const emit = defineEmits<{
   (e: 'closeModal'): void
 }>()
+import { onMounted, onUnmounted } from 'vue'
+
+onMounted(() => {
+  document.body.style.overflow = 'hidden'
+})
+
+onUnmounted(() => {
+  document.body.style.overflow = ''
+})
 </script>
 
 <style scoped>
@@ -72,7 +81,7 @@ const emit = defineEmits<{
   justify-content: center;
 }
 
-/* Override Bootstrap .modal display:block so flexbox can center */
+
 .modal {
   position: static !important;
   display: flex !important;
@@ -86,5 +95,16 @@ const emit = defineEmits<{
   margin: 0 auto;
   margin-top: 20px;
   width: 100%;
+}
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 </style>

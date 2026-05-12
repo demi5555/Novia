@@ -181,7 +181,7 @@
         <!-- HEADER -->
         <template #header>
           <div class="d-flex justify-content-between w-100">
-            <h5>បង្កើតប្រកាស</h5>
+            <h5>បង្កើតការបង្ហោះសារ </h5>
             <button class="btn-close" @click="closeModal"></button>
           </div>
         </template>

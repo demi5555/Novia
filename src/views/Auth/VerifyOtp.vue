@@ -202,7 +202,7 @@ async function handleResend() {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #2d0060, #6a0dad, #9b30ff);
+  background: linear-gradient(135deg, #0d0d1a, #12112b, #1a1535);  /* ✅ dark navy */
   background-attachment: fixed;
   background-size: cover;
   padding: 2rem 1rem;
@@ -211,14 +211,14 @@ async function handleResend() {
 
 /* ── Card ── */
 .otp-card {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.071);  
   backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(90, 62, 174, 0.25);  
   border-radius: 20px;
   padding: 2.75rem 2.25rem 2rem;
   width: 100%;
   max-width: 440px;
-  box-shadow: 0 10px 40px rgba(80, 0, 160, 0.35);
+  box-shadow: 0 10px 40px #371c7bb9;  
   text-align: center;
   animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -233,8 +233,8 @@ async function handleResend() {
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(138, 100, 255, 0.2);   /* ✅ purple tint */
+  border: 1px solid rgba(138, 100, 255, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -251,7 +251,7 @@ h1 {
 
 .sub-text {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(180, 160, 255, 0.7);  /* ✅ soft purple */
   margin: 0 0 4px;
 }
 
@@ -274,36 +274,36 @@ h1 {
 .otp-box {
   width: 52px;
   height: 58px;
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border: 1.5px solid rgba(138, 100, 255, 0.3);  /* ✅ purple border */
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.07);  /* ✅ dark glass input */
   text-align: center;
   font-size: 22px;
   font-weight: 700;
   color: #ffffff;
   font-family: "Poppins", sans-serif;
   outline: none;
-  caret-color: #fff;
+  caret-color: #a78bfa;
   transition: border-color 0.2s, background 0.2s, transform 0.12s;
   flex-shrink: 0;
   padding: 0;
 }
 
 .otp-box:focus {
-  border-color: rgba(200, 150, 255, 0.9);
-  background: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 0 0 3px rgba(155, 48, 255, 0.25);
+  border-color: #8b5cf6;              /* ✅ vivid purple focus */
+  background: rgba(139, 92, 246, 0.15);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
   transform: translateY(-2px);
 }
 
 .otp-box--filled {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(200, 150, 255, 0.6);
+  background: rgba(139, 92, 246, 0.12);
+  border-color: rgba(167, 139, 250, 0.6);  /* ✅ light purple filled */
 }
 
 .otp-box--error {
-  border-color: #ff8080 !important;
-  background: rgba(255, 100, 100, 0.1) !important;
+  border-color: #f87171 !important;
+  background: rgba(248, 113, 113, 0.1) !important;
 }
 
 .otp-box:disabled {
@@ -323,13 +323,13 @@ h1 {
   width: 8px;
   height: 8px;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   transition: all 0.25s;
 }
 
 .dot--filled {
   width: 20px;
-  background: #c77dff;
+  background: #8b5cf6;  /* ✅ purple dot */
 }
 
 /* ── Error ── */
@@ -338,12 +338,12 @@ h1 {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  background: rgba(255, 100, 100, 0.15);
-  border: 1px solid rgba(255, 150, 150, 0.3);
+  background: rgba(248, 113, 113, 0.12);
+  border: 1px solid rgba(248, 113, 113, 0.3);
   border-radius: 10px;
   padding: 10px 14px;
   margin-bottom: 1.25rem;
-  color: #ffaaaa;
+  color: #fca5a5;
   font-size: 13px;
 }
 
@@ -353,8 +353,8 @@ h1 {
   height: 48px;
   border-radius: 12px;
   border: none;
-  background: rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.35);
   font-size: 15px;
   font-weight: 600;
   font-family: "Poppins", sans-serif;
@@ -368,16 +368,16 @@ h1 {
 }
 
 .btn-submit--active {
-  background: linear-gradient(135deg, #9b30ff, #c77dff);
+  background: linear-gradient(135deg, #7c3aed, #a855f7);  /* ✅ purple gradient button */
   color: #ffffff;
   cursor: pointer;
-  box-shadow: 0 4px 18px rgba(155, 48, 255, 0.45);
+  box-shadow: 0 4px 18px rgba(124, 58, 237, 0.5);
 }
 
 .btn-submit--active:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(155, 48, 255, 0.55);
-  background: linear-gradient(135deg, #a94dff, #d18bff);
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.6);
+  background: linear-gradient(135deg, #6d28d9, #9333ea);
 }
 
 .btn-submit--active:active { transform: scale(0.98); }
@@ -401,20 +401,20 @@ h1 {
   gap: 12px;
   margin-bottom: 1.25rem;
 }
-.line { flex: 1; height: 1px; background: rgba(255, 255, 255, 0.15); }
-.divider-text { font-size: 12px; color: rgba(255, 255, 255, 0.4); }
+.line { flex: 1; height: 1px; background: rgba(138, 100, 255, 0.2); }  /* ✅ purple line */
+.divider-text { font-size: 12px; color: rgba(180, 160, 255, 0.4); }
 
 /* ── Resend ── */
 .resend-text {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(180, 160, 255, 0.6);  /* ✅ soft purple */
   margin-bottom: 1.5rem;
 }
 
 .resend-link {
   font-weight: 600;
   margin-left: 4px;
-  color: #c77dff;
+  color: #a78bfa;  /* ✅ violet */
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -423,7 +423,7 @@ h1 {
 .resend-link:hover { color: #ffffff; }
 
 .resend-link--disabled {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.25);
   cursor: not-allowed;
   text-decoration: none;
 }
@@ -434,7 +434,7 @@ h1 {
   align-items: center;
   gap: 6px;
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(180, 160, 255, 0.5);  /* ✅ soft purple */
   text-decoration: none;
   transition: color 0.15s;
 }

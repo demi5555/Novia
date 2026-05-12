@@ -230,6 +230,7 @@ async function handleLogin() {
 /* Password */
 .input-group {
   position: relative;
+
 }
 
 .password-eye {
