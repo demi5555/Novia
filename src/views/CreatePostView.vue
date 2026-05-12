@@ -67,18 +67,25 @@
       isEditing.value = true
       editingPostId.value = parseInt(editId)
 
-      await postStore.fetchPostById(editingPostId.value)
+      // Open modal immediately so user sees the editor while data loads
+      openModal()
 
-      const post = postStore.post
-      if (post) {
-        content.value = post.text || ''
-        imagePreview.value = post.image || null
-        selectedCategories.value = Array.isArray(post.categories)
-          ? post.categories.map((cat: any) => Number(cat.id)).filter(Boolean)
-          : []
-        autoResize()
-        openModal()
-      }
+      // Fetch post in background and populate fields when available
+      postStore.fetchPostById(editingPostId.value)
+        .then(() => {
+          const post = postStore.post
+          if (post) {
+            content.value = post.text || ''
+            imagePreview.value = post.image || null
+            selectedCategories.value = Array.isArray(post.categories)
+              ? post.categories.map((cat: any) => Number(cat.id)).filter(Boolean)
+              : []
+            autoResize()
+          }
+        })
+        .catch((err) => {
+          console.error('Failed to load post for editing:', err)
+        })
     }
   })
 
@@ -173,105 +180,104 @@
       </div>
 
       <!-- MODAL -->
-      <BaseModal
-        v-if="showModal"
-        @closeModal="closeModal"
-      >
+    <BaseModal
+      v-if="showModal"
+      @closeModal="closeModal"
+    >
 
-        <!-- HEADER -->
-        <template #header>
-          <div class="d-flex justify-content-between w-100">
-            <h5>បង្កើតប្រកាស</h5>
-            <button class="btn-close" @click="closeModal"></button>
+      <!-- HEADER -->
+      <template #header>
+        <div class="d-flex justify-content-between w-100">
+          <h5>{{ isEditing ? 'Edit Post' : 'Create Post' }}</h5>
+          <button class="btn-close" @click="closeModal"></button>
+        </div>
+      </template>
+
+      <!-- BODY -->
+      <template #body>
+
+        <div class="card">
+
+          <!-- TEXT -->
+          <div class="composer-header">
+            <img :src="userAvatar" alt="avatarSrc" class="avatar">
+
+
+            <textarea
+              ref="textarea"
+              v-model="content"
+              class="textarea"
+              placeholder="What's on your mind?"
+              @input="autoResize"
+            />
           </div>
-        </template>
 
-        <!-- BODY -->
-        <template #body>
+          <!-- IMAGE -->
+          <img v-if="imagePreview" :src="imagePreview" class="preview" />
 
-          <div class="card">
+          <!-- CATEGORY -->
+          <p class="text-muted mt-3">Select Categories:</p>
 
-            <!-- TEXT -->
-            <div class="composer-header">
-              <img :src="userAvatar" alt="avatarSrc" class="avatar">
+          <div class="category-box">
+            <span
+              v-for="cat in categoryStore.category"
+              :key="cat.id"
+              class="badge"
+              :class="{ active: selectedCategories.includes(cat.id) }"
+              @click="toggleCategory(cat.id)"
+            >
+              <i :class="getCategoryIcon(cat.name)"></i>
+              {{ cat.name }}
+            </span>
+          </div>
 
+          <!-- ACTIONS -->
+          <div class="actions">
 
-              <textarea
-                ref="textarea"
-                v-model="content"
-                class="textarea"
-                placeholder="What's on your mind?"
-                @input="autoResize"
-              />
-            </div>
+            <label class="btn">
+              Attachment
+              <input type="file" hidden @change="uploadImage" />
+            </label>
 
-            <!-- IMAGE -->
-            <img v-if="imagePreview" :src="imagePreview" class="preview" />
+            <button class="btn" @click="showEmoji = !showEmoji">
+              😊 Emoji
+            </button>
 
-            <!-- CATEGORY -->
-            <p class="text-muted mt-3">ជ្រើសរើសប្រភេទ៖</p>
-
-            <div class="category-box">
-              <span
-                v-for="cat in categoryStore.category"
-                :key="cat.id"
-                class="badge"
-                :class="{ active: selectedCategories.includes(cat.id) }"
-                @click="toggleCategory(cat.id)"
-              >
-                <i :class="getCategoryIcon(cat.name)"></i>
-                {{ cat.name }}
-              </span>
-            </div>
-
-            <!-- ACTIONS -->
-            <div class="actions">
-
-              <label class="btn">
-                <i class="bi bi-paperclip"></i>
-                Attachment
-                <input type="file" hidden @change="uploadImage" />
-              </label>
-
-              <button class="btn" @click="showEmoji = !showEmoji">
-                😊 Emoji
-              </button>
-
-              <button
-                class="post-btn"
-                @click="submitPost"
-                :disabled="loading || (!content && !image)"
-              >
-                {{ loading ? (isEditing ? 'Updating...' : 'Posting...') : (isEditing ? 'Update' : 'Post') }}
-              </button>
-
-            </div>
-
-            <p v-if="submitSuccess" class="success-text mt-2">{{ submitSuccess }}</p>
-            <p v-if="submitError" class="error-text mt-2">{{ submitError }}</p>
-
-            <!-- EMOJI -->
-            <div v-if="showEmoji" class="emoji-box">
-              <span
-                v-for="e in emojis"
-                :key="e"
-                class="emoji"
-                @click="addEmoji(e)"
-              >
-                {{ e }}
-              </span>
-            </div>
+            <button
+              class="post-btn"
+              @click="submitPost"
+              :disabled="loading || (!content && !image)"
+            >
+              {{ loading ? (isEditing ? 'Updating...' : 'Posting...') : (isEditing ? 'Update' : 'Post') }}
+            </button>
 
           </div>
 
-        </template>
+          <p v-if="submitSuccess" class="success-text mt-2">{{ submitSuccess }}</p>
+          <p v-if="submitError" class="error-text mt-2">{{ submitError }}</p>
 
-        <!-- FOOTER -->
-        <template #footer>
-          <small class="text-muted">ចែករំលែកគំនិតរបស់អ្នកជាមួយអ្នកដទៃ</small>
-        </template>
+          <!-- EMOJI -->
+          <div v-if="showEmoji" class="emoji-box">
+            <span
+              v-for="e in emojis"
+              :key="e"
+              class="emoji"
+              @click="addEmoji(e)"
+            >
+              {{ e }}
+            </span>
+          </div>
 
-      </BaseModal>
+        </div>
+
+      </template>
+
+      <!-- FOOTER -->
+      <template #footer>
+        <small class="text-muted">Share your thoughts with others</small>
+      </template>
+
+    </BaseModal>
 
     </div>
   </template>
@@ -287,7 +293,7 @@
     border: 0.5px solid rgba(83, 74, 183, 0.2);
     border-radius: 14px;
     padding: 10px 16px;
-    cursor: pointer;
+     cursor: pointer;
     transition: border-color 0.2s, box-shadow 0.2s;
     box-shadow: 0 1px 4px rgba(83, 74, 183, 0.08);
   }
