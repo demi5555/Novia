@@ -22,17 +22,25 @@
               <i class="bi bi-globe-americas"></i>
             </div>
           </div>
-          <div v-if="isOwner" class="d-flex gap-2">
-            <button class="btn btn-outline-primary btn-sm" @click="handleEdit">
-              <i class="bi bi-pencil"></i> Edit
+          <!-- 3-dot menu — only rendered for post owner -->
+          <div v-if="isOwner" class="post-menu-wrap" ref="menuRef">
+            <button class="post-menu-btn" @click="showMenu = !showMenu">
+              <i class="bi bi-three-dots"></i>
             </button>
-            <button class="btn btn-outline-danger btn-sm" @click="handleDelete">
-              <i class="bi bi-trash"></i> Delete
-            </button>
+            <Transition name="drop">
+              <div v-if="showMenu" class="post-menu-dropdown">
+                <button class="post-menu-item" @click="handleEdit(); showMenu = false">
+                  <i class="bi bi-pencil"></i> {{ t('postCard.edit') }}
+                </button>
+                <button class="post-menu-item danger" @click="handleDelete(); showMenu = false">
+                  <i class="bi bi-trash"></i> {{ t('postCard.delete') }}
+                </button>
+              </div>
+            </Transition>
           </div>
-          <button v-else class="btn btn-link text-muted p-0">
+          <!-- <button v-else class="btn btn-link text-muted p-0">
             <i class="bi bi-three-dots"></i>
-          </button>
+          </button> -->
         </div>
       </div>
 
@@ -160,6 +168,28 @@
         </div>
       </Transition>
 
+      <BaseModal v-if="showDeleteModal" @closeModal="showDeleteModal = false">
+        <template #header>
+          <div class="d-flex justify-content-center w-100">
+            <i class="bi bi-trash" style="font-size:28px; color:#ef4444; background:#fff1f2; border-radius:50%; padding:12px;"></i>
+          </div>
+        </template>
+
+        <template #body>
+          <div class="text-center">
+            <h5>Delete post</h5>
+            <p class="text-muted">Are you sure you want to delete this post? This action cannot be undone.</p>
+          </div>
+        </template>
+
+        <template #footer>
+          <div class="w-100 d-flex gap-2 justify-content-center">
+            <button class="btn btn-light" @click="showDeleteModal = false">Cancel</button>
+            <button class="btn btn-danger" @click="confirmDelete">Delete</button>
+          </div>
+        </template>
+      </BaseModal>
+
     </div>
   </div>
 </template>
@@ -169,6 +199,7 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useAuthStores } from '@/stores/auth'
 import { usePostStore } from '@/stores/post'
 import { useRouter } from 'vue-router'
+import BaseModal from './BaseModal.vue'
 
 const props = defineProps({ post: { type: Object, required: true } })
 
@@ -213,6 +244,15 @@ const showShare = ref(false)
 const copied    = ref(false)
 const shareRef  = ref(null)
 
+// post menu
+const showMenu = ref(false)
+const menuRef = ref(null)
+
+function t(key) {
+  const map = { 'postCard.edit': 'Edit', 'postCard.delete': 'Delete' }
+  return map[key] || key
+}
+
 const pageUrl = computed(() => window.location.origin)
 const shareText = computed(() => encodeURIComponent(props.post.text?.slice(0, 100) || 'Check this out'))
 const shareUrl  = computed(() => encodeURIComponent(pageUrl.value))
@@ -235,6 +275,9 @@ function onClickOutside(e) {
   if (shareRef.value && !shareRef.value.contains(e.target)) {
     showShare.value = false
   }
+  if (menuRef.value && !menuRef.value.contains(e.target)) {
+    showMenu.value = false
+  }
 }
 onMounted(() => document.addEventListener('click', onClickOutside))
 onUnmounted(() => document.removeEventListener('click', onClickOutside))
@@ -254,10 +297,21 @@ function handleEdit() {
   })
 }
 
+const showDeleteModal = ref(false)
+
 async function handleDelete() {
-  if (confirm('Are you sure you want to delete this post?')) {
-    try { await postStore.deletePost(props.post.id) }
-    catch (e) { console.error(e) }
+  // open confirmation modal
+  showDeleteModal.value = true
+}
+
+async function confirmDelete() {
+  try {
+    await postStore.deletePost(props.post.id)
+  } catch (e) {
+    console.error(e)
+  } finally {
+    showDeleteModal.value = false
+    showMenu.value = false
   }
 }
 </script>
@@ -351,6 +405,45 @@ async function handleDelete() {
 .act-btn.liked { color: #6366f1; }
 .act-btn.liked i { color: #6366f1; }
 .act-btn.active { color: #6366f1; background: #eff6ff; }
+
+/* Post menu (three-dots) */
+.post-menu-wrap { position: relative; }
+.post-menu-btn {
+  border: none;
+  background: transparent;
+  padding: 6px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #64748b;
+}
+.post-menu-btn:hover { background: #f1f5f9; color: #374151; }
+.post-menu-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  z-index: 300;
+  min-width: 150px;
+}
+.post-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-weight: 700;
+  color: #1e293b;
+  cursor: pointer;
+}
+.post-menu-item:hover { background: #f8fafc; }
+.post-menu-item.danger { color: #dc2626; }
 
 /* Share dropdown */
 .share-wrap { position: relative; }

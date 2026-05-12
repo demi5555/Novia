@@ -226,7 +226,7 @@ function truncate(str, n) {
 }
 function timeAgo(dateStr) {
   if (!dateStr) return ''
-  const date = new Date(dateStr)
+  const date = toLocalDate(dateStr)
   const now = new Date()
   const diff = now - date
   const mins = Math.floor(diff / 60000)
@@ -257,7 +257,8 @@ function timeAgo(dateStr) {
 }
 function formatTime(dateStr) {
   if (!dateStr) return ''
-  return new Date(dateStr).toLocaleTimeString([], {
+  const d = toLocalDate(dateStr)
+  return d.toLocaleTimeString([], {
     hour: '2-digit',
     minute: '2-digit'
   })
@@ -271,17 +272,29 @@ function formatDateLabel(date) {
   )
   const yesterdayStart =
     new Date(todayStart - 86400000)
-  if (date >= todayStart) {
+  const d = date instanceof Date ? date : toLocalDate(date)
+  if (d >= todayStart) {
     return 'ថ្ងៃនេះ'
   }
-  if (date >= yesterdayStart) {
+  if (d >= yesterdayStart) {
     return 'ម្សិល'
   }
-  return date.toLocaleDateString([], {
+  return d.toLocaleDateString([], {
     weekday: 'long',
     day: 'numeric',
     month: 'long'
   })
+}
+
+// Helper: parse input as local Date. If input lacks timezone, treat as UTC.
+function toLocalDate(dateStr) {
+  if (!dateStr) return null
+  if (dateStr instanceof Date) return dateStr
+  // If ISO-like but without timezone info, append 'Z' to treat as UTC
+  if (typeof dateStr === 'string' && /^[0-9]{4}-/.test(dateStr) && !/[Zz+\-][0-9T:\.]*$/.test(dateStr)) {
+    return new Date(dateStr + 'Z')
+  }
+  return new Date(dateStr)
 }
 function autoResize() {
   const el = textareaRef.value

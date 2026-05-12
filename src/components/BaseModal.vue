@@ -80,31 +80,4 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
 }
-
-
-.modal {
-  position: static !important;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin-top: 40px;
-}
-
-.modal-dialog {
-  margin: 0 auto;
-  margin-top: 20px;
-  width: 100%;
-}
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 1050;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
 </style>

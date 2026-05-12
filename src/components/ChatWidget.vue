@@ -150,9 +150,22 @@ function truncate(str, n) {
   return str.length > n ? str.slice(0, n) + '…' : str
 }
 
+function parseDate(dateStr) {
+  if (!dateStr) return null
+  // Normalize common server formats to an ISO string with timezone when missing.
+  // Example: "2026-05-11 14:30:00" -> "2026-05-11T14:30:00Z" (assume UTC)
+  if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(dateStr)) {
+    dateStr = dateStr.replace(' ', 'T') + 'Z'
+  }
+  // If already ISO or contains timezone offset, Date will parse correctly.
+  const d = new Date(dateStr)
+  return isNaN(d.getTime()) ? null : d
+}
+
 function timeAgo(dateStr) {
-  if (!dateStr) return ''
-  const diff = Date.now() - new Date(dateStr).getTime()
+  const dt = parseDate(dateStr)
+  if (!dt) return ''
+  const diff = Date.now() - dt.getTime()
   const m = Math.floor(diff / 60000)
   if (m < 1)  return 'now'
   if (m < 60) return `${m}m`
@@ -162,8 +175,9 @@ function timeAgo(dateStr) {
 }
 
 function formatTime(dateStr) {
-  if (!dateStr) return ''
-  return new Date(dateStr).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  const dt = parseDate(dateStr)
+  if (!dt) return ''
+  return dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 }
 
 function openChat(partner) {

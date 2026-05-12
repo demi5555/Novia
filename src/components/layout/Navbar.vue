@@ -97,6 +97,7 @@ import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStores } from '@/stores/auth'
 import { usePostStore } from '@/stores/post'
+import { useMessageStore } from '@/stores/message'
 import api from '@/api/http'
 
 const router = useRouter()
@@ -104,7 +105,8 @@ const auth = useAuthStores()
 const postStore = usePostStore()
 
 // Reactive data
-const unreadMessages = ref(3)
+const msgStore = useMessageStore()
+const unreadMessages = computed(() => msgStore.received.length)
 const showProfileDropdown = ref(false)
 const dropdownRef = ref(null)
 const searchRef = ref(null)
