@@ -1,5 +1,5 @@
 <template>
-  <div class="post-card" v-if="post && post.creator">
+  <div class="post-card" " v-if="post && post.creator">
     <div class="card">
 
       <!-- Header -->
@@ -65,7 +65,7 @@
           <span v-for="cat in post.categories" :key="cat.id" class="pc-badge">{{ cat.name }}</span>
         </div>
         <div class="mb-2" v-if="post.categories && post.categories.length === 0">
-          <span class="pc-badge draft">Draft</span>
+          <span class="pc-badge draft">សេចក្តីព្រាង</span>
         </div>
 
         <!-- Reaction counts bar -->
@@ -84,18 +84,18 @@
         <div class="action-row">
           <button class="act-btn" :class="{ liked: liked }" @click="toggleLike">
             <i :class="liked ? 'bi bi-hand-thumbs-up-fill' : 'bi bi-hand-thumbs-up'"></i>
-            <span>{{ liked ? 'Liked' : 'Like' }}</span>
+            <span>{{ liked ? 'ចូលចិត្ត' : 'ចូលចិត្ត' }}</span>
           </button>
 
           <button class="act-btn" :class="{ active: showComments }" @click="showComments = !showComments">
             <i class="bi bi-chat"></i>
-            <span>Comment</span>
+            <span>មតិយោបល់</span>
           </button>
 
           <div class="share-wrap" ref="shareRef">
             <button class="act-btn" :class="{ active: showShare }" @click="showShare = !showShare">
               <i class="bi bi-share"></i>
-              <span>Share</span>
+              <span>ចែករំលែក</span>
             </button>
 
             <!-- Share dropdown -->
@@ -177,19 +177,18 @@
 
         <template #body>
           <div class="text-center">
-            <h5>Delete post</h5>
-            <p class="text-muted">Are you sure you want to delete this post? This action cannot be undone.</p>
+            <h5>លុបការបង្ហោះ</h5>
+            <p class="text-muted">អ្នកតែពិតជាចង់លុបពិតមែនទេ</p>
           </div>
         </template>
 
         <template #footer>
           <div class="w-100 d-flex gap-2 justify-content-center">
-            <button class="btn btn-light" @click="showDeleteModal = false">Cancel</button>
-            <button class="btn btn-danger" @click="confirmDelete">Delete</button>
+            <button class="btn btn-light" @click="showDeleteModal = false">បោះបង់</button>
+            <button class="btn btn-danger" @click="confirmDelete">លុប</button>
           </div>
         </template>
       </BaseModal>
-
     </div>
   </div>
 </template>
@@ -249,7 +248,7 @@ const showMenu = ref(false)
 const menuRef = ref(null)
 
 function t(key) {
-  const map = { 'postCard.edit': 'Edit', 'postCard.delete': 'Delete' }
+  const map = { 'postCard.edit': 'កែប្រែ', 'postCard.delete': 'លុប' }
   return map[key] || key
 }
 

@@ -79,5 +79,13 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  
+}
+
+.modal-content{
+  margin-top: 30px;
+
+
 }
 </style>
