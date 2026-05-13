@@ -84,7 +84,7 @@
           }
         })
         .catch((err) => {
-          console.error('Failed to load post for editing:', err)
+          console.error('បរាជ័យ​ក្នុង​ការ​បង្ហោះសារ', err)
         })
     }
   })
@@ -207,7 +207,7 @@
               ref="textarea"
               v-model="content"
               class="textarea"
-              placeholder="What's on your mind?"
+              placeholder="តើអ្នកមានគំនិតបែបមិច?"
               @input="autoResize"
             />
           </div>
@@ -216,7 +216,7 @@
           <img v-if="imagePreview" :src="imagePreview" class="preview" />
 
           <!-- CATEGORY -->
-          <p class="text-muted mt-3">Select Categories:</p>
+          <p class="text-muted mt-3">ជ្រើសរើសប្រភេទ</p>
 
           <div class="category-box">
             <span
@@ -235,12 +235,12 @@
           <div class="actions">
 
             <label class="btn">
-              Attachment
+              <i class="bi bi-file-earmark-image"></i> ឯកសារភ្ជាប់
               <input type="file" hidden @change="uploadImage" />
             </label>
 
             <button class="btn" @click="showEmoji = !showEmoji">
-              😊 Emoji
+              😊 អារម្មណ៍
             </button>
 
             <button
@@ -274,7 +274,7 @@
 
       <!-- FOOTER -->
       <template #footer>
-        <small class="text-muted">Share your thoughts with others</small>
+        <small class="text-muted">ចែករំលែកគំនិតរបស់អ្នកជាមួយអ្នកដទៃ</small>
       </template>
 
     </BaseModal>

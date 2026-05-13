@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid py-4 bg-white rounded-5 px-4 shadow-sm">
+  <div class="container-fluid py-4 bg-white rounded-5 px-4 shadow-sm" >
     <div class="d-flex align-items-center justify-content-between mb-5">
       <div class="d-flex align-items-center gap-3">
         <div class="p-3 bg-icon rounded-4">
@@ -190,7 +190,9 @@ const handleDelete = (value) => {
 </script>
 
 <style scoped>
+
 .bar {
   background-color: #6c757d;
 }
 </style>
+

@@ -69,7 +69,7 @@
         <div class="row">
 
           <!-- ─── LEFT SIDEBAR ─────────────────────── -->
-          <div class="col-3">
+          <div class="col-">
 
             <!-- Contact -->
             <div class="card">

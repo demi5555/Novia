@@ -5,7 +5,7 @@
     <div class="cw-header" @click="widgetOpen = !widgetOpen">
       <div class="cw-header-left">
         <MessageCircle :size="15" />
-        <span>Chat</span>
+        <span>សារ</span>
         <span class="cw-unread-dot" v-if="unreadCount > 0">{{ unreadCount }}</span>
       </div>
       <ChevronUp :size="14" :class="['cw-chevron', { rotated: !widgetOpen }]" />
@@ -27,7 +27,7 @@
             class="cw-empty"
           >
             <MessageCircle :size="22" />
-            <p>No conversations yet</p>
+            <p>មិនមានការសន្ទនានៅឡើយទេ</p>
           </div>
 
           <div v-else class="cw-conv-list">
