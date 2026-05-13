@@ -11,7 +11,7 @@
                         </div>
                         <div>
                             <h1 class="page-title">ការកំណត់</h1>
-                            <p class="page-subtitle">គ្រប់គ្រងសុវត្ថិភាព និងចំណូលចិត្តគណនីរបស់អ្នក</p>
+                            <p class="page-subtitle">គ្រប់គ្រងសុវត្ថិភាពគណនីរបស់លោកអ្នក</p>
                         </div>
                     </div>
                 </header>
@@ -39,7 +39,7 @@
                                     <span class="input-icon"><i class="bi bi-key-fill"></i></span>
                                     <input :type="showCurrent ? 'text' : 'password'" v-model="passwordForm.current"
                                         class="form-control" :class="{ 'is-invalid': errors.current }"
-                                        placeholder="បញ្ចូលពាក្យសម្ងាត់បច្ចុប្បន្ន" />
+                                        placeholder="ពាក្យសម្ងាត់បច្ចុប្បន្ន" />
                                     <button type="button" class="toggle-btn" @click="showCurrent = !showCurrent">
                                         <i :class="showCurrent ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
                                     </button>
@@ -56,7 +56,7 @@
                                     <span class="input-icon"><i class="bi bi-lock-fill"></i></span>
                                     <input :type="showNew ? 'text' : 'password'" v-model="passwordForm.new"
                                         class="form-control" :class="{ 'is-invalid': errors.new }"
-                                        placeholder="បញ្ចូលពាក្យសម្ងាត់ថ្មី" />
+                                        placeholder="ពាក្យសម្ងាត់ថ្មី" />
                                     <button type="button" class="toggle-btn" @click="showNew = !showNew">
                                         <i :class="showNew ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
                                     </button>
