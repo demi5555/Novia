@@ -33,7 +33,6 @@
                   <i :class="['bi', item.icon]"></i>
                 </span>
                 <span class="link-text">{{ item.label }}</span>
-                <!-- Active Indicator shows automatically -->
                 <span v-if="isRouteActive(item.to)" class="active-indicator"></span>
               </router-link>
             </li>

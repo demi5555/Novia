@@ -3,7 +3,7 @@
         <div class="navbar-container">
             <!-- Left: Brand -->
             <div class="navbar-section left">
-                <router-link to="/settings" class="brand">
+                <router-link to="/home" class="brand">
                     <div class="logo-icon">
                         <i class="bi bi-hexagon-fill"></i>
                     </div>
