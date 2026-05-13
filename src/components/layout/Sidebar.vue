@@ -5,7 +5,6 @@
     <div v-if="isOpen && !isDesktop" class="sidebar-overlay" @click="$emit('close')"></div>
 
     <div class="sidebar-content">
-
       <!-- Mobile Header -->
       <div class="sidebar-mobile-header">
         <div class="brand-sm">
@@ -19,8 +18,7 @@
 
       <!-- Navigation -->
       <nav class="sidebar-nav">
-
-        <!-- Main -->
+        <!-- Main Menu Group -->
         <div class="nav-group">
           <span class="nav-label">ម៉ឺនុយ</span>
           <ul>
@@ -28,20 +26,21 @@
               <router-link
                 :to="item.to"
                 class="nav-link"
-                :class="{ active: activeItem === item.key }"
-                @click="setActive()"
+                :class="{ active: isRouteActive(item.to) }"
+                @click="closeSidebarOnMobile"
               >
                 <span class="link-icon">
                   <i :class="['bi', item.icon]"></i>
                 </span>
                 <span class="link-text">{{ item.label }}</span>
-                <span v-if="activeItem === item.key" class="active-indicator"></span>
+                <!-- Active Indicator shows automatically -->
+                <span v-if="isRouteActive(item.to)" class="active-indicator"></span>
               </router-link>
             </li>
           </ul>
         </div>
 
-        <!-- Settings -->
+        <!-- Settings Group -->
         <div class="nav-group">
           <span class="nav-label">កំណត់</span>
           <ul>
@@ -49,20 +48,20 @@
               <router-link
                 :to="item.to"
                 class="nav-link"
-                :class="{ active: activeItem === item.key }"
-                @click="setActive()"
+                :class="{ active: isRouteActive(item.to) }"
+                @click="closeSidebarOnMobile"
               >
                 <span class="link-icon">
                   <i :class="['bi', item.icon]"></i>
                 </span>
                 <span class="link-text">{{ item.label }}</span>
-                <span v-if="activeItem === item.key" class="active-indicator"></span>
+                <span v-if="isRouteActive(item.to)" class="active-indicator"></span>
               </router-link>
             </li>
           </ul>
         </div>
 
-        <!-- Help & Info -->
+        <!-- Help Group -->
         <div class="nav-group">
           <span class="nav-label">ជំនួយ</span>
           <ul>
@@ -70,20 +69,20 @@
               <router-link
                 :to="item.to"
                 class="nav-link"
-                :class="{ active: activeItem === item.key }"
-                @click="setActive()"
+                :class="{ active: isRouteActive(item.to) }"
+                @click="closeSidebarOnMobile"
               >
                 <span class="link-icon">
                   <i :class="['bi', item.icon]"></i>
                 </span>
                 <span class="link-text">{{ item.label }}</span>
-                <span v-if="activeItem === item.key" class="active-indicator"></span>
+                <span v-if="isRouteActive(item.to)" class="active-indicator"></span>
               </router-link>
             </li>
           </ul>
         </div>
 
-        <!-- Logout -->
+        <!-- Logout (Static) -->
         <div class="nav-group bottom">
           <span class="nav-label">គណនី</span>
           <button class="nav-link logout" @click="handleLogout">
@@ -93,11 +92,11 @@
             <span class="link-text">ចាកចេញ</span>
           </button>
         </div>
-
       </nav>
     </div>
   </aside>
 </template>
+
 <script setup>
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useAuthStores } from '@/stores/auth'
@@ -111,37 +110,41 @@ const emit = defineEmits(['close'])
 
 const auth = useAuthStores()
 const router = useRouter()
-const route  = useRoute()
+const route = useRoute()
 
+// Responsive logic
 const windowWidth = ref(window.innerWidth)
 const isDesktop = computed(() => windowWidth.value >= 992)
 
-/* Menu */
+/* Menu Definitions */
 const menuItems = [
   { key: 'home',     label: 'ទំព័រដើម',    icon: 'bi-house-door', to: '/' },
-  { key: 'messages', label: 'សារ', icon: 'bi-chat-dots',  to: '/messages' },
+  { key: 'messages', label: 'សារ',         icon: 'bi-chat-dots',  to: '/messages' },
 ]
 
 const settingsItems = [
-  { key: 'settings', label: 'ការកំណត់',          icon: 'bi-gear',         to: '/settings' },
-  { key: 'privacy',  label: 'ឯកសារឯកជន', icon: 'bi-shield-check', to: '/privacy' },
+  { key: 'settings', label: 'ការកំណត់',    icon: 'bi-gear',         to: '/settings' },
+  { key: 'privacy',  label: 'ឯកសារឯកជន',   icon: 'bi-shield-check', to: '/privacy' },
 ]
 
 const helpItems = [
-  { key: 'about', label: 'អំពីពួកយើង', icon: 'bi-info-circle',    to: '/about' },
-  { key: 'faq',   label: 'សំណួរ',         icon: 'bi-question-circle', to: '/faq' },
-  { key: 'help',  label: 'ជំនួយ', icon: 'bi-life-preserver',  to: '/help' },
+  { key: 'about', label: 'អំពីពួកយើង',     icon: 'bi-info-circle',    to: '/about' },
+  { key: 'faq',   label: 'សំណួរ',          icon: 'bi-question-circle', to: '/faq' },
+  { key: 'help',  label: 'ជំនួយ',          icon: 'bi-life-preserver',  to: '/help' },
 ]
 
-const allItems = [...menuItems, ...settingsItems, ...helpItems]
+const isRouteActive = (itemPath) => {
+  if (itemPath === '/') {
+    return route.path === '/'
+  }
+  return route.path.startsWith(itemPath)
+}
 
-const activeItem = computed(() => {
-  const match = allItems.find(item => item.to === route.path)
-  return match?.key ?? ''
-})
-
-const setActive = () => {
-  if (!isDesktop.value) emit('close')
+// Close sidebar when clicking a link on mobile
+const closeSidebarOnMobile = () => {
+  if (!isDesktop.value) {
+    emit('close')
+  }
 }
 
 const handleLogout = async () => {
@@ -153,6 +156,7 @@ const handleLogout = async () => {
   router.push('/login')
 }
 
+// Window resize listener
 const handleResize = () => {
   windowWidth.value = window.innerWidth
 }
@@ -165,13 +169,16 @@ onUnmounted(() => {
   window.removeEventListener('resize', handleResize)
 })
 
+// Prevent scroll when mobile menu is open
 watch(() => props.isOpen, (val) => {
   if (!isDesktop.value) {
     document.body.style.overflow = val ? 'hidden' : ''
   }
 })
 </script>
+
 <style scoped>
+
 .novia-sidebar {
   width: 260px;
   height: calc(100vh - 70px);
@@ -432,5 +439,9 @@ ul {
     top: 0;
     height: 100vh;
   }
+}
+.nav-link {
+  cursor: pointer;
+  user-select: none;
 }
 </style>
